@@ -11,6 +11,7 @@ int ft_tolower(int character);
 int ft_toupper(int character);
 int isprint(int character);
 int ft_strncmp(const char *s1, const char *s2);
+int ft_strlen(const char *str);
 
 
 
