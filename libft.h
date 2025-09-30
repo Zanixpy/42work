@@ -2,6 +2,7 @@
 # define LIBTF_H
 
 #include <unistd.h>
+#include <stdlib.h>
 
 int ft_isdigit(int character);
 int ft_isalpha(int character);
@@ -12,6 +13,7 @@ int ft_toupper(int character);
 int isprint(int character);
 int ft_strncmp(const char *s1, const char *s2);
 int ft_strlen(const char *str);
+char    *ft_strdup(char *src);
 
 
 
