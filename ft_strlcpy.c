@@ -1,6 +1,4 @@
 #include "libft.h"
-#include <stdio.h>
-#include <bsd/string.h>
 
 static int lenL(char *str)
 {
@@ -31,13 +29,3 @@ unsigned int    ft_strlcpy(char *dst, char *src, unsigned int n)
     return (lenL(src));
 }
 
-int main(void)
-{
-    char *src = "Heqvvvd";
-    char dst[10];
-    dst[0] = 'A';
-    dst[1] = 'b';
-    dst[2] = '\0';
-    printf("%d, %ld\n", ft_strlcpy(dst, src, 7), strlcpy(dst, src, 7));
-    return (0);
-}

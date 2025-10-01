@@ -18,6 +18,9 @@ void    *ft_memcpy(void *dest, const void *src, unsigned int n);
 char    *ft_strchr(char *s, int c);
 char    *ft_strnstr(char *big, char *little, unsigned int len);
 unsigned int    ft_strlcpy(char *dst, char *src, unsigned int n);
+char    *ft_strrchr(char *s, int c);
+void    ft_bzero(void *s, unsigned int n);
+
 
 
 
