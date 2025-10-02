@@ -20,6 +20,8 @@ char    *ft_strnstr(char *big, char *little, unsigned int len);
 unsigned int    ft_strlcpy(char *dst, char *src, unsigned int n);
 char    *ft_strrchr(char *s, int c);
 void    ft_bzero(void *s, unsigned int n);
+void    *ft_memchr(void *s, int c, unsigned int n);
+
 
 
 
