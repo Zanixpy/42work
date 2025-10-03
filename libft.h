@@ -21,6 +21,8 @@ unsigned int    ft_strlcpy(char *dst, char *src, unsigned int n);
 char    *ft_strrchr(char *s, int c);
 void    ft_bzero(void *s, unsigned int n);
 void    *ft_memchr(void *s, int c, unsigned int n);
+void    *ft_memmove(void *dest, void *src, unsigned int n);
+
 
 
 

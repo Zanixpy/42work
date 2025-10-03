@@ -7,12 +7,13 @@ void    *ft_memchr(void *s, int c, unsigned int n)
     int i;
 
     d = (unsigned char *) s;
-    tmp = 
+    tmp = c;
     i = 0;
-    while (condition)
+    while (i < n)
     {
-        /* code */
+        if (d[i] == tmp)
+            return (d + i);
+        i++;
     }
-    
-
+    return (0);
 }
