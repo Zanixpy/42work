@@ -4,7 +4,7 @@ void    *ft_memchr(void *s, int c, unsigned int n)
 {
     unsigned char *d;
     unsigned char tmp;
-    int i;
+    unsigned int i;
 
     d = (unsigned char *) s;
     tmp = c;

@@ -2,7 +2,7 @@
 
 int ft_strncmp(const char *s1, const char *s2, unsigned int n)
 {
-    int i;
+    unsigned int i;
 
     i = 0;
     while ((*s1 || *s2) && i < n )

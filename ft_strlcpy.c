@@ -15,8 +15,8 @@ static int lenL(char *str)
 
 unsigned int    ft_strlcpy(char *dst, char *src, unsigned int n)
 {
-    int i;
-    int j;
+    unsigned int i;
+    unsigned int j;
     
     i = 0;
     j = lenL(dst);

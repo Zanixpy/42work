@@ -11,7 +11,7 @@ int ft_atoi(const char *str);
 int ft_tolower(int character);
 int ft_toupper(int character);
 int isprint(int character);
-int ft_strncmp(char *s1, char *s2);
+int ft_strncmp(const char *s1, const char *s2, unsigned int n);
 int ft_strlen(char *str);
 char    *ft_strdup(char *src);
 void    *ft_memcpy(void *dest, const void *src, unsigned int n);
@@ -22,14 +22,6 @@ char    *ft_strrchr(char *s, int c);
 void    ft_bzero(void *s, unsigned int n);
 void    *ft_memchr(void *s, int c, unsigned int n);
 void    *ft_memmove(void *dest, void *src, unsigned int n);
-
-
-
-
-
-
-
-
-
+void    *ft_calloc(unsigned int nmemb, unsigned int size);
 
 #endif

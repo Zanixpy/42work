@@ -1,4 +1,4 @@
-//#include "libft.h"
+#include "libft.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -6,7 +6,7 @@ void    *ft_memcpy(void *dest, const void *src, unsigned int n)
 {
     unsigned char *d;  
     unsigned char *s;
-    int i;
+    unsigned int i;
 
     d = (unsigned char *) dest;
     s = (unsigned char *) src;

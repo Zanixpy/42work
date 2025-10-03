@@ -1,6 +1,6 @@
 #include "libft.h"
 
-static int lenL(char *str)
+static unsigned int lenL(char *str)
 {
     int n;
 
@@ -16,8 +16,8 @@ static int lenL(char *str)
 
 char    *ft_strnstr(char *big, char *little, unsigned int len)
 {
-    int i;
-    int j;
+    unsigned int i;
+    unsigned int j;
 
     if (*little == '\0')
         return (big);
