@@ -1,7 +1,6 @@
 #include "libft.h"
-#include <stdio.h>
 
-char    *ft_strrchr(char *s, int c)
+char    *ft_strrchr(const char *s, int c)
 {
     char *tmp;
 
@@ -9,15 +8,8 @@ char    *ft_strrchr(char *s, int c)
     while (*s)
     {
         if (*s == c)
-            tmp = s;
+            tmp = (char *) s;
         s++;
     }
     return (tmp);
-}
-
-int main(void)
-{
-    char *s = "Salut ZanZoekiz";
-    printf("%s\n", ft_strrchr(s, 'Z'));
-    return (0);
 }
