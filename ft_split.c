@@ -26,12 +26,29 @@ static size_t ft_strlenV(const char *str, char c)
     int n;
 
     n = 0;
-    while (*str != c)
+    while (*str != c && *str)
     {
         n++;
         str++;
     }
     return (n);
+}
+
+void    conca(char ***tab, char const *s, int *pos, int len)
+{
+    int n;
+    int i;
+
+    n = *pos;
+    i = 0;
+    while (i < len)
+    {
+        (*tab)[n][i] = *s;
+        s++;
+        i++;
+    }
+    (*tab)[n][i] = '\0';
+    *pos = n + 1;
 }
 
 
@@ -40,7 +57,6 @@ char **ft_split(char const *s, char c)
     char **tab;
     int words;
     int n;
-    int i;
     int o;
 
     words = count_words(s,c);
@@ -51,22 +67,13 @@ char **ft_split(char const *s, char c)
     o = 0;
     while (n < words)
     {
-        if (*s != c && (o == 0 || o == 2))
-        {        
-            if (o == 0)
-            {
-                tab[n] = malloc((ft_strlenV(s,c) + 1 ) * sizeof(char));
-                o = 2;
-                i = 0; 
-            }
-            tab[n][i] = *s;
-            i++;
-        } else if (*s == c && o == 2)
+        if (*s != c && o == 0)
         {
-            tab[n][i] = '\0';
-            n++;
+            o = 1; 
+            tab[n] = malloc((ft_strlenV(s,c) + 1 ) * sizeof(char));
+            conca(&tab, s, &n, ft_strlenV(s,c));
+        } else if (*s == c && o == 1)
             o = 0;
-        }
         s++;
     }
     tab[n] = 0;
@@ -77,10 +84,11 @@ int main(void)
 {
     const char *str = "Puree chaud en tout cas.";
     char **tab = ft_split(str, ' ');
-    while (*tab != 0)
+    int n = 0;
+    while (tab[n] != 0)
     {
-        printf("%s\n", *tab);
-        tab++;
+        printf("%s\n", tab[n]);
+        n++;
     }
     free(tab);
     return (0);
