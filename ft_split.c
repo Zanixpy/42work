@@ -79,17 +79,3 @@ char **ft_split(char const *s, char c)
     tab[n] = 0;
     return (tab);
 }
-
-int main(void)
-{
-    const char *str = "Puree chaud en tout cas.";
-    char **tab = ft_split(str, ' ');
-    int n = 0;
-    while (tab[n] != 0)
-    {
-        printf("%s\n", tab[n]);
-        n++;
-    }
-    free(tab);
-    return (0);
-}
