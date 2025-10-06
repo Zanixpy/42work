@@ -8,7 +8,7 @@ char    *ft_strdup(const char *s)
     n = 0;
     while (s[n])
         n++;
-    cp = malloc(sizeof(char) * n);
+    cp = malloc(sizeof(char) * (n + 1));
     if (cp == 0)
         return (0);
     n = 0;
@@ -17,5 +17,6 @@ char    *ft_strdup(const char *s)
         cp[n] = s[n];
         n++;
     }
+    cp[n] = '\0';
     return (cp);    
 }
