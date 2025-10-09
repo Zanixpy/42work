@@ -1,3 +1,4 @@
+#include <fcntl.h>
 #include "libft.h"
 
 void ft_putendl_fd(char *s, int fd)
@@ -12,14 +13,15 @@ void ft_putendl_fd(char *s, int fd)
     write(fd, "\n", 1);
 }
 
-int main(void)
+/*int main(void)
 {
     int fd = open("test.txt", O_RDWR);
     if (fd > 0)
     {
-        ft_putstr_fd("super idol",fd);
+        ft_putendl_fd("super idol nichalung",fd);
+        
     }
     close(fd);
     return (0);
     
-}
+}*/
