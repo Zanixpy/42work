@@ -91,7 +91,6 @@ int main(void)
 {
     int fd = open("text.txt", O_RDWR);
     get_next_line(fd);
-    get_next_line(fd);
     close(fd);
     return (0);
 }
