@@ -9,10 +9,10 @@
 #endif
 
 char *get_next_line(int fd);
-size_t ft_strlen(char *str);
+unsigned int ft_strlen(char *str);
 char    *ft_strchr(char *s, int c);
 char    *ft_strjoin(char *s1, char *s2);
 char    *ft_strdup(char *s);
-
+char    *ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif
