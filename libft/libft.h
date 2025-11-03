@@ -3,7 +3,6 @@
 
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 
 typedef struct s_list
@@ -22,6 +21,8 @@ int ft_toupper(int character);
 int ft_isprint(int character);
 int ft_strncmp(const char *s1, const char *s2, unsigned int n);
 size_t ft_strlen(const char *str);
+void    *ft_memset(void *pointer, int value, size_t count);
+int ft_memcmp( const void * pointer1, const void * pointer2, size_t size );
 char    *ft_strdup(const char *s);
 void    *ft_memcpy(void *dest, const void *src, unsigned int n);
 char    *ft_strchr(const char *s, int c);
