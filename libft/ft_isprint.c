@@ -1,6 +1,6 @@
 #include "libft.h"
 
-int isprint(int character)
+int ft_isprint(int character)
 {
     char c;
 

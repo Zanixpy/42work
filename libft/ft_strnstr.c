@@ -1,8 +1,9 @@
 #include "libft.h"
+#include <stdio.h>
 
-static unsigned int lenL(char *str)
+static size_t ft_len(const char *str)
 {
-    int n;
+    size_t n;
 
     n = 0;
     while (*str)
@@ -14,17 +15,17 @@ static unsigned int lenL(char *str)
 }
 
 
-char    *ft_strnstr(char *big, char *little, unsigned int len)
+char    *ft_strnstr(const char *big, const char *little, size_t len)
 {
-    unsigned int i;
-    unsigned int j;
-
+    size_t i;
+    size_t j;
+    
     if (*little == '\0')
-        return (big);
-    if (lenL(little) > len)
+        return ((char *) big);
+    if (ft_len(little) > len)
         return (0);
     i = 0;
-    while (*big && i++ < len)
+    while (*big && i < len)
     {
         j = 0;
         if (*big == little[j])
@@ -32,12 +33,15 @@ char    *ft_strnstr(char *big, char *little, unsigned int len)
             while (*big == little[j++] && i++ < len)
             {
                 if (little[j] == '\0')
-                    return ((big - (j - 1)));
-                big++;           
+                    return ((char *) (big - (j - 1)));
+                big++;       
             }
-        } 
-        else
+        }
+        else 
+        {
             big++;
-    }
+            i++;
+        }
+    } 
     return (0);
 }

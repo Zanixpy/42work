@@ -1,8 +1,8 @@
 #include "libft.h"
 
-static int lenL(char *str)
+static size_t ft_len(const char *str)
 {
-    int n;
+    size_t n;
 
     n = 0;
     while (*str)
@@ -13,19 +13,19 @@ static int lenL(char *str)
     return (n);
 }
 
-unsigned int    ft_strlcpy(char *dst, char *src, unsigned int n)
+size_t ft_strlcpy(char *dst, const char *src, size_t n)
 {
-    unsigned int i;
-    unsigned int j;
-    
+    size_t  i;
+
+    if (n == 0)
+        return (ft_len(src));
     i = 0;
-    j = lenL(dst);
-    while (src[i] && (j + i) < (n - 1))
+    while (src[i] && i < (n - 1))
     {
-        dst[j + i] = src[i];
-        i++;
+        dst[i] = src[i];
+        i++;     
     }
-    dst[j + i] = '\0';
-    return (lenL(src));
+    dst[i] = '\0';
+    return (ft_len(src));
 }
 

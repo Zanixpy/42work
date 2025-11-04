@@ -12,11 +12,13 @@
 
 #include "libft.h"
 #include <stdio.h>
+#include <bsd/string.h>
+#include <limits.h>
+
 
 int main(void)
 {
-    char *str = "Test";
-    int len = ft_strlen(str);
-    printf("La size de str : %d\n", len);
-    return (0);
+    printf("\nLe result (atoi) : %d\n", atoi("-2147483648 "));
+    printf("\nLe result (ft_atoi) : %d\n", ft_atoi("-2147483648 "));
+    return 0;
 }
