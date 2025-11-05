@@ -1,10 +1,17 @@
 #include "libft.h"
+#include <stdio.h>
 
 void ft_lstadd_back(t_list **lst, t_list *new)
 {
     t_list *p;
 
+  
     p = *lst;
+    if (p == 0)
+    {
+        *lst = new;
+        return;
+    }
     while (p != 0)
     {
         if (p->next == 0)

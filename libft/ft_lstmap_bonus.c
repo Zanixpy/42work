@@ -28,7 +28,8 @@ t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
     return (tab);
 }
 
-void *proto(void *t)
+
+/*void *proto(void *t)
 {
     int *p = (int *)t;
     *p += 10;
@@ -53,4 +54,4 @@ int main(void)
     ft_lstclear(&p, &prot);
     ft_lstclear(&result, &prot);
     return (0);
-}
+}*/

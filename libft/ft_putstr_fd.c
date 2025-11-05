@@ -14,7 +14,7 @@ void ft_putstr_fd(char *s, int fd)
     
 }
 
-int main(void)
+/*int main(void)
 {
     int fd = open("test.txt", O_RDWR);
     if (fd > 0)
@@ -24,4 +24,4 @@ int main(void)
     close(fd);
     return (0);
     
-}
+}*/

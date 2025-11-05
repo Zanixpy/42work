@@ -1,16 +1,34 @@
 #include "libft.h"
+#include <limits.h>
 
-void    *ft_calloc(unsigned int nmemb, unsigned int size)
+int check_size(size_t n, size_t s)
+{
+    unsigned long max;
+    unsigned long min; 
+    
+    max = INT_MAX;
+    min = INT_MIN;
+    if (n == max || n == min || n < 0)
+        return (1);
+    else if (s == max || s == min || s < 0)
+        return (1);
+    return (0);
+}
+
+
+void    *ft_calloc(size_t nmemb, size_t size)
 {
     unsigned char *tab;
     unsigned int n;
     unsigned int fsize;
-
+    
     if (nmemb == 0 || size == 0)
     {
         tab = malloc(1);
         return ((void *)  tab);
     }
+    if (check_size(nmemb, size) == 1)
+        return (0);
     fsize = nmemb * size;
     tab = malloc(fsize);
     if (tab == 0)
@@ -21,5 +39,5 @@ void    *ft_calloc(unsigned int nmemb, unsigned int size)
         tab[n] = 0;
         n++;
     }
-    return ((void *)  tab);
+    return ((void *) tab);
 }

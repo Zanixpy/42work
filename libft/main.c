@@ -18,7 +18,7 @@
 
 int main(void)
 {
-    printf("\nLe result (atoi) : %d\n", atoi("-2147483648 "));
-    printf("\nLe result (ft_atoi) : %d\n", ft_atoi("-2147483648 "));
+    printf("Le resultat (strtrim) : %s\n", strtrim("   xxx   xxx", " x"));
+    printf("Le resultat (ft_strtrim) : %s\n", ft_strtrim("   xxx   xxx", " x"));
     return 0;
 }
