@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 13:48:00 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/06 13:48:37 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-t_list *ft_lstlast(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
-    t_list *p;
+	t_list	*p;
 
-    p = lst;
-    while (p != 0)
-    {
-        if (p->next == 0)
-            return (p);
-        p = p->next;
-    }
-    return (0);
+	p = lst;
+	while (p != 0)
+	{
+		if (p->next == 0)
+			return (p);
+		p = p->next;
+	}
+	return (0);
 }
 
 /*int main(void)

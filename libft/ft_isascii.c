@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 13:38:48 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:21:59 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int ft_isascii(int c)
+int	ft_isascii(int c)
 {
-    unsigned char s;
+	unsigned char	s;
 
-    s = c;
-    if (c == 0)
-        return (-1);
-    if (s >= 0 && s <= 127)
-        return (s);
-    return (0);
+	s = c;
+	if (c == 0)
+		return (-1);
+	if (s >= 0 && s <= 127)
+		return (s);
+	return (0);
 }

@@ -18,7 +18,9 @@
 
 int main(void)
 {
-    printf("Le resultat (strtrim) : %s\n", strtrim("   xxx   xxx", " x"));
-    printf("Le resultat (ft_strtrim) : %s\n", ft_strtrim("   xxx   xxx", " x"));
+    char s[30] = "Hey every";
+    printf("sizeof s : %d\n", (int) sizeof(s));
+    printf("lengthof s : %d\n", (int) ft_strlen(s));
+
     return 0;
 }

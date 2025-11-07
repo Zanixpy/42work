@@ -2,36 +2,52 @@
 
 static int chr(char c, char const *set)
 {
-    while (*set)
+    unsigned int n;
+
+    n = 0;
+    while (set[n])
     {
-        if (ft_toupper(c) == *set || ft_tolower(c) == *set || c == *set)
+        if (ft_toupper(c) == set[n] || ft_tolower(c) == set[n] || c == set[n])
                 return (1);
-        set++;
+        n++;
     }
     return (0);   
+}
+
+static char *empty(void)
+{
+    char *tmp;
+
+    tmp = malloc(sizeof(char));
+    tmp[0] = '\0';
+    return (tmp);
 }
 
 char *ft_strtrim(char const *s1, char const *set)
 {
     char *tmp;
-    unsigned int n;
-    unsigned int i;
+    int j;
+    int i;
+    int n;
 
-    i = 0;
-    while (chr(*s1,set) == 1)
-        s1++;
-    n = ft_strlen(s1);
-    while (chr(*(s1 + (n - 1)), set) == 1)
-        n--;
-    tmp = malloc((n + 1) * sizeof(char));
+    j = 0;
+    i = ft_strlen(s1);
+    while (chr(s1[j], set) == 1)
+        j++;
+    while (chr(s1[i - 1], set) == 1)
+        i--;
+    i -= j;
+    if (i <= 0)
+        return (empty());
+    tmp = malloc((i + 1) * sizeof(char));
     if (tmp == 0)
         return (0);
-    while (i < n)
+    n = 0;
+    while (n < i)
     {
-        tmp[i] = *s1;
-        i++;
-        s1++;
+        tmp[n] = s1[j++];
+        n++;
     }
-    tmp[i] = '\0';
-    return (tmp);
+    tmp[n] = '\0';
+    return(tmp);
 }

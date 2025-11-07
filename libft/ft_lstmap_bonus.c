@@ -1,33 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 13:48:45 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:31:39 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-    t_list *tab;
-    t_list *tmp;
-    t_list *current;
-    void *result;
+	t_list	*tab;
+	t_list	*tmp;
+	t_list	*current;
+	void	*result;
 
-    current = lst;
-    result = (*f)(current->content);
-    tab = ft_lstnew(result);
-    if (tab == 0)
-        return (0);
-    current = current->next;
-    while (current != 0)
-    {
-        result = (*f)(current->content);
-        tmp = ft_lstnew(result);
-        if (tmp == 0)
-        {
-            ft_lstclear(&tab, del);
-            return (0);
-        }
-        ft_lstadd_back(&tab,tmp);
-        current = current->next;        
-    }
-    return (tab);
+	current = lst;
+	result = (*f)(current->content);
+	tab = ft_lstnew(result);
+	if (tab == 0)
+		return (0);
+	current = current->next;
+	while (current != 0)
+	{
+		result = (*f)(current->content);
+		tmp = ft_lstnew(result);
+		if (tmp == 0)
+		{
+			ft_lstclear(&tab, del);
+			return (0);
+		}
+		ft_lstadd_back(&tab, tmp);
+		current = current->next;
+	}
+	return (tab);
 }
-
 
 /*void *proto(void *t)
 {

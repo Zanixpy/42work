@@ -1,26 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 13:42:54 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:28:45 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <stdio.h>
 
-void ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-    t_list *p;
+	t_list	*p;
 
-  
-    p = *lst;
-    if (p == 0)
-    {
-        *lst = new;
-        return;
-    }
-    while (p != 0)
-    {
-        if (p->next == 0)
-        {
-            p->next = new;
-            return;
-        }
-        p = p->next;
-    }
+	p = *lst;
+	if (p == 0)
+	{
+		*lst = new;
+		return ;
+	}
+	while (p != 0)
+	{
+		if (p->next == 0)
+		{
+			p->next = new;
+			return ;
+		}
+		p = p->next;
+	}
 }
 
 /*int main(void)
