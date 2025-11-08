@@ -6,18 +6,18 @@
 /*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:34:06 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/06 13:34:16 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/08 11:43:24 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_tolower(int c)
+int	ft_tolower(int c)
 {
-    char s;
+	char	s;
 
-    s = c;
-    if ((s >= 'A' && s <= 'Z'))
-        s += 32;
-    return (s);
+	s = c;
+	if ((s >= 'A' && s <= 'Z'))
+		s += 32;
+	return (s);
 }
