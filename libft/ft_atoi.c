@@ -19,7 +19,7 @@ int	ft_atoi(const char *str)
 
 	result = 0;
 	sign = 1;
-	while (*str == ' ')
+	while (*str == ' ' || (*str <= 13 && *str >= 9))
 		str++;
 	if (*str == '+')
 		str++;

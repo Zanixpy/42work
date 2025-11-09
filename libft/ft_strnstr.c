@@ -6,37 +6,26 @@
 /*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 17:14:13 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/07 17:21:33 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/09 16:54:07 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-/*static size_t	ft_len(const char *str)
+static int	ft_search(const char *s, const char *little, size_t len, size_t i)
 {
-	size_t	n;
+	size_t	j;
 
-	n = 0;
-	while (*str)
+	j = 0;
+	while (s[j] && s[j] == *little && i < len)
 	{
-		n++;
-		str++;
+		j++;
+		little++;
+		if (*little == '\0')
+			return (1);
+		i++;
 	}
-	return (n);
-}*/
-
-static void increment(const char **big, size_t *i)
-{
-	const char *str;
-	size_t j;
-
-	str = *big;
-	j = *i;
-	str++;
-	j++;
-	*big = str;
-	*i = j;
+	return (0);
 }
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
@@ -45,28 +34,15 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	j;
 
 	if (*little == '\0')
-		return ((char *) big);
+		return ((char *)big);
 	i = 0;
-	while (*big && i < len)
+	j = 0;
+	while (big[j] && i < len)
 	{
-		j = 0;
-		if (*big == little[j] && i < len)
-		{
-			while (*big == little[j] && i < len)
-			{
-				j++;
-				i++;
-				big++;
-				if (little[j] == '\0')
-					return ((char *)(big - (j - 1)));	
-			}
-		}
-		else
-			increment(&big, &i);
-	}
-	if (*big == 0)
-	{
-		printf("Avant le nul %s\n", big - 1);		
+		if (ft_search(big + j, little, len, i) == 1)
+			return ((char *)(big + j));
+		i++;
+		j++;
 	}
 	return (0);
 }
