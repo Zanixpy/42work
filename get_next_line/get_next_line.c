@@ -1,65 +1,39 @@
 #include "get_next_line.h"
-#include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
 
-char *ft_read(int fd, char *buf)
-{
-    char *buffer;
-    char *tmp;
-    int read_bytes;
 
-    buffer = (char *)malloc(BUFFER_SIZE * sizeof(char));
-    if (buffer == 0)
+char    *ft_read_fd(int fd)
+{
+    char    *tmp;
+
+    tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
+    if (tmp == 0)
         return (0);
-    read_bytes = read(fd, buffer, BUFFER_SIZE);
-    if (read_bytes == 0)
-        return (0);
-    if (!buf)
-        return (buffer);
-    tmp = ft_strjoin(buf, buffer);
-    free(buffer);
-    // printf("Dans ft_read\n");
-    return (tmp);
+
 }
 
-char *ft_find_newline(char **buffer)
+char    *ft_find_newline(char *buffer)
 {
-    char *ptr;
-    char *line;
-    char *tmp;
-    
-    // printf("Dans ft_find_newline\n");
-    ptr = ft_strchr(*buffer, '\n');
-    if (ptr == 0)
-        return (0);
-    // printf("Le ptr (ft_find_newline) : %s\n", ptr);
-    line = ft_substr(*buffer, 0, ptr - *buffer);
-    if (line == 0)
-        return (0);
-    // printf("La line (ft_find_newline) : %s\n", ptr);
-    tmp = ft_strdup(ptr + 1);
-    free(*buffer);
-    *buffer = tmp;
-    // printf("Dans ft_find_newline\n");
-    return (line);
+
+}
+
+char    *ft_next_line(char **buffer, int fd)
+{
+
 }
 
 char *get_next_line(int fd)
 {
-    static char *buffer;
-    char *line;
+    char    *line;
+    static char    *buffer;
 
-    // printf("Dans get_next_line\n");
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (0);
-    buffer = ft_read(fd,buffer);
-    // printf("Le buffer (get_next_line) : %s et la len : %d\n", buffer, ft_strlen(buffer));
-    if (buffer == 0)
-        return (0);
-    line = ft_find_newline(&buffer);
-    // printf("La line (get_next_line) :%s\n", line);
-    return(line);
+    buffer =
+    line = ft_find_newline(buffer);
+
+    return (line);
 }
 
 int main(void)

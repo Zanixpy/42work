@@ -6,13 +6,23 @@
 /*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 15:47:12 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/07 17:23:17 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/10 16:28:17 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(char const *s, char c)
+static void	ft_free(char ***tab, int n)
+{
+	while (n >= 0)
+	{
+		free((*tab)[n]);
+		n--;
+	}
+	free(*tab);
+}
+
+static int	count_words(const char *s, char c)
 {
 	int	n;
 	int	i;
@@ -46,7 +56,7 @@ static size_t	ft_len(const char *str, char c)
 	return (n);
 }
 
-void	conca(char ***tab, char const *s, int *pos, int len)
+static	void	conca(char ***tab, char const *s, int *pos, int len)
 {
 	int	n;
 	int	i;
@@ -71,7 +81,7 @@ char	**ft_split(char const *s, char c)
 	int		o;
 
 	words = count_words(s, c);
-	tab = malloc((words + 1) * sizeof(char *));
+	tab = (char **)ft_calloc((words + 1), sizeof(char *));
 	if (tab == 0)
 		return (0);
 	n = 0;
@@ -82,12 +92,16 @@ char	**ft_split(char const *s, char c)
 		{
 			o = 1;
 			tab[n] = malloc((ft_len(s, c) + 1) * sizeof(char));
+			if (tab[n] == 0)
+			{
+				ft_free(&tab, n - 1);
+				return (0);
+			}
 			conca(&tab, s, &n, ft_len(s, c));
 		}
 		else if (*s == c && o == 1)
 			o = 0;
 		s++;
 	}
-	tab[n] = 0;
 	return (tab);
 }

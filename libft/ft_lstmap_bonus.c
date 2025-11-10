@@ -19,6 +19,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*current;
 	void	*result;
 
+	if (!lst)
+		return (0);
 	current = lst;
 	result = (*f)(current->content);
 	tab = ft_lstnew(result);
