@@ -14,10 +14,7 @@
 
 int	ft_isalpha(int c)
 {
-	char	s;
-
-	s = c;
-	if ((s >= 'a' && s <= 'z') || (s >= 'A' && s <= 'Z'))
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
 	return (0);
 }
