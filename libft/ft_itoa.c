@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_isnegative(long *nb, int *sign)
+static void	ft_isnegative(long *nb, int *sign)
 {
 	if (*nb < 0)
 	{
@@ -23,7 +23,7 @@ void	ft_isnegative(long *nb, int *sign)
 		*sign = 0;
 }
 
-void	ft_len(int *n, int *size)
+static void	ft_len(int *n, int *size)
 {
 	int	nb;
 	int	len;
@@ -53,8 +53,8 @@ char	*ft_itoa(int n)
 	ft_len(&n, &size);
 	size += sign;
 	str = malloc((size + 1) * sizeof(char));
-	if (str == 0)
-		return (0);
+	if (str == NULL)
+		return (NULL);
 	str[size] = '\0';
 	while (size--)
 	{

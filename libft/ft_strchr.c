@@ -25,5 +25,5 @@ char	*ft_strchr(const char *s, int c)
 	}
 	if (*s == src)
 		return ((char *)s);
-	return (0);
+	return (NULL);
 }

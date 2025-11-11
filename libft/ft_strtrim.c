@@ -31,8 +31,8 @@ static char	*empty(void)
 	char	*tmp;
 
 	tmp = malloc(sizeof(char));
-	if (tmp == 0)
-		return (0);
+	if (tmp == NULL)
+		return (NULL);
 	tmp[0] = '\0';
 	return (tmp);
 }
@@ -54,8 +54,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (i <= 0)
 		return (empty());
 	tmp = malloc((i + 1) * sizeof(char));
-	if (tmp == 0)
-		return (0);
+	if (tmp == NULL)
+		return (NULL);
 	n = 0;
 	while (n < i)
 	{

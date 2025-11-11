@@ -16,8 +16,6 @@ void	ft_putnbr_fd(int n, int fd)
 {
 	char	c;
 
-	if (fd < 0)
-		return ;
 	c = 0;
 	if (n == -2147483648)
 	{

@@ -27,5 +27,5 @@ void	*ft_memchr(void *s, int c, unsigned int n)
 			return (d + i);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

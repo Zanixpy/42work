@@ -6,7 +6,7 @@
 /*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:48:00 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/06 13:48:37 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/11 12:41:38 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*p;
-
-	p = lst;
-	while (p != 0)
+	if (!lst)
+		return (NULL);
+	while (lst != NULL)
 	{
-		if (p->next == 0)
-			return (p);
-		p = p->next;
+		if (lst->next == NULL)
+			return (lst);
+		lst = lst->next;
 	}
-	return (0);
+	return (NULL);
 }
 
 /*int main(void)

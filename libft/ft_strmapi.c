@@ -18,8 +18,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	int		n;
 
 	str = ft_strdup(s);
-	if (str == 0)
-		return (0);
+	if (str == NULL)
+		return (NULL);
 	n = 0;
 	while (str[n])
 	{
