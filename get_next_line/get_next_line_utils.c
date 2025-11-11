@@ -2,7 +2,7 @@
 
 size_t	ft_strlen(const char *str)
 {
-	int	n;
+	size_t	n;
 
 	n = 0;
 	while (*str)
@@ -26,7 +26,7 @@ char	*ft_strchr(const char *s, int c)
 	}
 	if (*s == src)
 		return ((char *)s);
-	return (0);
+	return (NULL);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -39,8 +39,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	fsize = ft_strlen(s1);
 	ssize = ft_strlen(s2);
 	tmp = malloc((fsize + ssize + 1) * sizeof(char));
-	if (tmp == 0)
-		return (0);
+	if (tmp == NULL)
+		return (NULL);
 	n = 0;
 	while (*s1)
 	{
@@ -67,8 +67,8 @@ char	*ft_strdup(const char *s)
 	while (s[n])
 		n++;
 	cp = malloc(sizeof(char) * (n + 1));
-	if (cp == 0)
-		return (0);
+	if (cp == NULL)
+		return (NULL);
 	n = 0;
 	while (s[n])
 	{
@@ -79,22 +79,15 @@ char	*ft_strdup(const char *s)
 	return (cp);
 }
 
-char *ft_substr(char const *s, unsigned int start, size_t len)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-    char *tmp;
-    unsigned int n;
+	void	*tab;
 
-    if (start >= len)
-        return (0);
-    tmp = malloc((len - start) * sizeof(char));
-    if (tmp == 0)
-        return (0);
-    n = 0;
-    while (start < len)
-    {
-        tmp[n] = s[start];
-        start++;
-        n++; 
-    }
-    return (tmp);
+	if (nmemb * size > SIZE_MAX || nmemb == SIZE_MAX || size == SIZE_MAX)
+		return (NULL);
+	tab = malloc(nmemb * size);
+	if (tab == NULL)
+		return (NULL);
+	ft_bzero(tab, nmemb * size);
+	return (tab);
 }
