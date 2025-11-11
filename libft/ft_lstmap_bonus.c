@@ -39,30 +39,3 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	}
 	return (tab);
 }
-
-/*void *proto(void *t)
-{
-    int *p = (int *)t;
-    *p += 10;
-    return ((void *)p);
-}
-
-void prot(void *s)
-{
-    (void)s;
-}
-
-int main(void)
-{
-    int a = 42;
-    int b = 12;
-    int c = 55654;
-    t_list *p = ft_lstnew((void *)&a);
-    ft_lstadd_front(&p, ft_lstnew((void *)&b));
-    ft_lstadd_front(&p, ft_lstnew((void *)&c));
-    t_list *result = ft_lstmap(p, &proto, &prot);
-    printf("%d\n", * (int *)result->content);
-    ft_lstclear(&p, &prot);
-    ft_lstclear(&result, &prot);
-    return (0);
-}*/
