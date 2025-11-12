@@ -79,15 +79,31 @@ char	*ft_strdup(const char *s)
 	return (cp);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	void	*tab;
+	unsigned int	n;
+	char			*tmp;
 
-	if (nmemb * size > SIZE_MAX || nmemb == SIZE_MAX || size == SIZE_MAX)
+	if ((start == 0 && len == 0) || start >= ft_strlen(s))
+	{
+		tmp = malloc(sizeof(char));
+		if (tmp == NULL)
+			return (NULL);
+		tmp[0] = '\0';
+		return (tmp);
+	}
+	if (len > ft_strlen(s + start))
+		len = ft_strlen(s + start);
+	tmp = malloc((len + 1) * sizeof(char));
+	if (tmp == NULL)
 		return (NULL);
-	tab = malloc(nmemb * size);
-	if (tab == NULL)
-		return (NULL);
-	ft_bzero(tab, nmemb * size);
-	return (tab);
+	n = 0;
+	while (s[start] && n < len)
+	{
+		tmp[n] = s[start];
+		n++;
+		start++;
+	}
+	tmp[n] = '\0';
+	return (tmp);
 }
