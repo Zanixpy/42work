@@ -37,14 +37,23 @@ char    *ft_read_fd(int fd, char *buffer)
             return (buffer);
         }
         if (read_fd < BUFFER_SIZE)
+        {
             if (!ft_last_line(&tmp, read_fd))
                 return (NULL);
+            else 
+            {
+                buffer = ft_strjoin(buffer, tmp);
+                return (buffer);
+             }
+        }       
         buffer = ft_strjoin(buffer, tmp);
         if (buffer == NULL)
             return (NULL);
         read_fd = read(fd, tmp, BUFFER_SIZE);
     }
     free(tmp);
+    if (read_fd == 0)
+        return (NULL);
     return (buffer);
 }
 
@@ -60,7 +69,14 @@ char    *ft_find_newline(char **buffer)
     if (tmp == NULL)
     {
         if (ft_strchr(*buffer, '\0'))
-            return (*buffer);
+        {
+            line = ft_strdup(*buffer);
+            if (line == NULL)
+                return (NULL);
+            free(*buffer);
+            *buffer = NULL;
+            return (line);
+        }
         return (NULL);
     }
     tmp_len = ft_strlen(tmp);
@@ -78,8 +94,6 @@ char    *ft_find_newline(char **buffer)
 
 char    *ft_next_line(char *buffer, int fd)
 {
-    if (buffer == NULL)
-        return (NULL);
     if (!(ft_strchr(buffer, '\n')))
     {
         buffer = ft_read_fd(fd, buffer);
@@ -119,9 +133,9 @@ int main(void)
     {
         printf("La string : %s et le round : %d \n",s,round);
         round++;
-        free(s);
+        if (s != NULL)
+            free(s);
     }
-    free(s);
     close(fd);
     return (0);
 }

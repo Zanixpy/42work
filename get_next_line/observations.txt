@@ -1,4 +1,0 @@
-Mon gnl selon le buffer size n'affiche pas la meme chose donc je vais regarder pk ça fait ca
-C'est bon j'ai gerer, il fallait que je strjoin le buffer seuelement.
-Autre probleme quand j'arrive à la derniere ligne j'arrive pas à la return et puis l'espace que je prends et enorme mais c'est pas grave vu que le buffer le fait, mais du coup je dois trouver un moyen de dire que c'est la derniere ligne.
-Je n'arrive pas à retourner la derniere ligne. Je me dis que j'ai le droit à une derniere function. je pense que je vais utiliser, je vais la faire intervenir lors du read_fd je trouve que c'est le mieux.
