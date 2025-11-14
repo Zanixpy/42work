@@ -10,7 +10,7 @@
 #endif
 
 char *get_next_line(int fd);
-int ft_last_line(char **buffer, int size);
+char  *ft_last_line(char **buffer, int read_bytes);
 char    *ft_read_fd(int fd, char *buffer);
 char    *ft_find_newline(char **buffer);
 void    ft_next_line(char **buffer, int fd);
