@@ -4,11 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-int ft_last_line(char **buffer, int size)
+int ft_last_line(char **buffer, int read_bytes)
 {
     char    *tmp;
 
-    tmp = ft_substr(*buffer, 0, size);
+    if (read_bytes == 0 && buffer)
+        return (0);
+    else if (read_bytes < BUFFER_SIZE)
+        tmp = ft_substr(*buffer, 0, read_bytes);
     if (tmp == NULL)
         return (0);
     free(*buffer);
@@ -36,16 +39,8 @@ char    *ft_read_fd(int fd, char *buffer)
                 return (NULL);
             return (buffer);
         }
-        if (read_fd < BUFFER_SIZE)
-        {
-            if (!ft_last_line(&tmp, read_fd))
-                return (NULL);
-            else 
-            {
-                buffer = ft_strjoin(buffer, tmp);
-                return (buffer);
-             }
-        }       
+        if (ft_last_line(&tmp, read_fd) == 0)
+            return (NULL);
         buffer = ft_strjoin(buffer, tmp);
         if (buffer == NULL)
             return (NULL);
@@ -92,15 +87,21 @@ char    *ft_find_newline(char **buffer)
     return (line);
 }
 
-char    *ft_next_line(char *buffer, int fd)
+void    ft_next_line(char **buffer, int fd)
 {
-    if (!(ft_strchr(buffer, '\n')))
+    char *tmp;
+
+    if (!(ft_strchr(*buffer, '\n')))
     {
-        buffer = ft_read_fd(fd, buffer);
-        if (buffer == NULL)
-            return (NULL);
+        tmp = ft_read_fd(fd, *buffer);
+        free(*buffer);
+        if (tmp == NULL)
+        {
+            *buffer = NULL;
+            return;
+        }
+        *buffer = tmp;
     }
-    return (buffer);
 }
 
 char *get_next_line(int fd)
@@ -117,7 +118,7 @@ char *get_next_line(int fd)
             return (NULL);
         buffer[0] = '\0';
     }
-    buffer = ft_next_line(buffer, fd);
+    ft_next_line(&buffer, fd);
     if (buffer == NULL)
         return (NULL);
     line = ft_find_newline(&buffer);

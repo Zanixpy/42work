@@ -1,0 +1,2 @@
+Je pense qu'il y a plusieurs cas de return, imaginons un moment on a read_fd < BUFFER_SIZE ça veut dire qu'il faut renvoyer car après c'est 0 sur, mais si jamais read_fd == BUFFER_SIZE 
+et que après il y a rien alors la faut renvoyer la chaine avec le \n et on prochain appel tu renvoies le reste de buffer, ç'est ça dont j'ai du mal

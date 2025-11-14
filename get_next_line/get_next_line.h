@@ -13,7 +13,7 @@ char *get_next_line(int fd);
 int ft_last_line(char **buffer, int size);
 char    *ft_read_fd(int fd, char *buffer);
 char    *ft_find_newline(char **buffer);
-char    *ft_next_line(char *buffer, int fd);
+void    ft_next_line(char **buffer, int fd);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
