@@ -5,21 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 16:21:00 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/14 16:29:18 by omawele          ###   ########.fr       */
+/*   Created: 2025/11/14 16:39:45 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/15 15:01:43 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_last_line(char **last_l, int read_bytes)
+char	*ft_last_line(char **read_tmp, int read_bytes)
 {
 	char	*tmp;
 
-	tmp = ft_substr(*last_l, 0, read_bytes);
+	tmp = ft_substr(*read_tmp, 0, read_bytes);
 	if (tmp == NULL)
 		return (NULL);
-	free(*last_l);
+	free(*read_tmp);
 	return (tmp);
 }
 
@@ -41,7 +41,10 @@ char	*ft_read_fd(int fd, char *buffer)
 		if (buffer == NULL)
 			return (NULL);
 		if (ft_strchr(tmp, '\n') || read_fd < BUFFER_SIZE)
+		{
+			free(tmp);
 			return (buffer);
+		}
 		read_fd = read(fd, tmp, BUFFER_SIZE);
 	}
 	free(tmp);
@@ -53,8 +56,6 @@ char	*ft_find_newline(char **buffer)
 	char	*tmp;
 	char	*line;
 	char	*buffer_sub;
-	int		tmp_len;
-	int		start;
 
 	tmp = ft_strchr(*buffer, '\n');
 	if (tmp == NULL && ft_strchr(*buffer, '\0'))
@@ -68,12 +69,10 @@ char	*ft_find_newline(char **buffer)
 	}
 	else if (tmp == NULL)
 		return (NULL);
-	tmp_len = ft_strlen(tmp);
-	start = ft_strlen(*buffer) - tmp_len + 1;
-	line = ft_substr(*buffer, 0, start);
+	line = ft_substr(*buffer, 0, (ft_strlen(*buffer) - ft_strlen(tmp) + 1));
 	if (line == NULL)
 		return (NULL);
-	buffer_sub = ft_substr(tmp, 1, tmp_len - 1);
+	buffer_sub = ft_substr(tmp, 1, ft_strlen(tmp) - 1);
 	if (buffer_sub == NULL)
 		return (NULL);
 	free(*buffer);
@@ -124,8 +123,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*
-int main(void)
+/*int main(void)
 {
     int fd = open("text.txt", O_RDWR);
     char *s;
