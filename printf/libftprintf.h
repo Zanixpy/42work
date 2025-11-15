@@ -2,8 +2,9 @@
 # define LIBFTPRINTF_F
 
 # include <stdarg.h>
-# include "libft.h"
 
 int ft_printf(const char *format, ...);
+int ft_search_format(char c);
+
 
 #endif

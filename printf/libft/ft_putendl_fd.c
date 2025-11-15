@@ -1,27 +1,23 @@
-#include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 15:41:50 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:42:45 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void ft_putendl_fd(char *s, int fd)
+void	ft_putendl_fd(char *s, int fd)
 {
-    if (fd < 0)
-        return;
-    while (*s)
-    {
-        write(fd, s, 1);
-        s++;
-    }
-    write(fd, "\n", 1);
+	while (*s)
+	{
+		write(fd, s, 1);
+		s++;
+	}
+	write(fd, "\n", 1);
 }
-
-/*int main(void)
-{
-    int fd = open("test.txt", O_RDWR);
-    if (fd > 0)
-    {
-        ft_putendl_fd("super idol nichalung",fd);
-        
-    }
-    close(fd);
-    return (0);
-    
-}*/

@@ -1,21 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/08 11:43:37 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/08 11:47:24 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char *ft_substr(char const *s, unsigned int start, size_t len)
+static size_t	ft_len(char const *s)
 {
-    char *tmp;
-    unsigned int n;
+	unsigned int	n;
 
-    if (start >= len)
-        return (0);
-    tmp = malloc((len - start) * sizeof(char));
-    if (tmp == 0)
-        return (0);
-    n = 0;
-    while (start < len)
-    {
-        tmp[n] = s[start];
-        start++;
-        n++; 
-    }
-    return (tmp);
+	n = 0;
+	while (*s)
+	{
+		n++;
+		s++;
+	}
+	return (n);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	unsigned int	n;
+	char			*tmp;
+
+	if ((start == 0 && len == 0) || start >= ft_len(s))
+	{
+		tmp = malloc(sizeof(char));
+		if (tmp == NULL)
+			return (NULL);
+		tmp[0] = '\0';
+		return (tmp);
+	}
+	if (len > ft_len(s + start))
+		len = ft_len(s + start);
+	tmp = malloc((len + 1) * sizeof(char));
+	if (tmp == NULL)
+		return (NULL);
+	n = 0;
+	while (s[start] && n < len)
+	{
+		tmp[n] = s[start];
+		n++;
+		start++;
+	}
+	tmp[n] = '\0';
+	return (tmp);
 }

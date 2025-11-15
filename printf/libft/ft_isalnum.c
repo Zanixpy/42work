@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 13:37:27 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/06 13:38:05 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int ft_isalnum(int character)
+int	ft_isalnum(int c)
 {
-    char c;
+	char	s;
 
-    c = character;
-    if (c >= '0' && c <= '9')
-        return (1);
-    else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-        return (1);
-    return (0);
+	s = c;
+	if (s >= '0' && s <= '9')
+		return (1);
+	else if ((s >= 'a' && s <= 'z') || (s >= 'A' && s <= 'Z'))
+		return (1);
+	return (0);
 }

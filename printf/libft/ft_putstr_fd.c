@@ -1,27 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 15:46:15 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:46:57 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <fcntl.h>
 
-
-void ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
-    if (fd < 0)
-        return;
-    while (*s)
-    {
-        write(fd, s, 1);
-        s++;
-    }
-    
-}
-
-int main(void)
-{
-    int fd = open("test.txt", O_RDWR);
-    if (fd > 0)
-    {
-        ft_putstr_fd("super idol",fd);
-    }
-    close(fd);
-    return (0);
-    
+	while (*s)
+	{
+		write(fd, s, 1);
+		s++;
+	}
 }

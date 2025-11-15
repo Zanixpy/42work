@@ -1,37 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/08 11:47:36 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/08 11:51:29 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int chr(char c, char const *set)
+static int	chr(char c, char const *set)
 {
-    while (*set)
-    {
-        if (ft_toupper(c) == *set || ft_tolower(c) == *set || c == *set)
-                return (1);
-        set++;
-    }
-    return (0);   
+	unsigned int	n;
+
+	n = 0;
+	while (set[n])
+	{
+		if (ft_toupper(c) == set[n] || ft_tolower(c) == set[n] || c == set[n])
+			return (1);
+		n++;
+	}
+	return (0);
 }
 
-char *ft_strtrim(char const *s1, char const *set)
+static char	*empty(void)
 {
-    char *tmp;
-    unsigned int n;
-    unsigned int i;
+	char	*tmp;
 
-    i = 0;
-    while (chr(*s1,set) == 1)
-        s1++;
-    n = ft_strlen(s1);
-    while (chr(*(s1 + (n - 1)), set) == 1)
-        n--;
-    tmp = malloc((n + 1) * sizeof(char));
-    if (tmp == 0)
-        return (0);
-    while (i < n)
-    {
-        tmp[i] = *s1;
-        i++;
-        s1++;
-    }
-    tmp[i] = '\0';
-    return (tmp);
+	tmp = malloc(sizeof(char));
+	if (tmp == NULL)
+		return (NULL);
+	tmp[0] = '\0';
+	return (tmp);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	char	*tmp;
+	int		j;
+	int		i;
+	int		n;
+
+	j = 0;
+	i = ft_strlen(s1);
+	while (chr(s1[j], set) == 1)
+		j++;
+	while (chr(s1[i - 1], set) == 1)
+		i--;
+	i -= j;
+	if (i <= 0)
+		return (empty());
+	tmp = malloc((i + 1) * sizeof(char));
+	if (tmp == NULL)
+		return (NULL);
+	n = 0;
+	while (n < i)
+	{
+		tmp[n] = s1[j++];
+		n++;
+	}
+	tmp[n] = '\0';
+	return (tmp);
 }

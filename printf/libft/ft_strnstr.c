@@ -1,43 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 17:14:13 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/09 16:54:07 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static unsigned int lenL(char *str)
+static int	ft_search(const char *s, const char *little, size_t len, size_t i)
 {
-    int n;
+	size_t	j;
 
-    n = 0;
-    while (*str)
-    {
-        n++;
-        str++;
-    }
-    return (n);
+	j = 0;
+	while (s[j] && s[j] == *little && i < len)
+	{
+		j++;
+		little++;
+		if (*little == '\0')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-
-char    *ft_strnstr(char *big, char *little, unsigned int len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-    unsigned int i;
-    unsigned int j;
+	size_t	i;
+	size_t	j;
 
-    if (*little == '\0')
-        return (big);
-    if (lenL(little) > len)
-        return (0);
-    i = 0;
-    while (*big && i++ < len)
-    {
-        j = 0;
-        if (*big == little[j])
-        {
-            while (*big == little[j++] && i++ < len)
-            {
-                if (little[j] == '\0')
-                    return ((big - (j - 1)));
-                big++;           
-            }
-        } 
-        else
-            big++;
-    }
-    return (0);
+	if (*little == '\0')
+		return ((char *)big);
+	i = 0;
+	j = 0;
+	while (big[j] && i < len)
+	{
+		if (ft_search(big + j, little, len, i) == 1)
+			return ((char *)(big + j));
+		i++;
+		j++;
+	}
+	return (NULL);
 }
