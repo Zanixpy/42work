@@ -5,12 +5,12 @@ Following conversions for my printf :
 
 - %c : ft_putchar_fd
 - %s : ft_putstr_fd
-- %p : ft_itoa base 16
+- %p : Base 16 conversion
 - %d : ft_itoa
 - %i : ft_itoa
 - %u : ft_itoa
-- %x : ft_itoa base 16
-- %X : ft_iota base 16
+- %x : Base 16 conversion
+- %X : Base 16 conversion
 - %% : ft_putchar_fd
 
 Original printf behavior :
