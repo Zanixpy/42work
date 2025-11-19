@@ -5,29 +5,29 @@ NAME    = libftprintf.a
 LIBFT_DIR = libft
 LIBFT   = $(LIBFT_DIR)/libft.a
 
-SRCS    = ft_printf.c ft_convert_type.c ft_convert_type_utils.c
+SRCS    = ft_printf.c ft_printf_utils.c ft_convert_type.c ft_convert_type_utils.c 
 OBJS    = $(SRCS:.c=.o)
 HEADER  = libftprintf.h
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@cp $(LIBFT) $(NAME)
-	@ar -rcs $(NAME) $(OBJS)
+	cp $(LIBFT) $(NAME)
+	ar -rcs $(NAME) $(OBJS)
 
 $(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
