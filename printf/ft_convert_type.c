@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/19 15:08:03 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/21 17:42:00 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*ft_convert_string(va_list *args)
 	char	*var_convert;
 
 	var_string = va_arg(*args, char *);
+	if (var_string == NULL)
+		return ("(null)");
 	var_convert = ft_strdup(var_string);
 	if (var_convert == NULL)
 		return (NULL);
@@ -102,6 +104,8 @@ char	*ft_convert_pointer(va_list *args)
 	char		*tmp;
 
 	var_pointer = va_arg(*args, void *);
+	if (var_pointer == NULL)
+		return ("(nil)");
 	ptr = (uintptr_t)var_pointer;
 	var_hexa = ft_pointer_to_hexa(ptr);
 	if (var_hexa == NULL)

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:54:38 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/19 16:12:54 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/21 16:31:48 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,58 +23,58 @@ char	*ft_last_line_bonus(char **read_tmp, int read_bytes)
 	return (tmp);
 }
 
-char	*ft_read_fd_bonus(int fd, char *buffer)
+int	ft_read_fd_bonus(int fd, char **buffer)
 {
 	char	*tmp;
-	int		read_fd;
+	char	*buf_tmp;
+	int		read_bytes;
 
 	tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (tmp == NULL)
-		return (NULL);
-	tmp[BUFFER_SIZE] = '\0';
-	read_fd = read(fd, tmp, BUFFER_SIZE);
-	while (read_fd > 0)
+		return (0);
+	tmp[BUFFER_SIZE] = 0;
+	read_bytes = read(fd, tmp, BUFFER_SIZE);
+	while (read_bytes > 0)
 	{
-		if (read_fd < BUFFER_SIZE)
-			tmp = ft_last_line(&tmp, read_fd);
-		buffer = ft_strjoin(buffer, tmp);
-		if (buffer == NULL)
-			return (NULL);
-		if (ft_strchr(tmp, '\n') || read_fd < BUFFER_SIZE)
-		{
-			free(tmp);
-			return (buffer);
-		}
-		read_fd = read(fd, tmp, BUFFER_SIZE);
+		if (read_bytes < BUFFER_SIZE)
+			tmp = ft_last_line_bonus(&tmp, read_bytes);
+		buf_tmp = *buffer;
+		*buffer = ft_strjoin(buf_tmp, tmp);
+		free(buf_tmp);
+		if (*buffer == NULL)
+			return (0);
+		if (ft_strchr(*buffer, '\n') || read_bytes < BUFFER_SIZE)
+			break ;
+		read_bytes = read(fd, tmp, BUFFER_SIZE);
 	}
 	free(tmp);
-	return (NULL);
+	return (read_bytes);
 }
 
-char	*ft_find_newline_bonus(char **buffer)
+char	*ft_find_newline_bonus(char **buffer, char *line, char *newline)
 {
-	char	*tmp;
-	char	*line;
 	char	*buffer_sub;
 
-	tmp = ft_strchr(*buffer, '\n');
-	if (tmp == NULL && ft_strchr(*buffer, '\0'))
+	if (newline == NULL && ft_strchr(*buffer, '\0'))
 	{
 		line = ft_strdup(*buffer);
+		free(*buffer);
 		if (!line)
 			return (NULL);
-		free(*buffer);
 		*buffer = NULL;
 		return (line);
 	}
-	else if (tmp == NULL)
+	else if (newline == NULL)
 		return (NULL);
-	line = ft_substr(*buffer, 0, (ft_strlen(*buffer) - ft_strlen(tmp) + 1));
+	line = ft_substr(*buffer, 0, (ft_strlen(*buffer) - ft_strlen(newline) + 1));
 	if (line == NULL)
 		return (NULL);
-	buffer_sub = ft_substr(tmp, 1, ft_strlen(tmp) - 1);
+	buffer_sub = ft_substr(newline, 1, ft_strlen(newline) - 1);
 	if (buffer_sub == NULL)
+	{
+		free(line);
 		return (NULL);
+	}
 	free(*buffer);
 	*buffer = buffer_sub;
 	return (line);
@@ -82,7 +82,7 @@ char	*ft_find_newline_bonus(char **buffer)
 
 void	ft_next_line_bonus(char **buffer, int fd)
 {
-	char	*tmp;
+	int	tmp;
 
 	if (!(*buffer))
 	{
@@ -93,7 +93,7 @@ void	ft_next_line_bonus(char **buffer, int fd)
 	}
 	if (!(ft_strchr(*buffer, '\n')))
 	{
-		tmp = ft_read_fd(fd, *buffer);
+		tmp = ft_read_fd_bonus(fd, buffer);
 		if (!tmp && (*buffer)[0] == '\0')
 		{
 			free(*buffer);
@@ -102,22 +102,23 @@ void	ft_next_line_bonus(char **buffer, int fd)
 		}
 		if (!tmp)
 			return ;
-		free(*buffer);
-		*buffer = tmp;
 	}
 }
 
-char	*get_next_line_bonus(int fd)
+char	*get_next_line(int fd)
 {
-	static char	**buffer;
+	static char	*buffer[1024];
 	char		*line;
+	char		*is_newline;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
 		return (NULL);
-	ft_next_line(&buffer, fd);
-	if (buffer == NULL)
+	ft_next_line_bonus(&buffer[fd], fd);
+	if (buffer[fd] == NULL)
 		return (NULL);
-	line = ft_find_newline(&buffer);
+	is_newline = ft_strchr(buffer[fd], '\n');
+	line = ft_find_newline_bonus(&buffer[fd], line, is_newline);
 	if (line == NULL)
 		return (NULL);
 	return (line);
