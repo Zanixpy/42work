@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osm <osm@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/24 12:36:13 by osm              ###   ########.fr       */
+/*   Updated: 2025/11/24 12:52:03 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 #include "libftprintf.h"
 #include <string.h>
 
-
-char *ft_nil_null(int mode)
+char	*ft_nil_null(int mode)
 {
-	char *var_convert;
+	char	*var_convert;
 
 	var_convert = NULL;
 	if (mode == 0)
@@ -28,7 +27,6 @@ char *ft_nil_null(int mode)
 		return (0);
 	return (var_convert);
 }
-
 
 void	ft_freestr(int n, ...)
 {
