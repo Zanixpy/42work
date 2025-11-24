@@ -3,15 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: osm <osm@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/21 17:42:36 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/24 12:36:13 by osm              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "libftprintf.h"
+#include <string.h>
+
+
+char *ft_nil_null(int mode)
+{
+	char *var_convert;
+
+	var_convert = NULL;
+	if (mode == 0)
+		var_convert = ft_strdup("(nil)");
+	else if (mode == 1)
+		var_convert = ft_strdup("(null)");
+	if (var_convert == NULL)
+		return (0);
+	return (var_convert);
+}
+
 
 void	ft_freestr(int n, ...)
 {

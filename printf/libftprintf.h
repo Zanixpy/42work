@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: osm <osm@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:40:07 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/19 15:12:07 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/24 12:35:15 by osm              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int		ft_str_is_null(char *str, int n, ...);
 char	*ft_create_string_hexa(char **var_convert, char **tmp);
 char	*ft_itoa_long(long n);
 void	ft_display_final(char **final);
+char *ft_nil_null(int mode);
 
 #endif
