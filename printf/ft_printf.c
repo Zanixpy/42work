@@ -6,118 +6,79 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/24 12:52:03 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/25 17:10:02 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "libftprintf.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-char	*ft_nil_null(int mode)
+int	ft_nil_null(int mode)
 {
-	char	*var_convert;
+	int 	var_len;
 
-	var_convert = NULL;
+	var_len = 0;
 	if (mode == 0)
-		var_convert = ft_strdup("(nil)");
+		var_len = write(1, "(nil)", ft_strlen("(nil)"));
 	else if (mode == 1)
-		var_convert = ft_strdup("(null)");
-	if (var_convert == NULL)
-		return (0);
-	return (var_convert);
+		var_len = write(1, "(null)", ft_strlen("(null)"));
+	return (var_len);
 }
 
-void	ft_freestr(int n, ...)
+int	 ft_convert(char c, va_list *args, int *read_bytes)
 {
-	va_list	args;
-	char	**var_to_free;
-	int		i;
+	int	var_len;
 
-	i = 0;
-	va_start(args, n);
-	while (i < n)
-	{
-		var_to_free = va_arg(args, char **);
-		free(*var_to_free);
-		i++;
-	}
-	va_end(args);
-}
-
-char	*ft_create_string(char **format, char **var_convert, int *read_format)
-{
-	char	*tmp;
-	char	*format_sub;
-	char	*final;
-	int		new_position;
-
-	format_sub = ft_substr(*format, 0, *read_format - 1);
-	if (format_sub == NULL)
-		return (NULL);
-	tmp = ft_strjoin(format_sub, *var_convert);
-	if (ft_str_is_null(tmp, 1, &format_sub))
-		return (NULL);
-	new_position = ft_strlen(tmp) - 1;
-	ft_freestr(2, &format_sub, var_convert);
-	format_sub = ft_substr(*format, *read_format + 1, ft_strlen(*format
-				+ *read_format + 1));
-	if (ft_str_is_null(format_sub, 1, &tmp))
-		return (NULL);
-	free(*format);
-	final = ft_strjoin(tmp, format_sub);
-	ft_freestr(2, &tmp, &format_sub);
-	if (final == NULL)
-		return (NULL);
-	*read_format = new_position;
-	return (final);
-}
-
-char	*ft_convert(char c, va_list *args)
-{
-	char	*var_convert;
-
-	var_convert = NULL;
+	var_len = 0;
 	if (c == 'd' || c == 'i' || c == 'u')
-		var_convert = ft_convert_int(c, args);
+		var_len = ft_convert_int(c, args);
 	else if (c == 'c' || c == '%')
-		var_convert = ft_convert_char(c, args);
+		var_len = ft_convert_char(c, args);
 	else if (c == 's')
-		var_convert = ft_convert_string(args);
+		var_len = ft_convert_string(args);
 	else if (c == 'x' || c == 'X')
-		var_convert = ft_convert_hexa(c, args);
+		var_len = ft_convert_hexa(c, args);
 	else if (c == 'p')
-		var_convert = ft_convert_pointer(args);
-	if (var_convert == NULL)
-		return (NULL);
-	return (var_convert);
+		var_len = ft_convert_pointer(args);
+	else
+	{
+		var_len = ft_convert_char('%', args);
+		if (c == '\0')
+			return (-1);
+		if (c == ' ' || (c <= 13 && c >= 9))
+			*read_bytes -= 1;
+	}
+	return (var_len);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	char	*var_convert;
-	char	*final;
-	int		read_format;
+	int		result;
+	int 	tmp;
+	int		read_bytes;
 
-	final = ft_strdup(format);
-	if (final == NULL)
-		return (1);
+	if (format == NULL)
+		return (-1);
 	va_start(args, format);
-	read_format = -1;
-	while (final[++read_format])
+	read_bytes = -1;
+	result = 0;
+	tmp = 0;
+	while (format[++read_bytes])
 	{
-		if (final[read_format] == '%')
+		if (format[read_bytes] == '%')
 		{
-			var_convert = ft_convert(final[++read_format], &args);
-			if (var_convert == NULL)
-				return (1);
-			final = ft_create_string(&final, &var_convert, &read_format);
-			if (ft_str_is_null(final, 1, &var_convert))
-				return (1);
+			tmp = ft_convert(format[++read_bytes], &args, &read_bytes);
+			if (tmp == -1)
+				return (result + 1);
+			result += tmp;
+			read_bytes++;
 		}
+		result += write(1, (format + read_bytes), 1);
 	}
-	ft_display_final(&final);
 	va_end(args);
-	return (0);
+	return (result);
 }

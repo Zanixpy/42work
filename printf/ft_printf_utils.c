@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:29 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/19 15:13:39 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/25 11:46:09 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,31 +65,4 @@ char	*ft_itoa_long(long n)
 	if (sign == 1)
 		str[0] = '-';
 	return (str);
-}
-
-void	ft_display_final(char **final)
-{
-	ft_putstr_fd(*final, 1);
-	free(*final);
-}
-
-int	ft_str_is_null(char *str, int n, ...)
-{
-	va_list	args;
-	char	**var_to_free;
-	int		i;
-
-	va_start(args, n);
-	i = 0;
-	if (str == NULL)
-	{
-		while (i < n)
-		{
-			var_to_free = va_arg(args, char **);
-			free(*var_to_free);
-		}
-		return (1);
-	}
-	va_end(args);
-	return (0);
 }

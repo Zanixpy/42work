@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:10 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/19 15:07:51 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/25 11:46:13 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	ft_hexa(int pos, char mode)
 	return (hexa[pos]);
 }
 
-char	*ft_pointer_to_hexa(unsigned long var)
+char	*ft_decimal_to_hexa(unsigned long var, char mode)
 {
 	char	*var_convert;
 	char	*tmp;
@@ -57,7 +57,7 @@ char	*ft_pointer_to_hexa(unsigned long var)
 		var_convert = ft_calloc(2, sizeof(char));
 		if (tmp == NULL)
 			return (NULL);
-		var_convert[0] = ft_hexa((var % 16), 0);
+		var_convert[0] = ft_hexa((var % 16), mode);
 		tmp = ft_create_string_hexa(&tmp, &var_convert);
 		if (tmp == NULL)
 			return (NULL);
