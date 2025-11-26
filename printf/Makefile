@@ -5,7 +5,7 @@ NAME    = libftprintf.a
 LIBFT_DIR = libft
 LIBFT   = $(LIBFT_DIR)/libft.a
 
-SRCS    = ft_printf.c ft_printf_utils.c ft_convert_type.c ft_convert_type_utils.c 
+SRCS    = ft_printf.c ft_print_type.c ft_print_type_utils.c 
 OBJS    = $(SRCS:.c=.o)
 HEADER  = libftprintf.h
 
