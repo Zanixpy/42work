@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 15:54:43 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/21 16:32:34 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/27 09:25:30 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_next_line(int fd);
 void	ft_next_line_bonus(char **buffer, int fd);
 char	*ft_find_newline_bonus(char **buffer, char *line, char *tmp);
 int		ft_read_fd_bonus(int fd, char **buffer);
-char	*ft_last_line_bonus(char **read_tmp, int read_bytes);
+void	ft_free_buffer(char **buf);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);

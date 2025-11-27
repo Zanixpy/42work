@@ -6,21 +6,20 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 16:39:45 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/21 16:32:13 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/27 09:32:24 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+// #include <stdio.h>
 
-char	*ft_last_line(char **read_tmp, int read_bytes)
+void	ft_free_buffer(char **buf)
 {
-	char	*tmp;
-
-	tmp = ft_substr(*read_tmp, 0, read_bytes);
-	if (tmp == NULL)
-		return (NULL);
-	free(*read_tmp);
-	return (tmp);
+	if (*buf)
+	{
+		free(*buf);
+		*buf = NULL;
+	}
 }
 
 int	ft_read_fd(int fd, char **buffer)
@@ -32,22 +31,22 @@ int	ft_read_fd(int fd, char **buffer)
 	tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (tmp == NULL)
 		return (0);
-	tmp[BUFFER_SIZE] = 0;
 	read_bytes = read(fd, tmp, BUFFER_SIZE);
+	tmp[BUFFER_SIZE] = '\0';
 	while (read_bytes > 0)
 	{
 		if (read_bytes < BUFFER_SIZE)
-			tmp = ft_last_line(&tmp, read_bytes);
+			tmp[read_bytes] = '\0';
 		buf_tmp = *buffer;
 		*buffer = ft_strjoin(buf_tmp, tmp);
-		free(buf_tmp);
+		ft_free_buffer(&buf_tmp);
 		if (*buffer == NULL)
 			return (0);
 		if (ft_strchr(*buffer, '\n') || read_bytes < BUFFER_SIZE)
 			break ;
 		read_bytes = read(fd, tmp, BUFFER_SIZE);
 	}
-	free(tmp);
+	ft_free_buffer(&tmp);
 	return (read_bytes);
 }
 
@@ -58,7 +57,7 @@ char	*ft_find_newline(char **buffer, char *line, char *newline)
 	if (newline == NULL && ft_strchr(*buffer, '\0'))
 	{
 		line = ft_strdup(*buffer);
-		free(*buffer);
+		ft_free_buffer(buffer);
 		if (!line)
 			return (NULL);
 		*buffer = NULL;
@@ -72,10 +71,10 @@ char	*ft_find_newline(char **buffer, char *line, char *newline)
 	buffer_sub = ft_substr(newline, 1, ft_strlen(newline) - 1);
 	if (buffer_sub == NULL)
 	{
-		free(line);
+		ft_free_buffer(&line);
 		return (NULL);
 	}
-	free(*buffer);
+	ft_free_buffer(buffer);
 	*buffer = buffer_sub;
 	return (line);
 }
@@ -96,7 +95,7 @@ void	ft_next_line(char **buffer, int fd)
 		tmp = ft_read_fd(fd, buffer);
 		if (!tmp && (*buffer)[0] == '\0')
 		{
-			free(*buffer);
+			ft_free_buffer(buffer);
 			*buffer = NULL;
 			return ;
 		}
@@ -107,13 +106,16 @@ void	ft_next_line(char **buffer, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer = NULL;
 	char		*line;
 	char		*is_newline;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
+	{
+		ft_free_buffer(&buffer);
 		return (NULL);
+	}
 	ft_next_line(&buffer, fd);
 	if (buffer == NULL)
 		return (NULL);
@@ -123,3 +125,15 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (line);
 }
+/*int main(void)
+{
+	int fd = open("test.txt", O_RDONLY);
+	char *s = "Zan";
+	while ((s = get_next_line(fd)) != NULL)
+	{
+		printf("%s", s);
+		if (s)
+			free(s);
+	}
+	return (0);
+}*/
