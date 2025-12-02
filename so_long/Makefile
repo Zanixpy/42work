@@ -5,17 +5,24 @@ SRCS = main.c
 OBJS = $(SRCS:.c=.o)
 NAME = so_long
 
+LIBFT_DIR = libft
+LIBFT   = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(SRCS) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
 
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
 clean:
 	rm -rf $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -rf $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

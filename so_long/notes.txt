@@ -1,0 +1,29 @@
+### SO_LONG PROJECT ###
+
+## MinilibX
+
+# Useful functions of MinilibX :
+
+- mlx_init() : Initializing 
+- mlx_new_window(mlx, width, height, title) : creates a window
+- mlx_xpm_file_to_image(mlx, filename, &width, &height) : to load an xpm file
+- mlx_put_image_to_window(mlx, mlx_window, fileimg, width, height) : Display img on window
+- mlx_hook(mlx_window, x11_event, x11_mask, func, param_function) : Allows to addEventListener on window
+- mlx_loop_hook(mlx, func, param_func) : Allows to render a different frame when an event happened
+- mlx_loop(mlx) : Display the windows.
+
+## WHAT THE GOAL ?
+
+It's to create a window in C which do certain things like a game, i can move with W A S D and collect collectible.
+After collecting all, i can go to exit.
+
+## SUB PROBLEM
+
+- Creating map with .ber 
+- Place 10 coins randomly on free space
+- When player collide with coin, the coin disappear
+- When player collide with wall, the mouvement is stop
+
+ 
+
+

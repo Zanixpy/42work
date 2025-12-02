@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/02 17:31:29 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/02 18:26:02 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,29 @@
 typedef struct s_window {
     void    *mlx;
     void    *mlx_win;
-    void    *img;
-    void    *img2;
 } t_var;
+
+typedef struct s_check_map 
+{
+    int     wall;
+    int     space;
+    int     collectible;
+    int     player;
+    int     exit_game;
+} t_check_map;
 
 typedef struct s_textures {
     void    *wall;
     void    *space;
     void    *collectible;
-    void    *player;
+    void    *exit_game;
 } t_textures;
 
 typedef struct s_player 
 {
+    void    *player;
     int     pos_x;
     int     pos_y;
 } t_player;
-
-typedef struct s_coins 
-{
-    int     pos_x;
-    int     pos_y;
-} t_coins;
 
 #endif
