@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/26 10:01:16 by omawele          ###   ########.fr       */
+/*   Updated: 2025/11/26 10:20:14 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_print(char c, va_list *args, int *count)
 	else if (c == 's')
 		ft_print_string((char *)va_arg(*args, char *), count);
 	else if (c == 'x' || c == 'X')
-		ft_print_hexa((long)va_arg(*args, long), count, c);
+		ft_print_hexa((unsigned int)va_arg(*args, int), count, c);
 	else if (c == 'p')
 		ft_print_pointer((void *)va_arg(*args, void *), count);
 }
