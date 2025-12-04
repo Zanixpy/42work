@@ -23,6 +23,7 @@ After collecting all, i can go to exit.
 - Place 10 coins randomly on free space
 - When player collide with coin, the coin disappear
 - When player collide with wall, the mouvement is stop
+- free everythinh if something fails.
 
  
 

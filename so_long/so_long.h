@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/03 18:28:19 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/04 18:31:59 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ typedef struct s_check_map
 } t_check_map;
 
 typedef struct s_textures {
+    void    *player_up;
+    void    *player_right;
+    void    *player_left;
+    void    *player_down;
     void    *wall;
     void    *space;
     void    *collectible;
@@ -40,12 +44,20 @@ typedef struct s_textures {
 
 typedef struct s_player 
 {
-    void    *player_up;
-    void    *player_right;
-    void    *player_left;
-    void    *player_down;
     int     pos_x;
     int     pos_y;
 } t_player;
+
+typedef struct s_var
+{
+    t_window mlx;
+    t_player p;
+    t_textures t;
+    t_check_map cm;
+} t_var;
+
+int   loadTextures(t_window *mlx, t_textures *t);
+int   handleKey(int keycode, t_var *var);
+
 
 #endif
