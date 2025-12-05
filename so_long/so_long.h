@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/04 18:31:59 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/05 15:21:36 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_var
 
 int   loadTextures(t_window *mlx, t_textures *t);
 int   handleKey(int keycode, t_var *var);
-
+int escWindow(int keycode, t_var *var);
+int closeWindow(t_var *var);
 
 #endif

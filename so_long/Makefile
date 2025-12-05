@@ -1,7 +1,7 @@
 CC = cc 
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = main.c
+SRCS = main.c load_textures.c hooks.c
 OBJS = $(SRCS:.c=.o)
 NAME = so_long
 
@@ -15,7 +15,7 @@ $(NAME): $(OBJS)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
-
+	
 clean:
 	rm -rf $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR) clean
