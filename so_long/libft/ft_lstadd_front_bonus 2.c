@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 15:17:53 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 16:28:53 by omawele          ###   ########.fr       */
+/*   Created: 2025/11/06 13:44:44 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/11 12:42:01 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <sys/time.h>
+#include "libft.h"
 
-void free_mlx(t_var *var)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-    mlx_destroy_display(var->mlx.init);
+	t_list	*p;
+
+	p = *lst;
+	if (p == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	*lst = new;
+	new->next = p;
 }
-
-void free_player(t_player *p)
-{
-    return;
-}
-
-void free_textures(t_window *mlx);
-

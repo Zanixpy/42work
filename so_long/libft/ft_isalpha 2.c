@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 15:17:53 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 16:28:53 by omawele          ###   ########.fr       */
+/*   Created: 2025/11/06 13:38:18 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/06 13:38:43 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <sys/time.h>
+#include "libft.h"
 
-void free_mlx(t_var *var)
+int	ft_isalpha(int c)
 {
-    mlx_destroy_display(var->mlx.init);
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
 }
-
-void free_player(t_player *p)
-{
-    return;
-}
-
-void free_textures(t_window *mlx);
-

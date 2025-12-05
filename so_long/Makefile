@@ -8,7 +8,7 @@ NAME = so_long
 LIBFT_DIR = libft
 LIBFT   = $(LIBFT_DIR)/libft.a
 
-all: $(NAME)
+all: $(NAME) 
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(SRCS) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)

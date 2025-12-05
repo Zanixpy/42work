@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 15:21:36 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/05 16:54:25 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 #include "mlx/mlx.h"
 #include <math.h>
+
+#define MAX_WIDTH_WINDOW 1920
+#define MAX_HEIGHT_WINDOW 1020
+
 
 typedef struct s_window {
     void    *init;
@@ -56,9 +60,10 @@ typedef struct s_var
     t_check_map cm;
 } t_var;
 
-int   loadTextures(t_window *mlx, t_textures *t);
+int   loadTextures(t_var *var);
 int   handleKey(int keycode, t_var *var);
 int escWindow(int keycode, t_var *var);
 int closeWindow(t_var *var);
+int   displayWall(t_var *var);
 
 #endif

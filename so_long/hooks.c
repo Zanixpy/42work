@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:07:40 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 15:20:04 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/05 16:02:01 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int handleKey(int keycode, t_var *var)
 int escWindow(int keycode, t_var *var)
 {
     if (keycode == 65307)
-        mlx_destroy_window(var->mlx.init, var->mlx.win);
+        mlx_destroy_window(var->mlx.init, var->mlx.win);       
     return (0);
 }
 int closeWindow(t_var *var)

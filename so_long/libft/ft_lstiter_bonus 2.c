@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 15:17:53 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 16:28:53 by omawele          ###   ########.fr       */
+/*   Created: 2025/11/06 13:47:03 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:30:30 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <sys/time.h>
+#include "libft.h"
 
-void free_mlx(t_var *var)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-    mlx_destroy_display(var->mlx.init);
+	if (!lst)
+		return ;
+	while (lst != NULL)
+	{
+		(*f)(lst->content);
+		lst = lst->next;
+	}
 }
-
-void free_player(t_player *p)
-{
-    return;
-}
-
-void free_textures(t_window *mlx);
-

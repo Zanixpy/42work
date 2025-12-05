@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 15:17:53 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 16:28:53 by omawele          ###   ########.fr       */
+/*   Created: 2025/11/07 17:11:00 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 17:11:59 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <sys/time.h>
+#include "libft.h"
 
-void free_mlx(t_var *var)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-    mlx_destroy_display(var->mlx.init);
+	char	*str;
+	int		n;
+
+	str = ft_strdup(s);
+	if (str == NULL)
+		return (NULL);
+	n = 0;
+	while (str[n])
+	{
+		str[n] = (*f)(n, str[n]);
+		n++;
+	}
+	return (str);
 }
-
-void free_player(t_player *p)
-{
-    return;
-}
-
-void free_textures(t_window *mlx);
-

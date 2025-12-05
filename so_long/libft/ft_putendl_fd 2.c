@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 15:17:53 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 16:28:53 by omawele          ###   ########.fr       */
+/*   Created: 2025/11/07 15:41:50 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:42:45 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <sys/time.h>
+#include "libft.h"
 
-void free_mlx(t_var *var)
+void	ft_putendl_fd(char *s, int fd)
 {
-    mlx_destroy_display(var->mlx.init);
+	while (*s)
+	{
+		write(fd, s, 1);
+		s++;
+	}
+	write(fd, "\n", 1);
 }
-
-void free_player(t_player *p)
-{
-    return;
-}
-
-void free_textures(t_window *mlx);
-
