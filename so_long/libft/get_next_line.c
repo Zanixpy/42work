@@ -6,14 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 16:39:45 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/27 09:32:24 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/06 15:28:56 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-// #include <stdio.h>
+#include "libft.h"
 
-void	ft_free_buffer(char **buf)
+static void	ft_free_buffer(char **buf)
 {
 	if (*buf)
 	{
@@ -22,7 +21,7 @@ void	ft_free_buffer(char **buf)
 	}
 }
 
-int	ft_read_fd(int fd, char **buffer)
+static int	ft_read_fd(int fd, char **buffer)
 {
 	char	*tmp;
 	char	*buf_tmp;
@@ -50,7 +49,7 @@ int	ft_read_fd(int fd, char **buffer)
 	return (read_bytes);
 }
 
-char	*ft_find_newline(char **buffer, char *line, char *newline)
+static char *ft_find_newline(char **buffer, char *line, char *newline)
 {
 	char	*buffer_sub;
 
@@ -79,7 +78,7 @@ char	*ft_find_newline(char **buffer, char *line, char *newline)
 	return (line);
 }
 
-void	ft_next_line(char **buffer, int fd)
+static void	ft_next_line(char **buffer, int fd)
 {
 	int	tmp;
 
@@ -125,15 +124,3 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (line);
 }
-/*int main(void)
-{
-	int fd = open("test.txt", O_RDONLY);
-	char *s = "Zan";
-	while ((s = get_next_line(fd)) != NULL)
-	{
-		printf("%s", s);
-		if (s)
-			free(s);
-	}
-	return (0);
-}*/

@@ -25,6 +25,15 @@ After collecting all, i can go to exit.
 - When player collide with wall, the mouvement is stop
 - free everythinh if something fails.
 
+
+## Parsing
+
+- Check if every line has the same size
+- Check if there is only one P and E 
+- Check if the first and last line contains only 1
+- Check if middle lines contains 1 at the beginning and the end
+- Check if there is minim 2 C
+
  
 
 

@@ -7,7 +7,7 @@ LIBFT   = $(LIBFT_DIR)/libft.a
 
 SRCS    = ft_printf.c ft_print_type.c ft_print_type_utils.c 
 OBJS    = $(SRCS:.c=.o)
-HEADER  = libftprintf.h
+HEADER  = ft_printf.h
 
 all: $(NAME)
 

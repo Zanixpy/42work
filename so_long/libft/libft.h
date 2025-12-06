@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 11:53:36 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/08 12:05:24 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/06 15:40:57 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
@@ -24,7 +25,19 @@ typedef struct s_list
 	void			*content;
 }	t_list;
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
 char	*ft_strchr(const char *s, int c);
+char	*get_next_line(int fd);
+int	ft_printf(const char *format, ...);
+void	ft_print_pointer(void *ptr, int *count);
+void	ft_print_string(char *s, int *count);
+void	ft_print_hexa(long n, int *count, char mode);
+void	ft_print_int(long n, int *count);
+void	ft_print_char(char c, int *count);
+char	ft_hexa(int pos, char mode);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 size_t	ft_strlcat(char *dst, const char *src, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t n);

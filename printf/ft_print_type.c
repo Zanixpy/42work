@@ -6,11 +6,12 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/02 18:23:21 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/06 16:16:57 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
+#include "libft/libft.h"
 
 void	ft_print_char(char c, int *count)
 {

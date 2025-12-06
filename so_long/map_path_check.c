@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_type_utils.c                              :+:      :+:    :+:   */
+/*   map_path_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 13:39:10 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/06 15:34:07 by omawele          ###   ########.fr       */
+/*   Created: 2025/12/06 19:53:50 by omawele           #+#    #+#             */
+/*   Updated: 2025/12/06 20:11:01 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "so_long.h"
 
-char	ft_hexa(int pos, char mode)
+void   check_path(t_check_map cmap, t_map map)
 {
-	char	*hexa_lower;
-	char	*hexa_upper;
-
-	hexa_lower = "0123456789abcdef";
-	hexa_upper = "0123456789ABCDEF";
-	if (mode == 'X')
-		return (hexa_upper[pos]);
-	return (hexa_lower[pos]);
+    
+    
+    
+    
 }

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:01:37 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 16:54:20 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/06 18:12:20 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ int   loadTextures(t_var *var)
 
     width = 64;
     height = 64;
-    var->t.player_up = mlx_xpm_file_to_image(var->mlx.init, "./player_up.xpm", &width, &height);
-    var->t.player_right = mlx_xpm_file_to_image(var->mlx.init, "./player_right.xpm", &width, &height);
-    var->t.player_left = mlx_xpm_file_to_image(var->mlx.init, "./player_left.xpm", &width, &height);
-    var->t.player_down = mlx_xpm_file_to_image(var->mlx.init, "./player_down.xpm", &width, &height);
-    var->t.wall = mlx_xpm_file_to_image(var->mlx.init, "./wall.xpm", &width, &height);
-    var->t.space = mlx_xpm_file_to_image(var->mlx.init, "./floor.xpm", &width, &height);
-    var->t.collectible = mlx_xpm_file_to_image(var->mlx.init, "./coins.xpm", &width, &height);
-    var->t.exit_game = mlx_xpm_file_to_image(var->mlx.init, "./portal.xpm", &width, &height);
-    var->t.black = mlx_xpm_file_to_image(var->mlx.init, "./black", &width, &height);
+    var->t.player_up = mlx_xpm_file_to_image(var->mlx.init, "./textures/player_up.xpm", &width, &height);
+    var->t.player_right = mlx_xpm_file_to_image(var->mlx.init, "./textures/player_right.xpm", &width, &height);
+    var->t.player_left = mlx_xpm_file_to_image(var->mlx.init, "./textures/player_left.xpm", &width, &height);
+    var->t.player_down = mlx_xpm_file_to_image(var->mlx.init, "./textures/player_down.xpm", &width, &height);
+    var->t.wall = mlx_xpm_file_to_image(var->mlx.init, "./textures/wall.xpm", &width, &height);
+    var->t.space = mlx_xpm_file_to_image(var->mlx.init, "./textures/floor.xpm", &width, &height);
+    var->t.collectible = mlx_xpm_file_to_image(var->mlx.init, "./textures/coins.xpm", &width, &height);
+    var->t.exit_game = mlx_xpm_file_to_image(var->mlx.init, "./textures/portal.xpm", &width, &height);
+    var->t.black = mlx_xpm_file_to_image(var->mlx.init, "./textures/black", &width, &height);
     if (check_load_textures(var))
         return (1);
     return (0);
