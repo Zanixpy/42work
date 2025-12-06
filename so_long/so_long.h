@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/05 16:54:25 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/05 18:33:34 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ typedef struct s_window {
     void    *win;
 } t_window;
 
-typedef struct s_check_map 
+typedef struct s__map_parsing
 {
+    int     map[MAX_HEIGHT_WINDOW][MAX_WIDTH_WINDOW];
     int     wall;
     int     space;
     int     collectible;
     int     player;
     int     exit_game;
-} t_check_map;
+} t_map_parsing;
 
 typedef struct s_textures {
     void    *player_up;
@@ -57,7 +58,7 @@ typedef struct s_var
     t_window mlx;
     t_player p;
     t_textures t;
-    t_check_map cm;
+    t_map_parsing mp;
 } t_var;
 
 int   loadTextures(t_var *var);
