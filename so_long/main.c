@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:01:32 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/06 18:32:43 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/08 10:29:56 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int main(int argc, char **argv)
     // if(parsing_map(&var, fd))
     //     return (1);
     // Initializing the window (struct etc) 
+    if(!create_map(&var, argv[1]))
+        return (1);
     var.mlx.init = mlx_init();
     var.mlx.win = mlx_new_window(var.mlx.init, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, "Kapoumba");
     

@@ -6,53 +6,42 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:11:22 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/06 19:49:33 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/08 10:42:06 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int check_xsize(t_var *var)
+int check_map_size(t_var *var)
 {
-    int size;
     int x;
+    int y;
 
-    x = 0;
-    size = line_size(var, x);
-    if (size < 4)
-        return (1);
-    while (!var->map.map[x][0] )
+    y = 0;
+    x = line_size(var, y);
+    if (x < 4)
+        return (0);
+    while (var->map.map[y][0])
     {
-        x++;
-        if (size != line_size(var, x))
+        y++;
+        if (x != line_size(var, y))
             return (1);
     }
-    return (size);
-}
-
-int check_ysize(t_var *var)
-{
-    int size;
-    int y;
-
-    y = 0;
-    while (!var->map.map[y][0])
-    {
-        y++;
-    }
     if (y < 4)
-        return (1);
-    return (y);
+        return (0);
+    var->map.width = x; 
+    var->map.height = y;
+    return (1);
 }
 
-static int xline_size(t_var *var, int x)
+static int xline_size(t_var *var, int y)
 {
-    int y;
+    int x;
     
-    y = 0;
-    while (!var->map.map[x][y])
+    x = 0;
+    while (!var->map.map[y][x])
     {
-        y++;
+        x++;
     }
-    return (y);
+    return (x);
 }
