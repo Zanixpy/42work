@@ -12,7 +12,7 @@ LIBFT   = $(LIBFT_DIR)/libft.a
 all: $(NAME) 
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SRCS) -g -Llibft -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) -g3 -Llibft -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -lft -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

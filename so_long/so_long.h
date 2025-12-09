@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/09 10:55:36 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/09 17:28:10 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s__map
     char     **map;
     int     width;
     int     height;
+    int     exit_x;
+    int     exit_y;
 } t_map;
 
 typedef struct s__check_map
@@ -45,7 +47,7 @@ typedef struct s__check_map_path
 {
     int     collectible;
     int     exit_game;
-    int     valid_path;
+    int     valid_path;   
 } t_check_map_path;
 
 typedef struct s_textures {

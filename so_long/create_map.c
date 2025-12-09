@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 09:42:43 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/09 13:02:13 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/09 16:05:34 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ int create_map(t_var *var, char *filename)
 {
     char *line;
     int fd;
+    int size;
     int y;
 
     fd = open(filename, O_RDONLY);
     if (fd < 0)
-        return (0);        
-    var->map.map = malloc((count_line(var, filename) + 1) * sizeof(char *));
+        return (0);
+    size =  count_line(var, filename) + 1;      
+    var->map.map = malloc(size * sizeof(char *));
     if (!var->map.map)
         return (close(fd),0);        
     y = 0;
@@ -89,5 +91,6 @@ int create_map(t_var *var, char *filename)
         free(line);
         line = get_next_line(fd);        
     }
+    var->map.map[size - 1] = NULL;
     return (close(fd), 1);
 }
