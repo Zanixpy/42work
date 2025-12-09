@@ -1,7 +1,8 @@
 CC = cc 
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = main.c load_textures.c hooks.c
+SRCS = main.c load_textures.c hooks.c create_map.c map_characters_check.c \
+	   map_path_check.c map_size_check.c map_unit_check.c
 OBJS = $(SRCS:.c=.o)
 NAME = so_long
 
@@ -11,7 +12,7 @@ LIBFT   = $(LIBFT_DIR)/libft.a
 all: $(NAME) 
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SRCS) -Llibft -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) -g -Llibft -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -lft -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

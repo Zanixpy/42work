@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 18:13:13 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/08 10:59:18 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/09 10:55:57 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,16 @@ static int is_wscep(t_var *var, int x, int y)
 {
     if ((x == 0 || x == var->map.width - 1) && var->map.map[y][x] != '1')
         return (0);
-    if (y == 0 || y == var->map.height - 1 && var->map.map[y][x] != '1')
+    if ((y == 0 || y == var->map.height - 1) && var->map.map[y][x] != '1')
         return (0);
     if (var->map.map[y][x] == 'P' && !var->cmap.player)
     {
         var->cmap.player = 1;
-        var->cmap.p_x = x;
-        var->cmap.p_y = y;        
+        var->p.pos_x = x;
+        var->p.pos_y = y;        
     }
     else if (var->map.map[y][x] == 'E' && !var->cmap.exit_game)
-    {
         var->cmap.exit_game = 1;
-        var->cmap.e_x = x;
-        var->cmap.e_y = y;
-    }
     else if (var->map.map[y][x] == 'C')
         var->cmap.collectible += 1;
     else if (var->map.map[y][x] == 'S')

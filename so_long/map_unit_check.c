@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 18:08:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/08 10:53:15 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/09 12:56:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,20 @@ static void set_checker(t_var *var)
     var->cmap.wall = 0;
     var->cmap.space = 0;
     var->cmap.exit_game = 0;
-    var->cmap.valid_path = 0;
+    var->cpath.collectible = 0;
+    var->cpath.exit_game = 0;
+    var->cpath.valid_path = 0;
 }
 
-int     is_map_valid(t_var *var, int fd)
-{   
-     
+int     is_map_valid(t_var *var)
+{
+    set_checker(var);
     if (!check_map_size(var))
         return (1);
-    set_checker(var);
     if (!check_map_characters(var))
         return (2);
-    if (!var->cmap.valid_path)
+    check_map_path(var);
+    if (!var->cpath.valid_path)
         return (3);
     return (0);
 }

@@ -6,16 +6,19 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/08 10:58:18 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/09 10:55:36 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
-#define SO_LONG_H
+# define SO_LONG_H
 
-#include "mlx/mlx.h"
-#include "libft/libft.h"
-#include <math.h>
+# include "mlx/mlx.h"
+# include "libft/libft.h"
+# include <math.h>
+
+# define MAX_HEIGHT_WINDOW 1080
+# define MAX_WIDTH_WINDOW 1920
 
 typedef struct s_window {
     void    *init;
@@ -36,12 +39,14 @@ typedef struct s__check_map
     int     player;
     int     collectible;
     int     exit_game;
-    int     valid_path;
-    int     p_x;
-    int     p_y;
-    int     e_x;
-    int     e_y;
 } t_check_map;
+
+typedef struct s__check_map_path
+{
+    int     collectible;
+    int     exit_game;
+    int     valid_path;
+} t_check_map_path;
 
 typedef struct s_textures {
     void    *player_up;
@@ -68,6 +73,7 @@ typedef struct s_var
     t_textures t;
     t_map map;
     t_check_map cmap;
+    t_check_map_path cpath;
 } t_var;
 
 int   loadTextures(t_var *var);
@@ -75,9 +81,10 @@ int   handleKey(int keycode, t_var *var);
 int escWindow(int keycode, t_var *var);
 int closeWindow(t_var *var);
 int   displayWall(t_var *var);
-int     is_map_valid(t_var *var, int fd);
+int     is_map_valid(t_var *var);
 int check_map_size(t_var *var);
 int check_map_characters(t_var *var);
 int create_map(t_var *var, char *filename);
+void   check_map_path(t_var *var);
 
 #endif

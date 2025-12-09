@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 09:42:43 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/08 10:40:10 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:02:13 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    free_line(t_var *var, int y)
     free(var->map.map);
 }
 
-static int     count_line(char *filename)
+static int     count_line(t_var *var, char *filename)
 {
     char  *line;
     int fd;
@@ -39,43 +39,46 @@ static int     count_line(char *filename)
         free(line);
         line = get_next_line(fd);        
     }
+    var->map.height = count;
     return (close(fd), count);
 }
 static int malloc_line(t_var *var, char *line, int y)
 {
     int size;
     int x;
+    int nul;
     
-    size = ft_strlen(line);
-    if (!size)
+    if (!line)
         return (0);
-    var->map.map[y] = ft_calloc(size, sizeof(char));
+    size = ft_strlen(line);
+    nul = 1;
+    if (ft_strchr(line, '\n'))
+        nul = 0;     
+    var->map.map[y] = malloc((size + nul) * sizeof(char));
     if (!var->map.map[y])
         return (free_line(var, y), 0);
-    if (ft_strchr(line, '\n'))
-        size -= 1;
     x = 0;
     while (x < size)
     {
         var->map.map[y][x] = line[x];
         x++;
     }
+    var->map.map[y][(size + nul) - 1] = '\0';
     return (1);
 }
 
 int create_map(t_var *var, char *filename)
 {
-    char **tab;
     char *line;
     int fd;
     int y;
 
     fd = open(filename, O_RDONLY);
     if (fd < 0)
-        return (0);
-    tab = ft_calloc(count_line(filename) + 1, sizeof(char *));
-    if (!tab)
-        return (close(fd),0);
+        return (0);        
+    var->map.map = malloc((count_line(var, filename) + 1) * sizeof(char *));
+    if (!var->map.map)
+        return (close(fd),0);        
     y = 0;
     line = get_next_line(fd);
     while (line != NULL)
