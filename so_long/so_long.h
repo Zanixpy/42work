@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/09 17:28:10 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/11 16:54:06 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ typedef struct s__check_map
 
 typedef struct s__check_map_path
 {
-    int     collectible;
-    int     exit_game;
+    char    **tmap;
     int     valid_path;   
 } t_check_map_path;
 
@@ -60,6 +59,8 @@ typedef struct s_textures {
     void    *collectible;
     void    *exit_game;
     void    *black;
+    int width;
+    int height;
 } t_textures;
 
 typedef struct s_player 
@@ -86,7 +87,8 @@ int   displayWall(t_var *var);
 int     is_map_valid(t_var *var);
 int check_map_size(t_var *var);
 int check_map_characters(t_var *var);
-int create_map(t_var *var, char *filename);
+char **create_map(t_var *var, char *filename);
 void   check_map_path(t_var *var);
+int build_window(t_var *var);
 
 #endif

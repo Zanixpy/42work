@@ -6,20 +6,20 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 09:42:43 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/09 16:05:34 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/11 16:23:19 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void    free_line(t_var *var, int y)
+void    free_line(char ***tab, int y)
 {
     if (y > 0)
     {
         while (--y >= 0)
-            free(var->map.map[y]);
+            free((*tab)[y]);
     }
-    free(var->map.map);
+    free((*tab));
 }
 
 static int     count_line(t_var *var, char *filename)
@@ -42,7 +42,7 @@ static int     count_line(t_var *var, char *filename)
     var->map.height = count;
     return (close(fd), count);
 }
-static int malloc_line(t_var *var, char *line, int y)
+static int malloc_line(char ***tab, char *line, int y)
 {
     int size;
     int x;
@@ -54,43 +54,44 @@ static int malloc_line(t_var *var, char *line, int y)
     nul = 1;
     if (ft_strchr(line, '\n'))
         nul = 0;     
-    var->map.map[y] = malloc((size + nul) * sizeof(char));
-    if (!var->map.map[y])
-        return (free_line(var, y), 0);
+    (*tab)[y] = malloc((size + nul) * sizeof(char));
+    if (!(*tab)[y])
+        return (free_line(tab, y), 0);
     x = 0;
     while (x < size)
     {
-        var->map.map[y][x] = line[x];
+        (*tab)[y][x] = line[x];
         x++;
     }
-    var->map.map[y][(size + nul) - 1] = '\0';
+    (*tab)[y][(size + nul) - 1] = '\0';
     return (1);
 }
 
-int create_map(t_var *var, char *filename)
+char **create_map(t_var *var, char *filename)
 {
+    char **tab;
     char *line;
     int fd;
     int size;
     int y;
-
+    
     fd = open(filename, O_RDONLY);
     if (fd < 0)
-        return (0);
+        return (NULL);
     size =  count_line(var, filename) + 1;      
-    var->map.map = malloc(size * sizeof(char *));
-    if (!var->map.map)
-        return (close(fd),0);        
+    tab = malloc(size * sizeof(char *));
+    if (!tab)
+        return (close(fd), NULL);        
     y = 0;
     line = get_next_line(fd);
     while (line != NULL)
     {
-        if(!malloc_line(var, line, y))
-            return (free(line), close(fd), 0);
+        if(!malloc_line(&tab, line, y))
+            return (free(line), close(fd), NULL);
         y++;
         free(line);
         line = get_next_line(fd);        
     }
-    var->map.map[size - 1] = NULL;
-    return (close(fd), 1);
+    tab[size - 1] = NULL;
+    return (close(fd), tab);
 }

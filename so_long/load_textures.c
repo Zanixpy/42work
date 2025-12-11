@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:01:37 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/06 18:12:20 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/11 17:02:38 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int   loadTextures(t_var *var)
     var->t.player_down = mlx_xpm_file_to_image(var->mlx.init, "./textures/player_down.xpm", &width, &height);
     var->t.wall = mlx_xpm_file_to_image(var->mlx.init, "./textures/wall.xpm", &width, &height);
     var->t.space = mlx_xpm_file_to_image(var->mlx.init, "./textures/floor.xpm", &width, &height);
-    var->t.collectible = mlx_xpm_file_to_image(var->mlx.init, "./textures/coins.xpm", &width, &height);
+    var->t.collectible = mlx_xpm_file_to_image(var->mlx.init, "./textures/coin.xpm", &width, &height);
     var->t.exit_game = mlx_xpm_file_to_image(var->mlx.init, "./textures/portal.xpm", &width, &height);
     var->t.black = mlx_xpm_file_to_image(var->mlx.init, "./textures/black", &width, &height);
     if (check_load_textures(var))
@@ -59,33 +59,6 @@ int   loadTextures(t_var *var)
     return (0);
 }
 
-int   displayWall(t_var *var)
-{
-    int x;
-    int x_rev;
-    int y;
-    int y_rev;
-    
-    x = 0;
-    y = 0;
-    x_rev = MAX_WIDTH_WINDOW - 64;
-    y_rev = MAX_HEIGHT_WINDOW - 64;
-    while (y < (MAX_HEIGHT_WINDOW - 64) && y_rev > 0)
-    {
-        mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.wall, x, y);
-        mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.wall, x_rev, y_rev);
-        y += 64;   
-        y_rev -= 64;
-    }
-    while (x < (MAX_WIDTH_WINDOW - 64) && x_rev > 0)
-    {
-        mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.wall, x, y);
-        mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.wall, x_rev, y_rev);
-        x += 64;   
-        x_rev -= 64;
-    }
-    return (0);
-}
 
 
 

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 17:11:22 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/09 16:40:51 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/11 15:58:19 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int check_map_size(t_var *var)
             return (0);
         y++;
     }
-    if (y < 4 || x < 4)
-        return (0);
     var->map.width = x; 
     return (1);
 }

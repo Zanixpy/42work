@@ -6,53 +6,43 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 19:53:50 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/09 17:39:14 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/11 16:32:46 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void path_search(t_var *var, int x, int y, char **map)
+static void path_search(char ***tab, int x, int y)
 {    
-    if (x < 0 || x >= var->map.width || y < 0 || y >= var->map.height \
-        || map[y][x] == '1')
+    if ((*tab)[y][x] == '1' || (*tab)[y][x] == 'T')
         return;
-    else 
-    {
-        map[y][x] = 'T';
-        path_search(var, x, y + 1, map);            
-        path_search(var, x, y - 1, map);        
-        path_search(var, x + 1, y, map);        
-        path_search(var, x - 1, y, map);   
-    }
-}
-static int check_player_exit(t_var *var)
-{
-    int x;
-    int y;
-    int xe;
-    int ye;
-
-    x = var->p.pos_x;
-    y = var->p.pos_y;
-    xe = var->map.exit_x;
-    ye = var->map.exit_y;
-    if (var->map.map[y + 1][x] == '1' && var->map.map[y - 1][x] == '1' \
-        && var->map.map[y][x + 1] == '1' && var->map.map[y][x - 1] == '1')
-        return (0);
-    if (var->map.map[ye + 1][xe] == '1' && var->map.map[ye - 1][xe] == '1' \
-        && var->map.map[ye][xe + 1] == '1' && var->map.map[ye][xe - 1] == '1')
-        return (0); 
-    return (1);
+    (*tab)[y][x] = 'T';
+    path_search(tab, x, y + 1);            
+    path_search(tab, x, y - 1);        
+    path_search(tab, x + 1, y);        
+    path_search(tab, x - 1, y);   
 }
 
 void   check_map_path(t_var *var)
 {
-    if (!check_player_exit(var))
-        return;
-    path_search(var, var->p.pos_x, var->p.pos_y, var->map.map);
-    if ((var->cpath.collectible == var->cmap.collectible) \
-        && var->cpath.exit_game)
-        var->cpath.valid_path = 1;
+    int y;
+    int x;
+    
+    path_search(&(var->cpath.tmap), var->p.pos_x, var->p.pos_y);
+    y = 1;
+    while (y < var->map.height)
+    {
+        x = 1;
+        while (x < var->map.width - 1)
+        {
+            if (var->cpath.tmap[y][x] == 'C' \
+                ||  var->cpath.tmap[y][x] == 'E' \
+                || var->cpath.tmap[y][x] == 'P')
+                return;
+            x++;
+        }
+        y++;
+    }
+    var->cpath.valid_path = 1;
 }
 

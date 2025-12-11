@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:01:32 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/09 12:53:33 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/11 16:51:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ int main(int argc, char **argv)
     if (argc != 2)
         return (1);   
     // // Checking if the map is valid or not
-    if(!create_map(&var, argv[1]))
-    {
-        ft_printf("Call create_map.\n");
-        return (1);
-    }
+    var.map.map = create_map(&var ,argv[1]);
+    if (!var.map.map)
+        return (ft_printf("Call create_map.\n"), 1);
+    var.cpath.tmap = create_map(&var ,argv[1]);
+    if (!var.cpath.tmap)
+        return (free(var.map.map), 1);
     result = is_map_valid(&var);
     if (result == 1)
     {
-        ft_printf("The size of map is too much or not same for every lines.\n");
+        ft_printf("Error\nThe size of map is too much or not same for every lines.\n");
         return (1);
     }
     else if (result == 2)
@@ -52,23 +53,18 @@ int main(int argc, char **argv)
         ft_printf("There is no valid path in map.\n");
         return (3);
     }
-    ft_printf("Player x : %d, y : %d\n", var.p.pos_x, var.p.pos_y);
     ft_printf("Map is valid.\n");
-    free(var.map.map);
-    // Initializing the window (struct etc) 
 
-    // var.mlx.init = mlx_init();
-    // var.mlx.win = mlx_new_window(var.mlx.init, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, "Kapoumba");
-    
-    // // Loading and displaying images on the window
-    // loadTextures(&var);
-    // displayWall(&var);
-
-	// mlx_hook(var.mlx.win, 2, 1L<<0, handleKey, &var);
-	// mlx_hook(var.mlx.win, 2, 1L<<0, escWindow, &var);
-	// mlx_hook(var.mlx.win, 17, 0, closeWindow, &var);
-    // mlx_loop_hook(var.mlx.init, update, &var);
-    // mlx_loop(var.mlx.init);
-    // // mlx_destroy_window(var.mlx.init, var.mlx.win);
+    if (!build_window(&var))
+    {
+        return (0);        
+    }
+        
+	mlx_hook(var.mlx.win, 2, 1L<<0, handleKey, &var);
+	mlx_hook(var.mlx.win, 2, 1L<<0, escWindow, &var);
+	mlx_hook(var.mlx.win, 17, 0, closeWindow, &var);
+    mlx_loop_hook(var.mlx.init, update, &var);
+    mlx_loop(var.mlx.init);
+    // mlx_destroy_window(var.mlx.init, var.mlx.win);
     return (0);
 }

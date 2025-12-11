@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 18:08:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/09 12:56:40 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/11 16:20:12 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void set_checker(t_var *var)
     var->cmap.wall = 0;
     var->cmap.space = 0;
     var->cmap.exit_game = 0;
-    var->cpath.collectible = 0;
-    var->cpath.exit_game = 0;
     var->cpath.valid_path = 0;
 }
 
