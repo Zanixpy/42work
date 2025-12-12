@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:01:37 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/11 17:02:38 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/12 13:55:24 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static int check_load_textures(t_var *var)
         return (1);
     if (!var->t.exit_game)
         return (1);
-    if (!var->t.black)
-        return (1);
     return (0);
 }
 
@@ -53,7 +51,6 @@ int   loadTextures(t_var *var)
     var->t.space = mlx_xpm_file_to_image(var->mlx.init, "./textures/floor.xpm", &width, &height);
     var->t.collectible = mlx_xpm_file_to_image(var->mlx.init, "./textures/coin.xpm", &width, &height);
     var->t.exit_game = mlx_xpm_file_to_image(var->mlx.init, "./textures/portal.xpm", &width, &height);
-    var->t.black = mlx_xpm_file_to_image(var->mlx.init, "./textures/black", &width, &height);
     if (check_load_textures(var))
         return (1);
     return (0);

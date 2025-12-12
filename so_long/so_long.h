@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/11 16:54:06 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/12 16:52:02 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ typedef struct s__map
     char     **map;
     int     width;
     int     height;
-    int     exit_x;
-    int     exit_y;
 } t_map;
 
 typedef struct s__check_map
@@ -58,7 +56,6 @@ typedef struct s_textures {
     void    *space;
     void    *collectible;
     void    *exit_game;
-    void    *black;
     int width;
     int height;
 } t_textures;
@@ -67,6 +64,10 @@ typedef struct s_player
 {
     int     pos_x;
     int     pos_y;
+    int     pos_x_map;
+    int     pos_y_map;
+    int     coins;
+    int     mouvement;
 } t_player;
 
 typedef struct s_var
@@ -82,7 +83,6 @@ typedef struct s_var
 int   loadTextures(t_var *var);
 int   handleKey(int keycode, t_var *var);
 int escWindow(int keycode, t_var *var);
-int closeWindow(t_var *var);
 int   displayWall(t_var *var);
 int     is_map_valid(t_var *var);
 int check_map_size(t_var *var);
@@ -90,5 +90,10 @@ int check_map_characters(t_var *var);
 char **create_map(t_var *var, char *filename);
 void   check_map_path(t_var *var);
 int build_window(t_var *var);
+void    free_tab(char ***tab, int y);
+void    free_textures(t_var *var);
+void free_mlx(t_var *var);
+void free_mlx_win(t_var *var);
+int free_all(t_var *var);
 
 #endif

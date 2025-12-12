@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 19:53:50 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/11 16:32:46 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/12 15:01:56 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void   check_map_path(t_var *var)
     int y;
     int x;
     
-    path_search(&(var->cpath.tmap), var->p.pos_x, var->p.pos_y);
+    path_search(&(var->cpath.tmap), var->p.pos_x_map, var->p.pos_y_map);
     y = 1;
     while (y < var->map.height)
     {

@@ -6,21 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 09:42:43 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/11 16:23:19 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/12 16:25:15 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void    free_line(char ***tab, int y)
-{
-    if (y > 0)
-    {
-        while (--y >= 0)
-            free((*tab)[y]);
-    }
-    free((*tab));
-}
 
 static int     count_line(t_var *var, char *filename)
 {
@@ -56,7 +46,7 @@ static int malloc_line(char ***tab, char *line, int y)
         nul = 0;     
     (*tab)[y] = malloc((size + nul) * sizeof(char));
     if (!(*tab)[y])
-        return (free_line(tab, y), 0);
+        return (free_tab(tab, y), 0);
     x = 0;
     while (x < size)
     {
