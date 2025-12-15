@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 16:39:45 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/06 15:28:56 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/15 20:18:02 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	ft_read_fd(int fd, char **buffer)
 	return (read_bytes);
 }
 
-static char *ft_find_newline(char **buffer, char *line, char *newline)
+static char	*ft_find_newline(char **buffer, char *line, char *newline)
 {
 	char	*buffer_sub;
 

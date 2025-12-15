@@ -6,60 +6,59 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:33:49 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 17:00:11 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/15 21:54:15 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void place_textures(t_var *var)
+static void	place_textures(t_var *var, int x, int y)
 {
-    int x;
-    int y;
-    
-    y = 0;
-    while (y < var->map.height)
-    {
-        x = 0;
-        while (x < var->map.width)
-        {
-            if (var->map.map[y][x] == 'C') 
-                mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.collectible, x * 64, y * 64);
-            else if (var->map.map[y][x] == 'E')
-                mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.exit_game, x * 64, y * 64);
-            else if (var->map.map[y][x] == 'P')
-                mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.player_right, x * 64, y * 64);
-            else if (var->map.map[y][x] == '1')
-                mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.wall, x * 64, y * 64);
-            else if (var->map.map[y][x] == '0')
-                mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.space, x * 64, y * 64);
-            x++;
-        }
-        y++;
-    }
+	while (y < var->map.height)
+	{
+		x = 0;
+		while (x < var->map.width)
+		{
+			if (var->map.map[y][x] == 'C')
+				mlx_put_image_to_window(var->mlx.init, var->mlx.win,
+					var->t.coins.c1, x * 64, y * 64);
+			else if (var->map.map[y][x] == 'E')
+				mlx_put_image_to_window(var->mlx.init, var->mlx.win,
+					var->t.exit_game, x * 64, y * 64);
+			else if (var->map.map[y][x] == 'P')
+				mlx_put_image_to_window(var->mlx.init, var->mlx.win,
+					var->t.player_right, x * 64, y * 64);
+			else if (var->map.map[y][x] == '1')
+				mlx_put_image_to_window(var->mlx.init, var->mlx.win,
+					var->t.wall, x * 64, y * 64);
+			else if (var->map.map[y][x] == '0')
+				mlx_put_image_to_window(var->mlx.init, var->mlx.win,
+					var->t.space, x * 64, y * 64);
+			x++;
+		}
+		y++;
+	}
 }
 
-int build_window(t_var *var)
+int	build_window(t_var *var)
 {
-    int x;
-    int y;
+	int	x;
+	int	y;
 
-    x = var->map.width * 64;
-    y = var->map.height * 64;  
-    var->mlx.init = mlx_init();
-    if (!var->mlx.init)
-        return (free_var_tab(var), 1);
-    var->mlx.win = mlx_new_window(var->mlx.init, x, y, "Kapoumba");
-    if (!var->mlx.win)
-        return (free_var_tab(var), free_mlx(var), 1);
-    if (!loadTextures(var))
-        return (free_var_tab(var), free_mlx_win(var), free_mlx(var), 2);
-    place_textures(var);
-    var->p.pos_x = var->p.pos_x_map * 64;
-    var->p.pos_y = var->p.pos_y_map * 64;
-    var->p.coins = 0;
-    var->p.mouvement = 0;
-    return (0);
+	x = var->map.width * 64;
+	y = var->map.height * 64;
+	var->mlx.init = mlx_init();
+	if (!var->mlx.init)
+		return (free_var_tab(var), 1);
+	var->mlx.win = mlx_new_window(var->mlx.init, x, y, "Kapoumba");
+	if (!var->mlx.win)
+		return (free_var_tab(var), free_mlx(var), 1);
+	if (!is_textures_valid(var))
+		return (free_var_tab(var), free_mlx_win(var), free_mlx(var), 2);
+	place_textures(var, 0, 0);
+	var->p.pos_x = var->p.pos_x_map * 64;
+	var->p.pos_y = var->p.pos_y_map * 64;
+	var->p.coins = 0;
+	var->p.mouvement = 0;
+	return (0);
 }
-
-
