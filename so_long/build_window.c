@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:33:49 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/12 16:43:20 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/15 17:00:11 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,18 @@ int build_window(t_var *var)
     y = var->map.height * 64;  
     var->mlx.init = mlx_init();
     if (!var->mlx.init)
-        return (free_tab(&var->map.map, var->map.height), \
-        free_tab(&var->cpath.tmap, var->map.height), 0);
+        return (free_var_tab(var), 1);
     var->mlx.win = mlx_new_window(var->mlx.init, x, y, "Kapoumba");
-    if (!var->mlx.init || !var->mlx.win)
-        return (free_tab(&var->map.map, var->map.height), \
-        free_tab(&var->cpath.tmap, var->map.height), 0);
-    loadTextures(var);
+    if (!var->mlx.win)
+        return (free_var_tab(var), free_mlx(var), 1);
+    if (!loadTextures(var))
+        return (free_var_tab(var), free_mlx_win(var), free_mlx(var), 2);
     place_textures(var);
     var->p.pos_x = var->p.pos_x_map * 64;
     var->p.pos_y = var->p.pos_y_map * 64;
     var->p.coins = 0;
     var->p.mouvement = 0;
-    return (1);
+    return (0);
 }
 
 

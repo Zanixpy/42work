@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/12 16:52:02 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/15 16:31:59 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "mlx/mlx.h"
 # include "libft/libft.h"
+# include <sys/time.h>
 # include <math.h>
 
 # define MAX_HEIGHT_WINDOW 1080
@@ -95,5 +96,6 @@ void    free_textures(t_var *var);
 void free_mlx(t_var *var);
 void free_mlx_win(t_var *var);
 int free_all(t_var *var);
+void    free_var_tab(t_var *var);
 
 #endif

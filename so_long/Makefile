@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS = main.c load_textures.c hooks.c create_map.c map_characters_check.c \
-	   map_path_check.c map_size_check.c map_unit_check.c build_window.c free.c
+	   map_unit_check.c build_window.c free.c
 OBJS = $(SRCS:.c=.o)
 NAME = so_long
 

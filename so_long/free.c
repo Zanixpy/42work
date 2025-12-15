@@ -6,22 +6,22 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:17:53 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/12 16:51:42 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/15 15:53:32 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <sys/time.h>
 
-int free_all(t_var *var)
-{
-    free_tab(&var->map.map, var->map.height);
-    free_tab(&var->cpath.tmap, var->map.height);
-    free_textures(var);
-    free_mlx_win(var);
-    free_mlx(var);
-    return (0);
-}
+// int free_all(t_var *var)
+// {
+//     free_tab(&var->map.map, var->map.height);
+//     free_tab(&var->cpath.tmap, var->map.height);
+//     free_textures(var);
+//     free_mlx_win(var);
+//     free_mlx(var);
+//     return (0);
+// }
 
 
 void    free_tab(char ***tab, int y)
@@ -32,6 +32,23 @@ void    free_tab(char ***tab, int y)
             free((*tab)[y]);
     }
     free((*tab));
+}
+
+void    free_var_tab(t_var *var)
+{
+    int y;
+
+    y = var->map.height;
+    if (y > 0)
+    {
+        while (--y >= 0)
+        {
+            free((var->map.map)[y]);
+            free((var->cpath.tmap)[y]);            
+        }
+    }
+    free(var->map.map);
+    free(var->cpath.tmap);
 }
 
 void    free_textures(t_var *var)
