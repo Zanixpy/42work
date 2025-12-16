@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 21:10:17 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 21:54:01 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:40:33 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int check_textures(t_var *var)
         return (6);
     if (!var->t.exit_game)
         return (7);
+    if (!var->t.lava)
+        return (8);
     return (0);
 }
 
@@ -61,19 +63,11 @@ int is_textures_valid(t_var *var)
     load_coins_textures(var);
     ctextures = check_textures(var);
     ccoins_textures = check_coins_textures(var);
-    if (ctextures)
+    if (ctextures || ccoins_textures)
     {
-        free_img_textures(var, ctextures);
-        if (ccoins_textures)
-            return (free_img_coins_textures(var, ccoins_textures), 1);
-        else
-            return (free_img_coins_textures(var, 9), 1);
-    }
-    else
-    {
-        if (ccoins_textures)
-            free_img_coins_textures(var, ccoins_textures);
-        return (free_img_textures(var, 8), 1);
+        free_img_textures(var);
+        free_img_coins_textures(var);
+        return (1);
     }
     return (0);
 }

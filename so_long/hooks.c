@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:07:40 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 20:22:45 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:44:10 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static int	left(t_var *var)
 	else if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'E'
 		&& var->p.coins == var->cmap.collectible)
 		return (free_all(var), 0);
+	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'M')
+		return (free_all(var), 0);
 	return (1);
 }
 
@@ -56,6 +58,8 @@ static int	down(t_var *var)
 	}
 	else if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'E'
 		&& var->p.coins == var->cmap.collectible)
+		return (free_all(var), 0);
+	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'M')
 		return (free_all(var), 0);
 	return (1);
 }
@@ -81,6 +85,8 @@ static int	right(t_var *var)
 	else if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'E'
 		&& var->p.coins == var->cmap.collectible)
 		return (free_all(var), 0);
+	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'M')
+		return (free_all(var), 0);
 	return (1);
 }
 
@@ -105,12 +111,15 @@ static int	up(t_var *var)
 	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'E'
 		&& var->p.coins == var->cmap.collectible)
 		return (free_all(var), 0);
+	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'M')
+		return (free_all(var), 0);
 	return (1);
 }
 
 int	handle_key(int keycode, t_var *var)
 {
-	int	result;
+	char 	*s;
+	int		result;
 
 	result = 0;
 	if (keycode == 65307)
@@ -124,9 +133,14 @@ int	handle_key(int keycode, t_var *var)
 	else if (keycode == 'w')
 		result = up(var);
 	if (result)
-	{
 		var->p.mouvement += 1;
-		ft_printf("Mouvement : %d\n", var->p.mouvement);
-	}
+	s = ft_itoa(var->p.mouvement);
+	if (!s)
+		return (free_all(var), 1);
+	mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.wall, 0, 0);
+	mlx_put_image_to_window(var->mlx.init, var->mlx.win, var->t.wall, 64, 0);
+	mlx_string_put(var->mlx.init, var->mlx.win, 8, 30, 0xFFFFFF, "Mouvement :");
+	mlx_string_put(var->mlx.init, var->mlx.win, 78, 31, 0xFFFFFF, s);
+	free(s);
 	return (0);
 }

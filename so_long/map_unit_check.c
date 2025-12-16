@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 18:08:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 20:22:36 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:49:42 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	check_map_size(t_var *var)
 
 static void	path_search(char ***tab, int x, int y)
 {
-	if ((*tab)[y][x] == '1' || (*tab)[y][x] == 'T')
+	if ((*tab)[y][x] == '1' || (*tab)[y][x] == 'T' || (*tab)[y][x] == 'M')
 		return ;
 	(*tab)[y][x] = 'T';
 	path_search(tab, x, y + 1);

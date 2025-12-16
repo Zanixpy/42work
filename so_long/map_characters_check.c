@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 18:13:13 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 20:14:36 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:47:26 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	is_wscep(t_var *var, int x, int y)
 		var->cmap.collectible += 1;
 	else if (var->map.map[y][x] == '0')
 		var->cmap.space = 1;
-	else if (var->map.map[y][x] != '1')
+	else if (var->map.map[y][x] != '1' || var->map.map[y][x] != 'M')
 		return (0);
 	return (1);
 }

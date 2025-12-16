@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 21:53:35 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:40:00 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,6 @@ typedef struct s__check_map_path
 	int					valid_path;
 }						t_check_map_path;
 
-typedef struct s_textures
-{
-	void				*player_up;
-	void				*player_right;
-	void				*player_left;
-	void				*player_down;
-	void				*wall;
-	void				*space;
-    t_coins_animations  coins;
-	void				*exit_game;
-}						t_textures;
-
 typedef struct s_coins_animations
 {
 	void				*c1;
@@ -69,6 +57,21 @@ typedef struct s_coins_animations
 	void				*c7;
 	void				*c8;
 }						t_coins_animations;
+
+typedef struct s_textures
+{
+	void				*player_up;
+	void				*player_right;
+	void				*player_left;
+	void				*player_down;
+	void				*wall;
+	void				*space;
+	void				*lava;
+    t_coins_animations  coins;
+	void				*exit_game;
+}						t_textures;
+
+
 
 typedef struct s_player
 {
@@ -104,8 +107,8 @@ int						free_all(t_var *var);
 void					free_var_tab(t_var *var);
 int check_coins_textures(t_var *var);
 int check_textures(t_var *var);
-void	free_img_coins_textures(t_var *var, int n);
-void	free_img_textures(t_var *var, int n);
+void	free_img_textures(t_var *var);
+void	free_img_coins_textures(t_var *var);
 int is_textures_valid(t_var *var);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:01:32 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 20:21:21 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:26:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,52 @@ static void	error_check(char c, int n)
 		write(2, "Problem on creating the window or charging textures", 51);
 }
 
-// int update(t_window *mlx)
-// {
-//     (void)mlx;
-//     return (0);
-// }
+void update_coins(t_var *var, void *img)
+{
+	int x;
+	int y;
+
+	y = 1;
+	while (y < var->map.height)
+	{
+		x = 1;
+		while (var->map.map[y][x])
+		{
+			if (var->map.map[y][x] == 'C')
+				mlx_put_image_to_window(var->mlx.init, var->mlx.win, img, x * 64, y * 64);
+			x++;
+		}
+		y++;
+	}
+}
+
+
+int update(t_var *var)
+{
+	static int ms = 0;
+
+	if (ms == 200)
+		update_coins(var, var->t.coins.c1);
+	if (ms == 800)
+		update_coins(var, var->t.coins.c2);
+	if (ms == 1400)
+		update_coins(var, var->t.coins.c3);
+	if (ms == 2000)
+		update_coins(var, var->t.coins.c4);
+	if (ms == 2600)
+		update_coins(var, var->t.coins.c5);
+	if (ms == 3200)
+		update_coins(var, var->t.coins.c6);
+	if (ms == 3800)
+		update_coins(var, var->t.coins.c7);
+	if (ms == 4400)
+	{
+		update_coins(var, var->t.coins.c8);
+		ms = 0;
+	}
+	ms++;			
+    return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -77,6 +118,7 @@ int	main(int argc, char **argv)
 	}
 	mlx_hook(var.mlx.win, 2, 1L << 0, handle_key, &var);
 	mlx_hook(var.mlx.win, 17, 0, free_all, &var);
+	mlx_loop_hook(var.mlx.init, update, &var);
 	mlx_loop(var.mlx.init);
 	return (free_all(&var), 0);
 }
