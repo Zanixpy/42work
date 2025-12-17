@@ -6,13 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 09:42:43 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 20:21:39 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/17 15:36:35 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	free_tab(char ***tab, int y)
+void	free_tab(char ***tab, int y)
 {
 	if (y > 0)
 	{
@@ -91,7 +91,6 @@ static char	**create_map(char *filename, int size)
 		free(line);
 		line = get_next_line(fd);
 	}
-	tab[size - 1] = NULL;
 	return (close(fd), tab);
 }
 
@@ -99,7 +98,7 @@ int	init_map(t_var *var, char *filename)
 {
 	int	size;
 
-	size = count_line(var, filename) + 1;
+	size = count_line(var, filename);
 	if (size == 0)
 		return (1);
 	var->map.map = create_map(filename, size);

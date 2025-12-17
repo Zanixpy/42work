@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:07:40 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/16 16:44:10 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/17 17:09:27 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 static int	left(t_var *var)
 {
 	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map - 1] == '1')
-		return (0);
-	else if (var->map.map[var->p.pos_y_map][var->p.pos_x_map - 1] == 'E'
-		&& var->p.coins != var->cmap.collectible)
 		return (0);
 	var->p.pos_x -= 64;
 	var->p.pos_x_map -= 1;
@@ -31,19 +28,16 @@ static int	left(t_var *var)
 		var->map.map[var->p.pos_y_map][var->p.pos_x_map] = '0';
 	}
 	else if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'E'
-		&& var->p.coins == var->cmap.collectible)
-		return (free_all(var), 0);
+		&& var->p.coins == var->cmap.coins)
+		return (is_winner(1), free_all(var), 0);
 	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'M')
-		return (free_all(var), 0);
+		return (is_winner(0), free_all(var), 0);
 	return (1);
 }
 
 static int	down(t_var *var)
 {
 	if (var->map.map[var->p.pos_y_map + 1][var->p.pos_x_map] == '1')
-		return (0);
-	else if (var->map.map[var->p.pos_y_map + 1][var->p.pos_x_map] == 'E'
-		&& var->p.coins != var->cmap.collectible)
 		return (0);
 	var->p.pos_y += 64;
 	var->p.pos_y_map += 1;
@@ -57,19 +51,16 @@ static int	down(t_var *var)
 		var->map.map[var->p.pos_y_map][var->p.pos_x_map] = '0';
 	}
 	else if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'E'
-		&& var->p.coins == var->cmap.collectible)
-		return (free_all(var), 0);
+		&& var->p.coins == var->cmap.coins)
+		return (is_winner(1), free_all(var), 0);
 	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'M')
-		return (free_all(var), 0);
+		return (is_winner(0), free_all(var), 0);
 	return (1);
 }
 
 static int	right(t_var *var)
 {
 	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map + 1] == '1')
-		return (0);
-	else if (var->map.map[var->p.pos_y_map][var->p.pos_x_map + 1] == 'E'
-		&& var->p.coins != var->cmap.collectible)
 		return (0);
 	var->p.pos_x += 64;
 	var->p.pos_x_map += 1;
@@ -83,19 +74,16 @@ static int	right(t_var *var)
 		var->map.map[var->p.pos_y_map][var->p.pos_x_map] = '0';
 	}
 	else if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'E'
-		&& var->p.coins == var->cmap.collectible)
-		return (free_all(var), 0);
+		&& var->p.coins == var->cmap.coins)
+		return (is_winner(1), free_all(var), 0);
 	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'M')
-		return (free_all(var), 0);
+		return (is_winner(0), free_all(var), 0);
 	return (1);
 }
 
 static int	up(t_var *var)
 {
 	if (var->map.map[var->p.pos_y_map - 1][var->p.pos_x_map] == '1')
-		return (0);
-	else if (var->map.map[var->p.pos_y_map - 1][var->p.pos_x_map] == 'E'
-		&& var->p.coins != var->cmap.collectible)
 		return (0);
 	var->p.pos_y -= 64;
 	var->p.pos_y_map -= 1;
@@ -109,16 +97,16 @@ static int	up(t_var *var)
 		var->map.map[var->p.pos_y_map][var->p.pos_x_map] = '0';
 	}
 	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'E'
-		&& var->p.coins == var->cmap.collectible)
-		return (free_all(var), 0);
+		&& var->p.coins == var->cmap.coins)
+		return (is_winner(1), free_all(var), 0);
 	if (var->map.map[var->p.pos_y_map][var->p.pos_x_map] == 'M')
-		return (free_all(var), 0);
+		return (is_winner(0), free_all(var), 0);
 	return (1);
 }
 
 int	handle_key(int keycode, t_var *var)
 {
-	char 	*s;
+	char	*s;
 	int		result;
 
 	result = 0;

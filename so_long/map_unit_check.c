@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 18:08:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/16 16:49:42 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/17 17:07:15 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	set_checker(t_var *var)
 {
-	var->cmap.collectible = 0;
+	var->cmap.coins = 0;
 	var->cmap.player = 0;
 	var->cmap.wall = 0;
 	var->cmap.space = 0;
@@ -34,7 +34,7 @@ int	check_map_size(t_var *var)
 	while (var->map.map[y][cmp] != '\0')
 		cmp++;
 	y++;
-	while (var->map.map[y] != NULL)
+	while (y < var->map.height)
 	{
 		x = 0;
 		while (var->map.map[y][x] != '\0')
@@ -68,7 +68,7 @@ void	check_map_path(t_var *var)
 	while (y < var->map.height)
 	{
 		x = 1;
-		while (x < var->map.width - 1)
+		while (x < var->map.width)
 		{
 			if (var->cpath.tmap[y][x] == 'C' || var->cpath.tmap[y][x] == 'E'
 				|| var->cpath.tmap[y][x] == 'P')

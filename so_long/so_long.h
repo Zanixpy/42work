@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/16 16:40:00 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/17 17:30:37 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s__map
 	char				**map;
 	int					width;
 	int					height;
+	int					exit_x;
+	int					exit_y;
 }						t_map;
 
 typedef struct s__check_map
@@ -36,7 +38,7 @@ typedef struct s__check_map
 	int					wall;
 	int					space;
 	int					player;
-	int					collectible;
+	int					coins;
 	int					exit_game;
 }						t_check_map;
 
@@ -44,6 +46,7 @@ typedef struct s__check_map_path
 {
 	char				**tmap;
 	int					valid_path;
+	int					coins;
 }						t_check_map_path;
 
 typedef struct s_coins_animations
@@ -67,11 +70,9 @@ typedef struct s_textures
 	void				*wall;
 	void				*space;
 	void				*lava;
-    t_coins_animations  coins;
+	t_coins_animations	coins;
 	void				*exit_game;
 }						t_textures;
-
-
 
 typedef struct s_player
 {
@@ -81,6 +82,7 @@ typedef struct s_player
 	int					pos_y_map;
 	int					coins;
 	int					mouvement;
+	int					unlock_exit;
 }						t_player;
 
 typedef struct s_var
@@ -93,8 +95,8 @@ typedef struct s_var
 	t_check_map_path	cpath;
 }						t_var;
 
-void						load_textures(t_var *var);
-void load_coins_textures(t_var *var);
+void					load_textures(t_var *var);
+void					load_coins_textures(t_var *var);
 int						handle_key(int keycode, t_var *var);
 int						is_map_valid(t_var *var);
 int						init_map(t_var *var, char *filename);
@@ -105,10 +107,13 @@ void					free_mlx(t_var *var);
 void					free_mlx_win(t_var *var);
 int						free_all(t_var *var);
 void					free_var_tab(t_var *var);
-int check_coins_textures(t_var *var);
-int check_textures(t_var *var);
-void	free_img_textures(t_var *var);
-void	free_img_coins_textures(t_var *var);
-int is_textures_valid(t_var *var);
+void					free_tab(char ***tab, int y);
+int						check_coins_textures(t_var *var);
+int						check_textures(t_var *var);
+void					free_img_textures(t_var *var);
+void					free_img_coins_textures(t_var *var);
+int						is_textures_valid(t_var *var);
+void					is_winner(int check);
+void					unlock_exit_game(t_var *var);
 
 #endif

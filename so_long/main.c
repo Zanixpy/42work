@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:01:32 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/16 16:26:18 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/17 17:31:05 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,56 @@
 
 static int	check_file(char *s)
 {
-	int	fd;
-	int	size;
+	char	**filename;
+	int		fd;
+	int		size;
+	int		i;
 
 	if (!s)
 		return (1);
-	size = ft_strlen(s);
-	if (size < 5)
+	i = 0;
+	filename = ft_split(s, '/');
+	if (!filename)
 		return (1);
-	if (!(s[size - 1] == 'r' && s[size - 2] == 'e' && s[size - 3] == 'b'
-			&& s[size - 4] == '.'))
-		return (1);
+	while (filename[i] != NULL)
+		i++;
+	size = ft_strlen(filename[i - 1]);
+	if (size == 4)
+		return (free_tab(&filename, i), 1);
+	if (!(filename[i - 1][size - 1] == 'r' && filename[i - 1][size - 2] == 'e'
+			&& filename[i - 1][size - 3] == 'b' && filename[i - 1][size
+			- 4] == '.'))
+		return (free_tab(&filename, i), 1);
 	fd = open(s, O_RDONLY);
 	if (fd < 0)
-		return (1);
-	return (close(fd), 0);
+		return (free_tab(&filename, i), 1);
+	return (free_tab(&filename, i), close(fd), 0);
 }
 
 static void	error_check(char c, int n)
 {
 	write(2, "Error\n", 6);
 	if (c == 'f')
-		write(2, "Bad file format or file descriptor", 34);
+		write(2, "Bad file format or file descriptor\n", 35);
 	else if (c == 'm')
 	{
-		if (n == 0)
-			write(2, "Map size is invalid", 19);
-		else if (n == 1)
-			write(2, "Map characters is invalid", 25);
+		if (n == 1)
+			write(2, "Map size is invalid\n", 20);
 		else if (n == 2)
-			write(2, "No path found in map", 20);
+			write(2, "Map characters is invalid\n", 26);
+		else if (n == 3)
+			write(2, "No path found in map\n", 21);
 	}
 	else if (c == 'c')
-		write(2, "Problem with parsing file into tab", 34);
+		write(2, "Problem with parsing file into tab\n", 35);
 	else if (c == 'b')
-		write(2, "Problem on creating the window or charging textures", 51);
+		write(2, "Problem on creating the window or charging textures\n", 52);
 }
 
-void update_coins(t_var *var, void *img)
+void	update_coins(t_var *var, void *img)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 1;
 	while (y < var->map.height)
@@ -63,39 +72,40 @@ void update_coins(t_var *var, void *img)
 		while (var->map.map[y][x])
 		{
 			if (var->map.map[y][x] == 'C')
-				mlx_put_image_to_window(var->mlx.init, var->mlx.win, img, x * 64, y * 64);
+				mlx_put_image_to_window(var->mlx.init, var->mlx.win, img, x
+					* 64, y * 64);
 			x++;
 		}
 		y++;
 	}
 }
 
-
-int update(t_var *var)
+int	update(t_var *var)
 {
-	static int ms = 0;
+	static int	ms = 0;
 
+	unlock_exit_game(var);
 	if (ms == 200)
 		update_coins(var, var->t.coins.c1);
-	if (ms == 800)
+	if (ms == 1200)
 		update_coins(var, var->t.coins.c2);
-	if (ms == 1400)
+	if (ms == 2200)
 		update_coins(var, var->t.coins.c3);
-	if (ms == 2000)
-		update_coins(var, var->t.coins.c4);
-	if (ms == 2600)
-		update_coins(var, var->t.coins.c5);
 	if (ms == 3200)
+		update_coins(var, var->t.coins.c4);
+	if (ms == 4200)
+		update_coins(var, var->t.coins.c5);
+	if (ms == 5200)
 		update_coins(var, var->t.coins.c6);
-	if (ms == 3800)
+	if (ms == 6200)
 		update_coins(var, var->t.coins.c7);
-	if (ms == 4400)
+	if (ms == 7200)
 	{
 		update_coins(var, var->t.coins.c8);
 		ms = 0;
 	}
-	ms++;			
-    return (0);
+	ms++;
+	return (0);
 }
 
 int	main(int argc, char **argv)

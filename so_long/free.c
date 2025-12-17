@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:17:53 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/15 21:35:40 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/17 16:26:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int	free_all(t_var *var)
 {
-	free_mlx_win(var);
 	free_textures(var);
 	free_var_tab(var);
+	free_mlx_win(var);
 	free_mlx(var);
 	exit(0);
 	return (0);
@@ -49,6 +49,7 @@ void	free_textures(t_var *var)
 	mlx_destroy_image(var->mlx.init, var->t.exit_game);
 	mlx_destroy_image(var->mlx.init, var->t.space);
 	mlx_destroy_image(var->mlx.init, var->t.wall);
+	mlx_destroy_image(var->mlx.init, var->t.lava);
 	mlx_destroy_image(var->mlx.init, var->t.coins.c1);
 	mlx_destroy_image(var->mlx.init, var->t.coins.c2);
 	mlx_destroy_image(var->mlx.init, var->t.coins.c3);
