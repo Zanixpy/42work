@@ -6,12 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:10 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/26 10:20:11 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/18 19:51:24 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "libft/libft.h"
+#include "libft.h"
 
 char	ft_hexa(int pos, char mode)
 {

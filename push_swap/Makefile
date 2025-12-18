@@ -1,7 +1,7 @@
 CC = cc 
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = 
+SRCS = push_swap.c check_args.c check_args_utils.c 
 OBJS = $(SRCS:.c=.o)
 NAME = push_swap
 
@@ -11,7 +11,7 @@ LIBFT   = $(LIBFT_DIR)/libft.a
 all: $(NAME) 
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) -Llibft -lft -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

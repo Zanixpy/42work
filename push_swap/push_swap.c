@@ -6,61 +6,39 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:53:03 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/17 21:44:20 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/18 22:03:26 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int check_args(int argc, char **argv)
+
+static int error(int code)
 {
-    int i;
-    int j;
-
-    i = 1;
-    while (i < argc)
-    {
-        j = 0;
-        while (argv[i][j])
-        {
-            if ((argv[i][0] != '-') || (argv[i][j] < '0' || argv[i][j] > '9'))
-		        return (1);
-            j++;
-        }
-        if (j > 11)
-            return (1);
-        i++;
-    }
-    return (0);
+    write(2, "Error\n", 6);
+    if (code == 1)
+        write(2, "No arguments or only one argument\n", 34);
+    else if (code == 2)
+        write(2, "Some arguments not being integers\n", 34);
+    else if (code == 3)
+        write(2, "Some arguments exceeding the integer limits\n", 44);
+    else if (code == 4)
+        write(2, "Presence of duplicates\n", 23);
+    return (code);
 }
-
-int check_int_limit(int argc, char **argv)
-{
-    long n;
-    int i;
-    int j;
-
-    i = 1;
-    n = 0;
-    while (i < argc)
-    {
-        j = 0;
-        n = ft_atoi(argv[i][j]
-        i++;
-    }
-    return (0);
-}
-
 
 int main(int argc, char **argv)
 {
-    t_list *stack;
+    // t_list *a;
+    // t_list *b;
+    
+    int     carg;
 
-    if (argc == 2)
-        return (1);
-        
-    
-    
-    
-    
+    if (argc == 2 || argc == 1)
+        return (error(1));
+    carg = check_args(argc, argv);
+    if (carg)
+        return (error(carg));
+    ft_printf("Aucune erreur\n");
+    return (0);
 }

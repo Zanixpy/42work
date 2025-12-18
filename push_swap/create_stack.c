@@ -1,0 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_stack.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/18 21:07:27 by omawele           #+#    #+#             */
+/*   Updated: 2025/12/18 23:06:03 by omawele          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# include "push_swap.h"
+
+t_stack	*stknew(int nb)
+{
+	t_stack	*p;
+
+	p = malloc(sizeof(t_stack));
+	if (p == NULL)
+		return (NULL);
+    p->nb = nb;
+    p->next = NULL;
+	return (p);
+}
+
+t_stack  *init_a_stack(int argc, char **argv)
+{
+    t_stack *p;
+    t_stack *tmp;
+    int     i;
+    int     nb;
+
+    i = 2;
+    nb = ft_atoi(argv[1]);
+    p = stknew(nb);
+    if (!p)
+        return (NULL);
+    while (i < argc)
+    {
+        nb = ft_atoi(argv[i]);
+        tmp = stknew(nb);
+        if (!tmp)
+            return (stkclear(&p), NULL);
+        stkadd_back(&p, tmp);
+        i++;
+    }
+    return (p);
+}
+
+t_stack  *init_b_stack(void)
+{
+    t_stack *p;
+
+    p = stknew(-1);
+    if (!p)
+        return (NULL);
+    return (p);
+}

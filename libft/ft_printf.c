@@ -6,13 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 13:39:24 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/02 18:23:32 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/18 19:55:08 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_is_format(char c)
+static int	ft_is_format(char c)
 {
 	const char	*format = "cspdiuxX%";
 
@@ -21,7 +21,7 @@ int	ft_is_format(char c)
 	return (0);
 }
 
-void	ft_print(char c, va_list *args, int *count)
+static void	ft_print(char c, va_list *args, int *count)
 {
 	if (c == 'd' || c == 'i')
 		ft_print_int((int)va_arg(*args, int), count);

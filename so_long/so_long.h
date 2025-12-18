@@ -6,14 +6,14 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:49:19 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/17 17:30:37 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/18 14:44:47 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "libft/libft.h"
+# include "libft/libft.h" 
 # include "mlx/mlx.h"
 # include <math.h>
 # include <sys/time.h>
