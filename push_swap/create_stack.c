@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:07:27 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/18 23:06:03 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/19 16:02:02 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ t_stack	*stknew(int nb)
     p->nb = nb;
     p->next = NULL;
 	return (p);
+}
+
+void	stkclear(t_stack **stk)
+{
+	t_stack	*current;
+	t_stack	*next;
+
+	if (!stk)
+		return ;
+	current = *stk;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	*stk = NULL;
 }
 
 t_stack  *init_a_stack(int argc, char **argv)
@@ -45,15 +62,5 @@ t_stack  *init_a_stack(int argc, char **argv)
         stkadd_back(&p, tmp);
         i++;
     }
-    return (p);
-}
-
-t_stack  *init_b_stack(void)
-{
-    t_stack *p;
-
-    p = stknew(-1);
-    if (!p)
-        return (NULL);
     return (p);
 }

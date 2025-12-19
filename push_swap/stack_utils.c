@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 22:09:48 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/18 22:49:21 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/19 16:04:45 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,11 @@ void	stkadd_back(t_stack **stk, t_stack *new)
 		p = p->next;
 	}
 }
-
-void	stkclear(t_stack **stk)
+void	stkdelone(t_list *stk)
 {
-	t_stack	*current;
-	t_stack	*next;
-
 	if (!stk)
 		return ;
-	current = *stk;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	*stk = NULL;
+	free(stk);
 }
 
 int	stksize(t_stack *stk)

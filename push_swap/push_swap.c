@@ -6,12 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:53:03 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/18 22:03:26 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/19 18:06:32 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 static int error(int code)
 {
@@ -24,14 +23,49 @@ static int error(int code)
         write(2, "Some arguments exceeding the integer limits\n", 44);
     else if (code == 4)
         write(2, "Presence of duplicates\n", 23);
+    else if (code == 5)
+        write(2, "Problem with the creation of stack a\n", 37);
     return (code);
 }
 
+static int print_operations(int code)
+{
+    if (code == 1)
+        ft_printf("sa\n");
+    else if (code == 2)
+        ft_printf("sb\n"); 
+    else if (code == 3)
+        ft_printf("ss\n"); 
+    else if (code == 4)
+        ft_printf("pa\n"); 
+    else if (code == 5)
+        ft_printf("pb\n");
+    else if (code == 6)
+        ft_printf("ra\n");
+    else if (code == 7)
+        ft_printf("rb\n");
+    else if (code == 8)
+        ft_printf("rr\n");
+    else if (code == 9)
+        ft_printf("rra\n");
+    else if (code == 10)
+        ft_printf("rrb\n");
+    else if (code == 11)
+        ft_printf("rrr\n");
+    return (code);
+}
+
+// int push_swap(t_stack **a, t_stack **b)
+// {
+    
+//     return (0);
+// }
+
 int main(int argc, char **argv)
 {
-    // t_list *a;
-    // t_list *b;
-    
+    t_stack *a;
+    t_stack *b;
+      
     int     carg;
 
     if (argc == 2 || argc == 1)
@@ -40,5 +74,15 @@ int main(int argc, char **argv)
     if (carg)
         return (error(carg));
     ft_printf("Aucune erreur\n");
+    b = NULL;
+    a = init_a_stack(argc, argv);
+    if (!a)
+        return (5);
+    ft_printf("a : %d\n", a->nb);
+    rra(&a);
+    print_operations(9);
+    ft_printf("a : %d\n", a->nb);
+    stkclear(&a);
+    stkclear(&b);
     return (0);
 }
