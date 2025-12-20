@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:07:17 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/19 17:40:06 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/20 18:18:08 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@ int stkempty(t_stack *p)
 
 t_stack	*stkbeflast(t_stack *stk)
 {
+	t_stack *next;
+	
 	if (!stk)
 		return (NULL);
-	while (stk != NULL)
+	next = stk->next;
+	while (next != NULL)
 	{
-		if (stk->next->next == NULL)
-			return (stk);
-		stk = stk->next;
+		stk = next;
+		next = next->next;			
 	}
-	return (NULL);
+	return (stk);
 }

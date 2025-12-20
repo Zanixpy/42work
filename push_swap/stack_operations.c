@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 15:47:58 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/19 17:27:57 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/20 18:02:57 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int sa(t_stack **a)
     t_stack *next;
 
     current = *a;
-    if (!stkempty(current) || stksize(current) == 1)
+    if (stkempty(current) || stksize(current) == 1)
         return (0);
     next = current->next;
     current->next = next->next;
@@ -32,7 +32,7 @@ int sb(t_stack **b)
     t_stack *next;
 
     current = *b;
-    if (!stkempty(current) || stksize(current) == 1)
+    if (stkempty(current) || stksize(current) == 1)
         return (0);
     next = current->next;
     current->next = next->next;
@@ -46,7 +46,7 @@ int pa(t_stack **a, t_stack **b)
     t_stack *next;
 
     current = *b;
-    if (!stkempty(current))
+    if (stkempty(current))
         return (0);
     next = current->next;
     *b = next;
@@ -60,7 +60,7 @@ int pb(t_stack **a, t_stack **b)
     t_stack *next;
 
     current = *a;
-    if (!stkempty(current))
+    if (stkempty(current))
         return (0);
     next = current->next;
     *a = next;

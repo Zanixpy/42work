@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 17:02:48 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/19 17:51:53 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/20 18:10:55 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ra(t_stack **a)
     t_stack *next;
 
     current = *a;
-    if (!stkempty(current) || stksize(current) == 1)
+    if (stkempty(current) || stksize(current) == 1)
         return (0);
     next = current->next;
     *a = next;
@@ -33,7 +33,7 @@ int rb(t_stack **b)
     t_stack *next;
 
     current = *b;
-    if (!stkempty(current) || stksize(current) == 1)
+    if (stkempty(current) || stksize(current) == 1)
         return (0);
     next = current->next;
     *b = next;
@@ -48,11 +48,15 @@ int rra(t_stack **a)
     t_stack *last;
 
     current = *a;
-    if (!stkempty(current) || stksize(current) == 1)
+    if (stkempty(current) || stksize(current) == 1)
         return (0);
     last = stklast(current);
+    ft_printf("Last\n");
     stkadd_front(a, last);
+    ft_printf("front\n");
+    current = *a;
     before_last = stkbeflast(current);
+    ft_printf("bef last\n");
     while (current->next != NULL)
     {
         if (current->nb == before_last->nb)
@@ -72,7 +76,7 @@ int rrb(t_stack **b)
     t_stack *last;
 
     current = *b;
-    if (!stkempty(current) || stksize(current) == 1)
+    if (stkempty(current) || stksize(current) == 1)
         return (0);
     last = stklast(current);
     stkadd_front(b, last);
