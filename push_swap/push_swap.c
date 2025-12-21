@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:53:03 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/21 18:14:33 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/21 20:18:22 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,16 @@ int print_operations(int code)
         ft_printf("rrr\n");
     return (code);
 }
-
-int is_sorted(t_stack *a)
+void print_stack(t_stack *p)
 {
-    t_stack *next;
+    int round = 0;
     
-    next = a->next;
-    while (a)
+    while (p)
     {
-        if (a->nb > next->nb)
-            return (ft_printf("Not sorted\n"));
-        next = next->next;
-    }
-    return (ft_printf("Sorted\n"), 0);
+        ft_printf("p[%d] : %d\n", round, p->nb);
+        round++;
+        p = p->next;
+    }   
 }
 
 int main(int argc, char **argv)
@@ -89,7 +86,6 @@ int main(int argc, char **argv)
     if (stk_size <= 1)
         return (stkclear(&a), 0);
     stack_sort_algorithm(&a, &b, stk_size);
-    is_sorted(a);
     stkclear(&a);
     return (0);
 }

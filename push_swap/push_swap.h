@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:50:03 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/21 18:08:42 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/21 20:01:29 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int rrr(t_stack **a, t_stack **b);
 void unit_tests(t_stack **a, t_stack **b);
 int print_operations(int code);
 int is_sorted(t_stack *a);
-void sort_three_algorithm(t_stack **p, int mode);
 void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size);
 
 #endif

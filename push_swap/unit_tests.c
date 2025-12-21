@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 15:46:03 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/21 16:51:40 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/21 20:12:55 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,16 @@ void reverse_rotate(t_stack **a, t_stack **b)
         ft_printf("KO\n");
 }
 
-void print_stack(t_stack *a, t_stack *b)
+void print_stack(t_stack *p)
 {
     int round = 0;
     
-    while (a)
+    while (p)
     {
-        ft_printf("a[%d] : %d\n", round, a->nb);
+        ft_printf("p[%d] : %d\n", round, p->nb);
         round++;
-        a = a->next;
-    }
-    round = 0;
-    while (b)
-    {
-        ft_printf("b[%d] : %d\n", round, b->nb);
-        round++;
-        b = b->next;
-    }    
+        p = p->next;
+    }   
 }
 
 void unit_tests(t_stack **a, t_stack **b)
@@ -94,9 +87,9 @@ void unit_tests(t_stack **a, t_stack **b)
     push(a, b);
     swap(a, b);
     rotate(a, b);
-    print_stack(*a, *b);
+    print_stack(*a);
     reverse_rotate(a,b);
-    print_stack(*a, *b);
+    print_stack(*a);
 }
 
 

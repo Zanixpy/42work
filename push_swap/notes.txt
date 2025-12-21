@@ -6,7 +6,5 @@
 
 # Sorting algorithm
 
-Warning if there's only 3 elements in stack a, I don't have to push
-em on stack b i can sort it within 2 steps max.
+Algo for sorting 3 numbers in stack
 
-First I push two numbers in stack b 
