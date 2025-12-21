@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 17:02:48 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/20 18:10:55 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/21 16:50:26 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,52 +44,50 @@ int rb(t_stack **b)
 int rra(t_stack **a)
 {
     t_stack *current;
-    t_stack *before_last;
-    t_stack *last;
+    t_stack *previous;
+    t_stack *next;
 
-    current = *a;
-    if (stkempty(current) || stksize(current) == 1)
+    if (stkempty(*a) || stksize(*a) == 1)
         return (0);
-    last = stklast(current);
-    ft_printf("Last\n");
-    stkadd_front(a, last);
-    ft_printf("front\n");
     current = *a;
-    before_last = stkbeflast(current);
-    ft_printf("bef last\n");
-    while (current->next != NULL)
+    next = current->next;
+    while (current)
     {
-        if (current->nb == before_last->nb)
+        if (!next)
         {
-            current->next = NULL;
-            break;            
+            previous->next = NULL;
+            break;
         }
-        current = current->next;
+        previous = current;
+        current = next;
+        next = next->next;
     }
+    stkadd_front(a, current); 
     return (9);
 }
 
 int rrb(t_stack **b)
 {
     t_stack *current;
-    t_stack *before_last;
-    t_stack *last;
+    t_stack *previous;
+    t_stack *next;
 
-    current = *b;
-    if (stkempty(current) || stksize(current) == 1)
+    if (stkempty(*b) || stksize(*b) == 1)
         return (0);
-    last = stklast(current);
-    stkadd_front(b, last);
-    before_last = stkbeflast(current);
-    while (current->next != NULL)
+    current = *b;
+    next = current->next;
+    while (current)
     {
-        if (current->nb == before_last->nb)
+        if (!next)
         {
-            current->next = NULL;
-            break;            
+            previous->next = NULL;
+            break;
         }
-        current = current->next;
+        previous = current;
+        current = next;
+        next = next->next;
     }
+    stkadd_front(b, current);    
     return (10);
 }
 

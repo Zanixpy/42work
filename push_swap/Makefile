@@ -3,7 +3,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 SRCS = push_swap.c check_args.c check_args_utils.c create_stack.c \
 	   stack_utils.c stack_utils_2.c stack_operations.c stack_operations_2.c \
-	   stack_operations_3.c
+	   stack_operations_3.c stack_sort_algorithm.c
 OBJS = $(SRCS:.c=.o)
 NAME = push_swap
 
@@ -13,7 +13,7 @@ LIBFT   = $(LIBFT_DIR)/libft.a
 all: $(NAME) 
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SRCS) -Llibft -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) -I. -Llibft -lft -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

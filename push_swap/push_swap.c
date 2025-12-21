@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:53:03 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/20 18:07:27 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/21 18:14:33 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int error(int code)
     return (code);
 }
 
-static int print_operations(int code)
+int print_operations(int code)
 {
     if (code == 1)
         ft_printf("sa\n");
@@ -55,34 +55,41 @@ static int print_operations(int code)
     return (code);
 }
 
-// int push_swap(t_stack **a, t_stack **b)
-// {
+int is_sorted(t_stack *a)
+{
+    t_stack *next;
     
-//     return (0);
-// }
+    next = a->next;
+    while (a)
+    {
+        if (a->nb > next->nb)
+            return (ft_printf("Not sorted\n"));
+        next = next->next;
+    }
+    return (ft_printf("Sorted\n"), 0);
+}
 
 int main(int argc, char **argv)
 {
     t_stack *a;
-    t_stack *b;
-      
+    t_stack *b;   
     int     carg;
+    int     stk_size;
 
     if (argc == 2 || argc == 1)
         return (error(1));
     carg = check_args(argc, argv);
     if (carg)
         return (error(carg));
-    ft_printf("Aucune erreur\n");
     b = NULL;
     a = init_a_stack(argc, argv);
     if (!a)
         return (5);
-    ft_printf("a : %d\n", a->nb);
-    rra(&a);
-    print_operations(9);
-    ft_printf("a : %d\n", a->nb);
+    stk_size = stksize(a);
+    if (stk_size <= 1)
+        return (stkclear(&a), 0);
+    stack_sort_algorithm(&a, &b, stk_size);
+    is_sorted(a);
     stkclear(&a);
-    stkclear(&b);
     return (0);
 }

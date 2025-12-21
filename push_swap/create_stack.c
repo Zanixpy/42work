@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:07:27 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/19 16:02:02 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/21 15:35:16 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	stkclear(t_stack **stk)
 	t_stack	*current;
 	t_stack	*next;
 
-	if (!stk)
+	if (!stk || !(*stk))
 		return ;
 	current = *stk;
 	while (current != NULL)

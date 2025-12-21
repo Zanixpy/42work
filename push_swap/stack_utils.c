@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 22:09:48 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/20 18:00:26 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/21 16:23:03 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	stkadd_front(t_stack **stk, t_stack *new)
 		*stk = new;
 		return ;
 	}
-	*stk = new;
 	new->next = p;
+	*stk = new;
 }
 
 void	stkadd_back(t_stack **stk, t_stack *new)

@@ -1,0 +1,12 @@
+### PUSH_SWAP ###
+
+# Description : Sort stacks by using the least operations
+
+# Arguments : stack a and stack b contains only negative or positive int
+
+# Sorting algorithm
+
+Warning if there's only 3 elements in stack a, I don't have to push
+em on stack b i can sort it within 2 steps max.
+
+First I push two numbers in stack b 
