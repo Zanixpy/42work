@@ -6,5 +6,15 @@
 
 # Sorting algorithm
 
-Algo for sorting 3 numbers in stack
+Algo for sorting 3 numbers in stack DONE
+
+Algo for sorting more than 3 numbers :
+
+- Push 2 numbers into b stack
+- Check for the min and the max
+- Calculate the cheapest numbers :
+    - Take every numbers check how many steps they need to be
+    the first in a stack and calculate how to be in b stack 
+    and we take the cheapest one and if there is no cheapest
+    we took the first. Ne
 

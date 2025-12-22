@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:50:03 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/21 20:01:29 by omawele          ###   ########.fr       */
+/*   Updated: 2025/12/22 14:46:36 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ void unit_tests(t_stack **a, t_stack **b);
 int print_operations(int code);
 int is_sorted(t_stack *a);
 void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size);
+void find_smallest_bigger_nb(t_stack *b, int *min, int *max);
+int find_nearest_nb(t_stack *b, int nb);
 
 #endif
