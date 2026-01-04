@@ -16,5 +16,18 @@ Algo for sorting more than 3 numbers :
     - Take every numbers check how many steps they need to be
     the first in a stack and calculate how to be in b stack 
     and we take the cheapest one and if there is no cheapest
-    we took the first. Ne
+    we took the first.
+
+
+
+### Putting nb first in a algo :
+
+- Get the size of stack
+- Get the position of the nb stack
+- if the position is bigger than the half size + 1 then juste rotate else just reverse rotate
+
+### Putting nb in b stack :
+
+- Check if nb is the new smallest biggest 
+- if it is, so put it at his place and if it's not so put the nb at the nearest number
 

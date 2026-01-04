@@ -6,11 +6,12 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:53:03 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/22 14:39:32 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/04 22:46:11 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft/libft.h"
 
 static int error(int code)
 {
@@ -85,10 +86,9 @@ int main(int argc, char **argv)
     stk_size = stksize(a);
     if (stk_size <= 1)
         return (stkclear(&a), 0);
-    // print_stack(a);
     stack_sort_algorithm(&a, &b, stk_size);
-    // print_stack(a);
+    ft_printf("a :\n");
+    print_stack(a);
     stkclear(&a);
-    stkclear(&b);
     return (0);
 }

@@ -6,11 +6,29 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 18:01:56 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/22 21:00:25 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/04 22:51:31 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
+#include <stdlib.h>
+
+ void set_operator_check(t_check_operators *o)
+{
+    o->pa = 0;
+    o->pb = 0;
+    o->sa = 0;
+    o->sb = 0;
+    o->ss = 0;
+    o->ra = 0;
+    o->rb = 0;
+    o->rr = 0;
+    o->rra = 0;
+    o->rrb = 0;
+    o->rrr = 0;
+    o->pos_stk = 0;
+}
 
 static void sort_three_algorithm(t_stack **p, int (*sw)(t_stack **), int (*rev)(t_stack **), int (*rrev)(t_stack **))
 {
@@ -38,36 +56,84 @@ static void sort_three_algorithm(t_stack **p, int (*sw)(t_stack **), int (*rev)(
         print_operations(rrev(p));
     }
 }
-
-void calculate_cheapest_step(t_stack **a, t_stack **b, int *min_b, int *max_b)
+int find_bigger_nb(t_stack *p)
 {
-    
+    int max;
+
+    max = p->nb;
+    while (p)
+    {
+        if (max < p->nb)
+            max = p->nb;
+        p = p->next;
+    }
+    return (max);
 }
 
-// void put_nb_first_in_a(t_stack **a, t_stack **b)
-// {
-//     ;
-// }
 
-// void put_nb to the_nearest()
+void rearrange(t_stack **a, t_stack **b)
+{
+    int max;
+    int first_nb_a;
 
+    max = find_bigger_nb(*b);
+    first_nb_a = (*a)->nb;
+    while ((*b)->nb != max) 
+    {
+        print_operations(rb(b)); 
+    }
+    if (max > first_nb_a && max > (*a)->next->nb && (*a)->next->next->nb)
+    {
+        while (!stkempty(*b)) 
+            print_operations(pa(a, b));    
+    }
+    ft_printf("%d \n", (*a)->nb);
+}
+
+void assemble(t_stack **a, t_stack **b)
+{
+    int first_nb_a;
+    int check_switch;
+
+    first_nb_a = (*a)->nb;
+    check_switch = 0;
+    if ((*b)->nb > first_nb_a)
+    {
+        check_switch = 1; 
+        print_operations(ra(a));
+    }
+    while (!stkempty(*b)) 
+    {
+  
+        if (check_switch && (*b)->nb < first_nb_a)
+        {
+            check_switch = 0;
+            print_operations(rra(a));
+        }
+        print_operations(pa(a, b));    
+    }
+}
 
 void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size)
 {
-    int min_b;
-    int max_b;
-
+    t_check_operators o;
+    
     if (stk_size <= 3)
         return (sort_three_algorithm(a, &sa, &ra, &rra));
     print_operations(pb(a, b));
     print_operations(pb(a, b));
-    find_smallest_bigger_nb(*b, &min_b, &max_b);
-    while (!stkempty(*b))
+    while (stksize(*a) > 3)
     {
-        /* code */
+        calculate_step(*a, *b, &o);
+        operator_exec(&o, a, b);
+        // print_stack(*b);
+        // ft_printf("\n");
+        
     }
-    
-    find_nearest_nb(*b, 13);   
+    sort_three_algorithm(a, &sa, &ra, &rra);
+    print_stack(*a);
+    rearrange(a, b);
+    assemble(a, b);
 }
 
 
