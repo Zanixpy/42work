@@ -31,3 +31,4 @@ Algo for sorting more than 3 numbers :
 - Check if nb is the new smallest biggest 
 - if it is, so put it at his place and if it's not so put the nb at the nearest number
 
+Fail nb negative

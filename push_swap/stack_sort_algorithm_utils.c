@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 14:30:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/04 20:44:25 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/06 13:34:26 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int find_nearest_nb(t_stack *b, int nb)
     tmp_diff = 0;
     while (b)
     {
-        if (nb > b->nb)
+        if (b->nb < nb)
             tmp_diff = nb - b->nb;
         else
             tmp_diff = b->nb - nb;
@@ -47,74 +47,37 @@ int check_num_position(t_stack *p, t_stack *b)
     return (0);        
 }
 
-void a_operator_exec(t_check_operators *o, t_stack **a, t_stack **b)
+int find_bigger_nb(t_stack *p)
 {
-    while (o->pa != 0) 
+    int max;
+
+    max = p->nb;
+    while (p)
     {
-        print_operations(pa(a, b));
-        o->pa--;
-    }  
-    while (o->ra != 0) 
-    {
-        print_operations(ra(a));
-        o->ra--;
+        if (max < p->nb)
+            max = p->nb;
+        p = p->next;
     }
-    while (o->rra != 0) 
-    {
-        print_operations(rra(a));
-        o->rra--;
-    }
-    while (o->sa != 0) 
-    {
-        print_operations(sa(a));
-        o->sa--;
-    }
+    return (max);
 }
 
-void b_operator_exec(t_check_operators *o, t_stack **a, t_stack **b)
+int find_smallest_nb(t_stack *p)
 {
-    while (o->rb != 0) 
+    int max;
+
+    max = p->nb;
+    while (p)
     {
-        print_operations(rb(b));
-        o->rb--;
+        if (max < p->nb)
+            max = p->nb;
+        p = p->next;
     }
-    while (o->rrb != 0) 
-    {
-        print_operations(rrb(b));
-        o->rrb--;
-    }
-    while (o->pb != 0) 
-    {
-        print_operations(pb(a, b));
-        o->pb--;
-    } 
-    while (o->sb != 0) 
-    {
-        print_operations(sb(b));
-        o->sb--;
-    }
+    return (max);
 }
 
-void operator_exec(t_check_operators *o, t_stack **a, t_stack **b)
-{
-    while (o->rrr != 0) 
-    {
-        print_operations(rrr(a, b));
-        o->rrr--; 
-    }
-    while (o->rr != 0) 
-    {
-        print_operations(rr(a, b));
-        o->rr--; 
-    }
-    while (o->ss != 0) 
-    {
-        print_operations(ss(a, b));
-        o->ss--; 
-    }
-    a_operator_exec(o, a, b);
-    b_operator_exec(o, a, b);
-}
+
+
+
 
 
 

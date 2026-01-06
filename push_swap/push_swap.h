@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:50:03 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/04 21:50:27 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/06 13:58:49 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,11 @@ int rrb(t_stack **b);
 int ss(t_stack **a, t_stack **b);
 int rr(t_stack **a, t_stack **b);
 int rrr(t_stack **a, t_stack **b);
-void unit_tests(t_stack **a, t_stack **b);
 int print_operations(int code);
-int is_sorted(t_stack *a);
 void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size);
-void find_smallest_bigger_nb(t_stack *b, int *min, int *max);
 int find_nearest_nb(t_stack *b, int nb);
 int find_stk_pos(t_stack *p, int nb);
 t_stack *find_stk(t_stack *p, int pos);
-void put_nb_first_stack(t_stack **p, int pos, int (*rev)(t_stack **), int (*rrev)(t_stack **));
 int check_num_position(t_stack *p, t_stack *b);
 void set_operator_check(t_check_operators *o);
 void calculate_step(t_stack *a, t_stack *b, t_check_operators *o);
@@ -75,6 +71,8 @@ void a_operator_exec(t_check_operators *o, t_stack **a, t_stack **b);
 void b_operator_exec(t_check_operators *o, t_stack **a, t_stack **b);
 void operator_exec(t_check_operators *o, t_stack **a, t_stack **b);
 int find_bigger_nb(t_stack *p);
+int find_smallest_nb(t_stack *p);
 void print_stack(t_stack *p);
+void check_for_being_first_in_stack(t_check_operators *o, int pos, char stk, int size_stk);
 
 #endif

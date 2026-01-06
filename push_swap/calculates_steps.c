@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 21:29:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/04 21:52:17 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/06 15:16:30 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void check_for_b(t_check_operators *o, t_stack *p, t_stack *b)
     check = check_num_position(p, b);
     nstk = find_stk_pos(b, nearest_nb);
     o->pb += 1;
+    if (nearest_nb == find_smallest_nb(b))
+        return;
     if (check == 1 &&  nstk == size_b - 1)
     {
         o->rb += 1;
@@ -108,5 +110,4 @@ void calculate_step(t_stack *a, t_stack *b, t_check_operators *o)
         set_operator_check(&tmp);
         t = t->next;
     }
-    
 }

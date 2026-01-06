@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 18:01:56 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/04 22:51:31 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/06 15:16:11 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,63 +56,36 @@ static void sort_three_algorithm(t_stack **p, int (*sw)(t_stack **), int (*rev)(
         print_operations(rrev(p));
     }
 }
-int find_bigger_nb(t_stack *p)
-{
-    int max;
-
-    max = p->nb;
-    while (p)
-    {
-        if (max < p->nb)
-            max = p->nb;
-        p = p->next;
-    }
-    return (max);
-}
 
 
-void rearrange(t_stack **a, t_stack **b)
-{
-    int max;
-    int first_nb_a;
+// void rearrange(t_stack **a, t_stack **b)
+// {
+//     int max;
+//     int first_nb_a;
 
-    max = find_bigger_nb(*b);
-    first_nb_a = (*a)->nb;
-    while ((*b)->nb != max) 
-    {
-        print_operations(rb(b)); 
-    }
-    if (max > first_nb_a && max > (*a)->next->nb && (*a)->next->next->nb)
-    {
-        while (!stkempty(*b)) 
-            print_operations(pa(a, b));    
-    }
-    ft_printf("%d \n", (*a)->nb);
-}
+//     max = find_bigger_nb(*b);
+//     first_nb_a = (*a)->nb;
+//     while ((*b)->nb != max) 
+//     {
+//         print_operations(rb(b)); 
+//     }
+//     if (max > first_nb_a && max > (*a)->next->nb && (*a)->next->next->nb)
+//     {
+//         while (!stkempty(*b)) 
+//             print_operations(pa(a, b));    
+//     }
+//     ft_printf("%d \n", (*a)->nb);
+// }
 
-void assemble(t_stack **a, t_stack **b)
-{
-    int first_nb_a;
-    int check_switch;
+// void assemble(t_stack **a, t_stack **b)
+// {
+//     int first_nb_a;
 
-    first_nb_a = (*a)->nb;
-    check_switch = 0;
-    if ((*b)->nb > first_nb_a)
-    {
-        check_switch = 1; 
-        print_operations(ra(a));
-    }
-    while (!stkempty(*b)) 
-    {
-  
-        if (check_switch && (*b)->nb < first_nb_a)
-        {
-            check_switch = 0;
-            print_operations(rra(a));
-        }
-        print_operations(pa(a, b));    
-    }
-}
+//     first_nb_a = (*a)->nb;
+//     if ((*b)->nb > first_nb_a)
+//         print_operations(ra(a));
+
+// }
 
 void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size)
 {
@@ -125,15 +98,19 @@ void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size)
     while (stksize(*a) > 3)
     {
         calculate_step(*a, *b, &o);
-        operator_exec(&o, a, b);
-        // print_stack(*b);
-        // ft_printf("\n");
-        
+        operator_exec(&o, a, b);    
     }
     sort_three_algorithm(a, &sa, &ra, &rra);
-    print_stack(*a);
-    rearrange(a, b);
-    assemble(a, b);
+    // ft_printf("a : \n");
+    // print_stack(*a);
+    // ft_printf("b : \n");
+    // print_stack(*b);
+    while (!stkempty(*b)) 
+    {
+        while (stklast(*a)->nb > (*b)->nb && find_bigger_nb(*a) != stklast(*a)->nb)
+            print_operations(rra(a));
+        print_operations(pa(a, b));    
+    }
 }
 
 
