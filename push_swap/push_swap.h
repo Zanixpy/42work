@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:50:03 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/06 13:58:49 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/07 14:56:51 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int find_bigger_nb(t_stack *p);
 int find_smallest_nb(t_stack *p);
 void print_stack(t_stack *p);
 void check_for_being_first_in_stack(t_check_operators *o, int pos, char stk, int size_stk);
+t_stack	*stk_beflast(t_stack *stk);
 
 #endif

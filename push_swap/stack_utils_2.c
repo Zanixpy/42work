@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:07:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/06 09:37:09 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/07 14:56:33 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,17 @@ t_stack *find_stk(t_stack *p, int pos)
         i++;
     }
     return (p);
+}
+
+t_stack	*stk_beflast(t_stack *stk)
+{
+	if (!stk)
+		return (NULL);
+	while (stk != NULL)
+	{
+		if (stk->next->next == NULL)
+			return (stk);
+		stk = stk->next;
+	}
+	return (NULL);
 }

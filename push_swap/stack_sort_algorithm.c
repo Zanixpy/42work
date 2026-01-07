@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 18:01:56 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/06 15:16:11 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/07 16:34:15 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,35 +57,22 @@ static void sort_three_algorithm(t_stack **p, int (*sw)(t_stack **), int (*rev)(
     }
 }
 
+int sorting_check(t_stack **a, t_stack **b)
+{
+    t_stack *last;
+    t_stack *beflast;
+    int bigger;
 
-// void rearrange(t_stack **a, t_stack **b)
-// {
-//     int max;
-//     int first_nb_a;
-
-//     max = find_bigger_nb(*b);
-//     first_nb_a = (*a)->nb;
-//     while ((*b)->nb != max) 
-//     {
-//         print_operations(rb(b)); 
-//     }
-//     if (max > first_nb_a && max > (*a)->next->nb && (*a)->next->next->nb)
-//     {
-//         while (!stkempty(*b)) 
-//             print_operations(pa(a, b));    
-//     }
-//     ft_printf("%d \n", (*a)->nb);
-// }
-
-// void assemble(t_stack **a, t_stack **b)
-// {
-//     int first_nb_a;
-
-//     first_nb_a = (*a)->nb;
-//     if ((*b)->nb > first_nb_a)
-//         print_operations(ra(a));
-
-// }
+    bigger = find_bigger_nb(*a);
+    last = stklast(*a);
+    beflast = stk_beflast(*a);
+    if (last->nb > (*b)->nb)
+    {
+        if (beflast->nb < (*b)->nb || last->nb != bigger)
+            return (1);
+    }
+    return (0);
+}
 
 void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size)
 {
@@ -98,19 +85,21 @@ void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size)
     while (stksize(*a) > 3)
     {
         calculate_step(*a, *b, &o);
-        operator_exec(&o, a, b);    
+        operator_exec(&o, a, b);   
     }
     sort_three_algorithm(a, &sa, &ra, &rra);
-    // ft_printf("a : \n");
-    // print_stack(*a);
-    // ft_printf("b : \n");
-    // print_stack(*b);
+    set_operator_check(&o);
+    check_for_being_first_in_stack(&o, find_stk_pos(*b, find_bigger_nb(*b)), 'b', stksize(*b));
+    operator_exec(&o, a, b);   
     while (!stkempty(*b)) 
     {
-        while (stklast(*a)->nb > (*b)->nb && find_bigger_nb(*a) != stklast(*a)->nb)
+        while (sorting_check(a, b))
             print_operations(rra(a));
-        print_operations(pa(a, b));    
+        print_operations(pa(a, b));  
     }
+    while (stklast(*a)->nb < (*a)->nb)
+        print_operations(rra(a));
+
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 09:41:02 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/06 09:41:49 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/07 15:44:43 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void b_operator_exec(t_check_operators *o, t_stack **a, t_stack **b)
     {
         print_operations(pb(a, b));
         o->pb--;
-    } 
+    }  
     while (o->sb != 0) 
     {
         print_operations(sb(b));

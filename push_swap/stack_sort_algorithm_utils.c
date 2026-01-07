@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 14:30:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/06 13:34:26 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/07 13:43:32 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ int find_bigger_nb(t_stack *p)
 
 int find_smallest_nb(t_stack *p)
 {
-    int max;
+    int min;
 
-    max = p->nb;
+    min = p->nb;
     while (p)
     {
-        if (max < p->nb)
-            max = p->nb;
+        if (min > p->nb)
+            min = p->nb;
         p = p->next;
     }
-    return (max);
+    return (min);
 }
 
 
