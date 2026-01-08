@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:50:03 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/07 14:56:51 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/08 15:27:24 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_check_operators
 int strcmp_int_limit(char *s, int mode);
 int check_args(int argc, char **argv);
 int	ft_strcmp(const char *s1, const char *s2);
-t_stack  *init_a_stack(int argc, char **argv);
+t_stack  *init_a_stack_args(int argc, char **argv);
 void	stkadd_front(t_stack **stk, t_stack *new);
 void	stkadd_back(t_stack **stk, t_stack *new);
 void	stkclear(t_stack **stk);
@@ -60,7 +60,7 @@ int ss(t_stack **a, t_stack **b);
 int rr(t_stack **a, t_stack **b);
 int rrr(t_stack **a, t_stack **b);
 int print_operations(int code);
-void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size);
+void stack_sort_algorithm(t_stack **a, t_stack **b);
 int find_nearest_nb(t_stack *b, int nb);
 int find_stk_pos(t_stack *p, int nb);
 t_stack *find_stk(t_stack *p, int pos);
@@ -75,5 +75,6 @@ int find_smallest_nb(t_stack *p);
 void print_stack(t_stack *p);
 void check_for_being_first_in_stack(t_check_operators *o, int pos, char stk, int size_stk);
 t_stack	*stk_beflast(t_stack *stk);
+void free_tab(char ***tab);
 
 #endif

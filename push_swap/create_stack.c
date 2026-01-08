@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:07:27 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/21 15:35:16 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/08 15:28:15 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	stkclear(t_stack **stk)
 	*stk = NULL;
 }
 
-t_stack  *init_a_stack(int argc, char **argv)
+t_stack  *init_a_stack_args(int argc, char **argv)
 {
     t_stack *p;
     t_stack *tmp;

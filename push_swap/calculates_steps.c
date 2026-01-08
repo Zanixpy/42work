@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 21:29:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/07 16:00:33 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/08 10:31:29 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,9 @@ void check_for_b(t_check_operators *o, t_stack *p, t_stack *b)
     nstk = find_stk_pos(b, nearest_nb);
     o->pb += 1;
     if (check == 1 &&  nstk == size_b - 1)
-    {
         o->rb += 1;
-        return;
-    }
     check_for_being_first_in_stack(o, nstk , 'b', size_b);
-    if (check == 1)
+    if (check == 1 && nstk != size_b - 1)
         o->sb += 1;
 }
 

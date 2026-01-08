@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 18:01:56 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/07 16:34:15 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/08 10:57:22 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,23 @@ int sorting_check(t_stack **a, t_stack **b)
     return (0);
 }
 
-void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size)
+void stack_sort_algorithm(t_stack **a, t_stack **b)
 {
     t_check_operators o;
     
-    if (stk_size <= 3)
+    if (stksize(*a) <= 3)
         return (sort_three_algorithm(a, &sa, &ra, &rra));
     print_operations(pb(a, b));
     print_operations(pb(a, b));
     while (stksize(*a) > 3)
     {
         calculate_step(*a, *b, &o);
-        operator_exec(&o, a, b);   
+        operator_exec(&o, a, b);
     }
     sort_three_algorithm(a, &sa, &ra, &rra);
     set_operator_check(&o);
     check_for_being_first_in_stack(&o, find_stk_pos(*b, find_bigger_nb(*b)), 'b', stksize(*b));
-    operator_exec(&o, a, b);   
+    operator_exec(&o, a, b);
     while (!stkempty(*b)) 
     {
         while (sorting_check(a, b))
@@ -99,7 +99,6 @@ void stack_sort_algorithm(t_stack **a, t_stack **b, int stk_size)
     }
     while (stklast(*a)->nb < (*a)->nb)
         print_operations(rra(a));
-
 }
 
 
