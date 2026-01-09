@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 t_stack	*stknew(int nb)
 {
@@ -19,8 +19,8 @@ t_stack	*stknew(int nb)
 	p = malloc(sizeof(t_stack));
 	if (p == NULL)
 		return (NULL);
-    p->nb = nb;
-    p->next = NULL;
+	p->nb = nb;
+	p->next = NULL;
 	return (p);
 }
 
@@ -41,26 +41,26 @@ void	stkclear(t_stack **stk)
 	*stk = NULL;
 }
 
-t_stack  *init_a_stack_args(int argc, char **argv)
+t_stack	*init_a_stack_args(int argc, char **argv)
 {
-    t_stack *p;
-    t_stack *tmp;
-    int     i;
-    int     nb;
+	t_stack	*p;
+	t_stack	*tmp;
+	int		i;
+	int		nb;
 
-    i = 2;
-    nb = ft_atoi(argv[1]);
-    p = stknew(nb);
-    if (!p)
-        return (NULL);
-    while (i < argc)
-    {
-        nb = ft_atoi(argv[i]);
-        tmp = stknew(nb);
-        if (!tmp)
-            return (stkclear(&p), NULL);
-        stkadd_back(&p, tmp);
-        i++;
-    }
-    return (p);
+	i = 2;
+	nb = ft_atoi(argv[1]);
+	p = stknew(nb);
+	if (!p)
+		return (NULL);
+	while (i < argc)
+	{
+		nb = ft_atoi(argv[i]);
+		tmp = stknew(nb);
+		if (!tmp)
+			return (stkclear(&p), NULL);
+		stkadd_back(&p, tmp);
+		i++;
+	}
+	return (p);
 }

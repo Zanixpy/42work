@@ -12,63 +12,62 @@
 
 #include "push_swap.h"
 
-int sa(t_stack **a)
+int	sa(t_stack **a)
 {
-    t_stack *current;
-    t_stack *next;
+	t_stack	*current;
+	t_stack	*next;
 
-    current = *a;
-    if (stkempty(current) || stksize(current) == 1)
-        return (0);
-    next = current->next;
-    current->next = next->next;
-    next->next = current;
-    *a = next;
-    return (1); 
+	current = *a;
+	if (stkempty(current) || stksize(current) == 1)
+		return (0);
+	next = current->next;
+	current->next = next->next;
+	next->next = current;
+	*a = next;
+	return (1);
 }
 
-int sb(t_stack **b)
+int	sb(t_stack **b)
 {
-    t_stack *current;
-    t_stack *next;
+	t_stack	*current;
+	t_stack	*next;
 
-    current = *b;
-    if (stkempty(current) || stksize(current) == 1)
-        return (0);
-    next = current->next;
-    current->next = next->next;
-    next->next = current;
-    *b = next;
-    return (2); 
+	current = *b;
+	if (stkempty(current) || stksize(current) == 1)
+		return (0);
+	next = current->next;
+	current->next = next->next;
+	next->next = current;
+	*b = next;
+	return (2);
 }
 
-int pa(t_stack **a, t_stack **b)
+int	pa(t_stack **a, t_stack **b)
 {
-    t_stack *current;
-    t_stack *next;
+	t_stack	*current;
+	t_stack	*next;
 
-    current = *b;
-    if (stkempty(current))
-        return (0);
-    next = current->next;
-    *b = next;
-    current->next = NULL;
-    stkadd_front(a, current);
-    return (4);
+	current = *b;
+	if (stkempty(current))
+		return (0);
+	next = current->next;
+	*b = next;
+	current->next = NULL;
+	stkadd_front(a, current);
+	return (4);
 }
 
-int pb(t_stack **a, t_stack **b)
+int	pb(t_stack **a, t_stack **b)
 {
-    t_stack *current;
-    t_stack *next;
+	t_stack	*current;
+	t_stack	*next;
 
-    current = *a;
-    if (stkempty(current))
-        return (0);
-    next = current->next;
-    *a = next;
-    current->next = NULL;
-    stkadd_front(b, current);
-    return (5);
+	current = *a;
+	if (stkempty(current))
+		return (0);
+	next = current->next;
+	*a = next;
+	current->next = NULL;
+	stkadd_front(b, current);
+	return (5);
 }
-

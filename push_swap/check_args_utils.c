@@ -12,26 +12,26 @@
 
 #include "push_swap.h"
 
-int strcmp_int_limit(char *s, int mode)
+int	strcmp_int_limit(char *s, int mode)
 {
-    char *int_max_min;
-    int size;
+	char	*int_max_min;
+	int		size;
 
-    if (mode)
-        int_max_min = "2147483647";
-    else
-        int_max_min = "-2147483648";
-    size = ft_strlen(s);
-    if ((mode == 0 && size <= 10) || (mode == 1 && size <= 9))
-        return (0);
-    while (*int_max_min)
-    {
-        if (*int_max_min < *s)
-            return (1);
-        int_max_min++;
-        s++;
-    }   
-    return (0);
+	if (mode)
+		int_max_min = "2147483647";
+	else
+		int_max_min = "-2147483648";
+	size = ft_strlen(s);
+	if ((mode == 0 && size <= 10) || (mode == 1 && size <= 9))
+		return (0);
+	while (*int_max_min)
+	{
+		if (*int_max_min < *s)
+			return (1);
+		int_max_min++;
+		s++;
+	}
+	return (0);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

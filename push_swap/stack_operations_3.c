@@ -12,32 +12,29 @@
 
 #include "push_swap.h"
 
-int ss(t_stack **a, t_stack **b)
+int	ss(t_stack **a, t_stack **b)
 {
-    if (stkempty(*a) || stkempty(*b) \
-        || stksize(*a) == 1 || stksize(*b) == 1)
-        return (0);
-    sa(a);
-    sb(b);
-    return (3);
+	if (stkempty(*a) || stkempty(*b) || stksize(*a) == 1 || stksize(*b) == 1)
+		return (0);
+	sa(a);
+	sb(b);
+	return (3);
 }
 
-int rr(t_stack **a, t_stack **b)
+int	rr(t_stack **a, t_stack **b)
 {
-    if (stkempty(*a) || stkempty(*b) \
-        || stksize(*a) == 1 || stksize(*b) == 1)
-        return (0);
-    ra(a);
-    rb(b);
-    return (8);
+	if (stkempty(*a) || stkempty(*b) || stksize(*a) == 1 || stksize(*b) == 1)
+		return (0);
+	ra(a);
+	rb(b);
+	return (8);
 }
 
-int rrr(t_stack **a, t_stack **b)
+int	rrr(t_stack **a, t_stack **b)
 {
-    if (stkempty(*a) || stkempty(*b) \
-        || stksize(*a) == 1 || stksize(*b) == 1)
-        return (0);
-    rra(a);
-    rrb(b);
-    return (11);
+	if (stkempty(*a) || stkempty(*b) || stksize(*a) == 1 || stksize(*b) == 1)
+		return (0);
+	rra(a);
+	rrb(b);
+	return (11);
 }

@@ -55,7 +55,7 @@ void	stkdelone(t_list *stk)
 
 int	stksize(t_stack *stk)
 {
-	int		n;
+	int	n;
 
 	if (!stk)
 		return (0);
