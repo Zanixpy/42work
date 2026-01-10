@@ -6,101 +6,112 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 21:29:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/09 17:35:44 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/10 17:44:52 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <string.h>
 
-void	get_a_costs(t_check_operators *o, t_stack *a, t_stack *p)
+void reset_all_costs(t_stack **a, t_stack **b)
+{
+	t_stack *current;
+
+	current = *a;
+	while (current) 
+	{
+		current->cheapest = 0;
+		current->push_cost = 0;
+		current->target_node = NULL;
+		current->above_median = 0;
+		current = current->next;	
+	}
+	current = *b;
+	while (current) 
+	{
+		current->cheapest = 0;
+		current->push_cost = 0;
+		current->target_node = NULL;
+		current->above_median = 0;
+		current = current->next;	
+	}
+}
+
+void	get_a_costs(t_stack **a, t_stack *p)
 {
 	int	size;
-	int	nstk;
 
-	size = stksize(a);
-	nstk = find_stk_pos(a, p->nb);
-	o->pos_stk = nstk;
-	if (nstk > (size - 1) / 2)
-		o->rra = size - nstk;
-	else
-		o->ra = nstk;
+	size = stksize(*a);
+	if (p->index > (size - 1) / 2)
+	{
+		p->above_median = 1;
+		p->push_cost += size - p->index;
+		return;
+	}
+	p->above_median = 0;
+	p->push_cost += p->above_median;
 }
 
-void	get_b_costs(t_check_operators *o, t_stack *b, t_stack *p)
+void	get_b_costs(t_stack **b, t_stack *p)
 {
 	int	closest_smaller_nb;
-	int	size_b;
-	int	nstk;
+	int	size;
+	t_stack *target;
 
-	closest_smaller_nb = find_closest_smaller_nb(b, p->nb);
-	size_b = stksize(b);
-	if (find_smallest_nb(b) > p->nb)
-		nstk = find_stk_pos(b, find_bigger_nb(b));
+	closest_smaller_nb = find_closest_smaller_nb(*b, p->nbr);
+	size = stksize(*b);
+	if (find_smallest_nb(*b) > p->nbr)
+		target = find_stk(*b, find_stk_pos(*b, find_bigger_nb(*b)));
 	else
-		nstk = find_stk_pos(b, closest_smaller_nb);
-	o->pos_stk = nstk;
-	if (nstk > (size_b - 1) / 2)
-		o->rrb = size_b - nstk;
-	else
-		o->rb = nstk;
+		target = find_stk(*b, find_stk_pos(*b, closest_smaller_nb));
+	if (target && target->index > (size - 1) / 2)
+	{
+		target->above_median = 1;
+		target->push_cost += size - target->index;
+	}
+	else if (target)
+	{
+		target->above_median = 0;
+		target->push_cost += target->index;
+	}
+	p->target_node = target;
 }
 
-int	total_steps(t_check_operators *o, t_stack *a, t_stack *b, t_stack *p)
+void	get_all_costs(t_stack **a, t_stack **b)
 {
-	int	result;
+	t_stack *tmp;
 
-	get_a_costs(o, a, p);
-	get_b_costs(o, b, p);
-	while (o->ra != 0 && o->rb != 0)
+	tmp = *a;
+	while (tmp) 
 	{
-		o->rr++;
-		o->ra--;
-		o->rb--;
+		get_a_costs(a, tmp);
+		get_b_costs(b, tmp);
+		// ft_printf("first a cost : %d et target node nb : %d\n", )
+		tmp = tmp->next;
 	}
-	while (o->rra != 0 && o->rrb != 0)
-	{
-		o->rrr++;
-		o->rra--;
-		o->rrb--;
-	}
-	while (o->sa != 0 && o->sb != 0)
-	{
-		o->ss++;
-		o->sa--;
-		o->sb--;
-	}
-	result = o->ra + o->rra + o->sa + o->rb + o->rrb + o->sb;
-	return (result);
 }
 
-void	calculate_step(t_stack *a, t_stack *b, t_check_operators *o)
+void	choose_cheapest(t_stack **a, t_stack **b)
 {
-	t_check_operators	tmp;
 	int					total;
 	int					total_tmp;
+	int 	index_cheapest;
 	t_stack				*t;
 
-	// int round;
-	set_operator_check(o);
-	set_operator_check(&tmp);
-	t = a;
+	t = *a;
 	total = 2147483646;
-	// round = 0;
-	// print_stack(a);
+	reset_all_costs(a, b);
+	get_all_costs(a, b);
 	while (t)
 	{
-		// ft_printf("ROund : %d\n", round);
-		total_tmp = total_steps(&tmp, a, b, t);
-		// ft_printf("Total_tmp : %d\n", total_tmp);
+		total_tmp = t->push_cost;
 		if (total > total_tmp)
 		{
 			total = total_tmp;
-			set_operator_check(o);
-			*o = tmp;
+			index_cheapest = t->index;
 		}
-		// ft_printf("Total : %d\n", total);
-		set_operator_check(&tmp);
 		t = t->next;
-		// round++;
 	}
+	t = find_stk(*a, index_cheapest);
+	t->cheapest = 1;
 }

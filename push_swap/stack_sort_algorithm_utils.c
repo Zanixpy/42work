@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 14:30:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/09 15:27:40 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/10 14:44:45 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	find_closest_smaller_nb(t_stack *b, int nb)
 	tmp_diff = 0;
 	while (b)
 	{
-		if (b->nb < nb)
-			tmp_diff = nb - b->nb;
-		if (tmp_diff < diff && b->nb < nb)
+		if (b->nbr < nb)
+			tmp_diff = nb - b->nbr;
+		if (tmp_diff < diff && b->nbr < nb)
 		{
 			diff = tmp_diff;
-			nearest_nb = b->nb;
+			nearest_nb = b->nbr;
 		}
 		b = b->next;
 	}
@@ -46,12 +46,12 @@ int	find_closest_bigger_nb(t_stack *a, int nb)
 	tmp_diff = 0;
 	while (a)
 	{
-		if (a->nb > nb)
-			tmp_diff = a->nb - nb;
-		if (tmp_diff < diff && a->nb > nb)
+		if (a->nbr > nb)
+			tmp_diff = a->nbr - nb;
+		if (tmp_diff < diff && a->nbr > nb)
 		{
 			diff = tmp_diff;
-			nearest_nb = a->nb;
+			nearest_nb = a->nbr;
 		}
 		a = a->next;
 	}
@@ -62,11 +62,11 @@ int	find_bigger_nb(t_stack *p)
 {
 	int	max;
 
-	max = p->nb;
+	max = p->nbr;
 	while (p)
 	{
-		if (max < p->nb)
-			max = p->nb;
+		if (max < p->nbr)
+			max = p->nbr;
 		p = p->next;
 	}
 	return (max);
@@ -76,12 +76,39 @@ int	find_smallest_nb(t_stack *p)
 {
 	int	min;
 
-	min = p->nb;
+	min = p->nbr;
 	while (p)
 	{
-		if (min > p->nb)
-			min = p->nb;
+		if (min > p->nbr)
+			min = p->nbr;
 		p = p->next;
 	}
 	return (min);
+}
+
+void being_on_top(t_stack **p, int index, char stk)
+{
+	t_stack *tmp;
+
+	tmp = find_stk(*p, index);
+	if (tmp->above_median)
+	{
+		if (stk == 'a')
+		{
+			while ((*p)->nbr != tmp->nbr)
+				print_operations(rra(p));
+			return;
+		}
+		while ((*p)->nbr != tmp->nbr)
+			print_operations(rrb(p));
+		return;
+	}
+	if (stk == 'b')
+	{
+		while ((*p)->nbr != tmp->nbr)
+			print_operations(ra(p));
+		return;
+	}
+	while ((*p)->nbr != tmp->nbr)
+		print_operations(rb(p));
 }

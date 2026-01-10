@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:53:03 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/09 18:34:56 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:42:54 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,9 @@ int	print_operations(int code)
 }
 void	print_stack(t_stack *p)
 {
-	int	round;
-
-	round = 0;
 	while (p)
 	{
-		ft_printf("p[%d] : %d\n", round, p->nb);
-		round++;
+		ft_printf("p[%d] : %d\n", p->index, p->nbr);
 		p = p->next;
 	}
 }

@@ -6,11 +6,12 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 22:09:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/06 13:58:42 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/10 16:37:33 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <string.h>
 
 void	stkadd_front(t_stack **stk, t_stack *new)
 {
@@ -22,6 +23,7 @@ void	stkadd_front(t_stack **stk, t_stack *new)
 		*stk = new;
 		return ;
 	}
+	new->prev = NULL;
 	new->next = p;
 	*stk = new;
 }
@@ -40,17 +42,12 @@ void	stkadd_back(t_stack **stk, t_stack *new)
 	{
 		if (p->next == NULL)
 		{
+			new->prev = p;
 			p->next = new;
 			return ;
 		}
 		p = p->next;
 	}
-}
-void	stkdelone(t_list *stk)
-{
-	if (!stk)
-		return ;
-	free(stk);
 }
 
 int	stksize(t_stack *stk)
@@ -79,4 +76,11 @@ t_stack	*stklast(t_stack *stk)
 		stk = stk->next;
 	}
 	return (NULL);
+}
+
+int	stkempty(t_stack *p)
+{
+	if (stksize(p) == 0)
+		return (1);
+	return (0);
 }

@@ -6,24 +6,26 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 17:02:48 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/21 16:50:26 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/10 14:53:02 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <string.h>
 
 int	ra(t_stack **a)
 {
 	t_stack	*current;
 	t_stack	*next;
 
-	current = *a;
-	if (stkempty(current) || stksize(current) == 1)
+	if (stkempty(*a) || stksize(*a) == 1)
 		return (0);
+	current = *a;
 	next = current->next;
 	*a = next;
 	current->next = NULL;
 	stkadd_back(a, current);
+	rearrange_index(a);
 	return (6);
 }
 
@@ -32,13 +34,14 @@ int	rb(t_stack **b)
 	t_stack	*current;
 	t_stack	*next;
 
-	current = *b;
-	if (stkempty(current) || stksize(current) == 1)
+	if (stkempty(*b) || stksize(*b) == 1)
 		return (0);
+	current = *b;
 	next = current->next;
 	*b = next;
 	current->next = NULL;
 	stkadd_back(b, current);
+	rearrange_index(b);
 	return (7);
 }
 int	rra(t_stack **a)
@@ -62,7 +65,9 @@ int	rra(t_stack **a)
 		current = next;
 		next = next->next;
 	}
+	current->prev = NULL;
 	stkadd_front(a, current);
+	rearrange_index(a);
 	return (9);
 }
 
@@ -87,6 +92,8 @@ int	rrb(t_stack **b)
 		current = next;
 		next = next->next;
 	}
+	current->prev = NULL;
 	stkadd_front(b, current);
+	rearrange_index(b);
 	return (10);
 }
