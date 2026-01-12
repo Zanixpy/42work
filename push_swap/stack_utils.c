@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 22:09:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/10 16:37:33 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/12 11:21:14 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,19 @@ t_stack	*stklast(t_stack *stk)
 	return (NULL);
 }
 
-int	stkempty(t_stack *p)
+void rearrange_index(t_stack **p)
 {
-	if (stksize(p) == 0)
-		return (1);
-	return (0);
+	t_stack *tmp;
+	int index;
+
+	if (!p || !(*p))
+		return;
+	tmp = *p;
+	index = 0;
+	while (tmp) 
+	{
+		tmp->index = index;
+		tmp = tmp->next;
+		index++;
+	}
 }

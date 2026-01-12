@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 17:02:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/10 14:53:02 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/12 11:19:32 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ra(t_stack **a)
 	t_stack	*current;
 	t_stack	*next;
 
-	if (stkempty(*a) || stksize(*a) == 1)
+	if (!(*a) || !a || stksize(*a) == 1)
 		return (0);
 	current = *a;
 	next = current->next;
@@ -34,7 +34,7 @@ int	rb(t_stack **b)
 	t_stack	*current;
 	t_stack	*next;
 
-	if (stkempty(*b) || stksize(*b) == 1)
+	if (!(*b) || !b || stksize(*b) == 1)
 		return (0);
 	current = *b;
 	next = current->next;
@@ -50,7 +50,7 @@ int	rra(t_stack **a)
 	t_stack	*previous;
 	t_stack	*next;
 
-	if (stkempty(*a) || stksize(*a) == 1)
+	if (!(*a) || !a || stksize(*a) == 1)
 		return (0);
 	current = *a;
 	next = current->next;
@@ -77,7 +77,7 @@ int	rrb(t_stack **b)
 	t_stack	*previous;
 	t_stack	*next;
 
-	if (stkempty(*b) || stksize(*b) == 1)
+	if (!(*b) || !b || stksize(*b) == 1)
 		return (0);
 	current = *b;
 	next = current->next;

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:07:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/10 17:19:35 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/12 11:21:13 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,4 @@ t_stack	*find_stk(t_stack *p, int index)
 	return (p);
 }
 
-void rearrange_index(t_stack **p)
-{
-	t_stack *tmp;
-	int index;
 
-	tmp = *p;
-	index = 0;
-	while (tmp) 
-	{
-		tmp->index = index;
-		tmp = tmp->next;
-		index++;
-	}
-}

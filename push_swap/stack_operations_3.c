@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 17:27:13 by omawele           #+#    #+#             */
-/*   Updated: 2025/12/21 16:04:48 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/12 11:20:48 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ss(t_stack **a, t_stack **b)
 {
-	if (stkempty(*a) || stkempty(*b) || stksize(*a) == 1 || stksize(*b) == 1)
+	if (!(*a) || !a || !(*b) || !b || stksize(*a) == 1 || stksize(*b) == 1)
 		return (0);
 	sa(a);
 	sb(b);
@@ -23,7 +23,7 @@ int	ss(t_stack **a, t_stack **b)
 
 int	rr(t_stack **a, t_stack **b)
 {
-	if (stkempty(*a) || stkempty(*b) || stksize(*a) == 1 || stksize(*b) == 1)
+	if (!(*a) || !a || !(*b) || !b || stksize(*a) == 1 || stksize(*b) == 1)
 		return (0);
 	ra(a);
 	rb(b);
@@ -32,7 +32,7 @@ int	rr(t_stack **a, t_stack **b)
 
 int	rrr(t_stack **a, t_stack **b)
 {
-	if (stkempty(*a) || stkempty(*b) || stksize(*a) == 1 || stksize(*b) == 1)
+	if (!(*a) || !a || !(*b) || !b || stksize(*a) == 1 || stksize(*b) == 1)
 		return (0);
 	rra(a);
 	rrb(b);
