@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 18:01:56 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/12 11:53:47 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/13 23:13:07 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,52 +41,38 @@ void	sort_three_algorithm(t_stack **a)
 	}
 }
 
-void being_two_at_same_time(t_stack **a, t_stack **b, t_stack *cheapest)
-{
-	if (cheapest->above_median && cheapest->target_node->above_median)
-	{
-		while ((*a)->nbr != cheapest->nbr && (*b)->nbr != cheapest->target_node->nbr)
-			print_operations(rrr(a, b));		
-	}
-	else if (!cheapest->above_median && !cheapest->target_node->above_median)
-	{
-		while ((*a)->nbr != cheapest->nbr && (*b)->nbr != cheapest->target_node->nbr)
-			print_operations(rr(a, b));	
-	}
-}
-
 void	execute_being_on_top(t_stack **a, t_stack **b)
 {
 	t_stack *current_a;
-	t_stack *current_b;
-
+	
 	current_a = *a;
-	current_b = *b;
 	while (current_a) 
 	{
 		if (current_a->cheapest)
-		{
-			being_two_at_same_time(a, b, current_a);
-			being_on_top(a, current_a->index, 'a');
 			break;
-		}
 		current_a = current_a->next;
 	}
-	while (current_b) 
+	if (!current_a || !current_a->target_node)
+		return;	
+	if (current_a->operator_both && current_a->above_median && current_a->target_node->above_median)
 	{
-		if (current_a->target_node->nbr == current_b->nbr)
-		{
-			being_on_top(b, current_b->index, 'b');
-			break;
-		}
-		current_b = current_b->next;
+		while (current_a->operator_both > 0 && current_a->operator_both--)
+			print_operations(rrr(a, b));
 	}
+	else if (current_a->operator_both && !current_a->above_median && !current_a->target_node->above_median)
+	{
+		while (current_a->operator_both > 0 && current_a->operator_both--)
+			print_operations(rr(a, b));
+	}
+	if (current_a->a_push_cost > 0)
+		being_on_top(a, current_a->index, 'a');
+	if (current_a->b_push_cost > 0)
+		being_on_top(b, current_a->target_node->index, 'b');
 }
 
 void	sorting_rest(t_stack **a, t_stack **b)
 {
 	int	size;
-	int smallest;
 	t_stack *target;
 
 	while (stksize(*b)) 
@@ -96,20 +82,21 @@ void	sorting_rest(t_stack **a, t_stack **b)
 			target = find_stk(*a, find_stk_pos(*a, find_smallest_nb(*a)));
 		else
 		 	target = find_stk(*a, find_stk_pos(*a, find_closest_bigger_nb(*a, (*b)->nbr)));
-		if (target && target->index > (size - 1) / 2)
-			target->above_median = 1;
-		else
-			target->above_median = 0;
-		being_on_top(a, target->index, 'a');
+		if (target)
+		{
+			if (target->index > (size - 1) / 2)
+				target->above_median = 1;
+			else
+				target->above_median = 0;
+			being_on_top(a, target->index, 'a');
+		}
 		print_operations(pa(a, b));
 	}
-	smallest = find_smallest_nb(*a);
-	while ((*a)->nbr != smallest)
-		print_operations(rra(a));
 }
 
 void	sort_algorithm(t_stack **a, t_stack **b)
 {
+	int b_bigger_nb;
 
 	if (stksize(*a) == 4)
 		print_operations(pb(a, b));
@@ -125,5 +112,7 @@ void	sort_algorithm(t_stack **a, t_stack **b)
 		print_operations(pb(a, b));
 	}
 	sort_three_algorithm(a);
+	b_bigger_nb = find_bigger_nb(*b);
+	being_on_top(b, find_stk_pos(*b, b_bigger_nb), 'b');
 	sorting_rest(a, b);
 }

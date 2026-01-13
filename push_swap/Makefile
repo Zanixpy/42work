@@ -4,7 +4,7 @@ CFLAGS = -Wall -Werror -Wextra
 SRCS = push_swap.c check_args.c check_args_utils.c create_stack.c \
 	   stack_utils.c stack_utils_2.c stack_operations.c stack_operations_2.c \
 	   stack_operations_3.c stack_sort_algorithm.c stack_sort_algorithm_utils.c \
-	   calculates_steps.c
+	   calculates_steps.c get_a_costs.c get_b_costs.c
 
 OBJS = $(SRCS:.c=.o)
 NAME = push_swap

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:53:03 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/12 11:56:41 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/13 23:29:42 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int	main(int argc, char **argv)
 		sort_three_algorithm(&a);
 	else
 		sort_algorithm(&a, &b);
-	// ft_printf("a :\n");
-	// print_stack(a);
+	ft_printf("a :\n");
+	print_stack(a);
 	stkclear(&a);
 	return (0);
 }

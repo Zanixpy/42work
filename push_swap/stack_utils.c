@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 22:09:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/12 11:21:14 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/13 18:09:38 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	stksize(t_stack *stk)
 	if (!stk)
 		return (0);
 	n = 0;
-	while (stk != NULL)
+	while (stk)
 	{
 		n++;
 		stk = stk->next;
@@ -69,7 +69,7 @@ t_stack	*stklast(t_stack *stk)
 {
 	if (!stk)
 		return (NULL);
-	while (stk != NULL)
+	while (stk)
 	{
 		if (stk->next == NULL)
 			return (stk);

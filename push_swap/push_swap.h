@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:50:03 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/10 17:28:14 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/13 23:21:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ typedef struct s_stack_node
 {
 	int nbr;
 	int index;
+	int a_push_cost;
+	int b_push_cost;
+	int operator_both;
 	int push_cost;
 	int above_median;
 	int cheapest;
@@ -82,6 +85,8 @@ int	find_closest_smaller_nb(t_stack *b, int nb);
 int	find_closest_bigger_nb(t_stack *a, int nb);
 int	find_bigger_nb(t_stack *p);
 int	find_smallest_nb(t_stack *p);
+void	get_a_costs(t_stack **a);
+void	get_b_costs(t_stack **b, t_stack **a, int b_bigger_nb, int b_smallest_nb);
 
 
 #endif

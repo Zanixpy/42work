@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 14:30:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/10 14:44:45 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/13 23:28:37 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,23 +91,25 @@ void being_on_top(t_stack **p, int index, char stk)
 	t_stack *tmp;
 
 	tmp = find_stk(*p, index);
+	if (tmp->index > (stksize(*p) - 1) / 2)
+		tmp->above_median = 1;
+	else
+		tmp->above_median = 0;
 	if (tmp->above_median)
 	{
 		if (stk == 'a')
 		{
 			while ((*p)->nbr != tmp->nbr)
 				print_operations(rra(p));
-			return;
 		}
 		while ((*p)->nbr != tmp->nbr)
 			print_operations(rrb(p));
 		return;
 	}
-	if (stk == 'b')
+	if (stk == 'a')
 	{
 		while ((*p)->nbr != tmp->nbr)
 			print_operations(ra(p));
-		return;
 	}
 	while ((*p)->nbr != tmp->nbr)
 		print_operations(rb(p));
