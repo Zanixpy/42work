@@ -6,13 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 14:30:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/13 23:28:37 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 11:41:38 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	find_closest_smaller_nb(t_stack *b, int nb)
+int	find_cs_nb(t_stack *b, int nb)
 {
 	int	nearest_nb;
 	int	diff;
@@ -35,7 +35,7 @@ int	find_closest_smaller_nb(t_stack *b, int nb)
 	return (nearest_nb);
 }
 
-int	find_closest_bigger_nb(t_stack *a, int nb)
+int	find_cb_nb(t_stack *a, int nb)
 {
 	int	nearest_nb;
 	int	diff;
@@ -86,9 +86,9 @@ int	find_smallest_nb(t_stack *p)
 	return (min);
 }
 
-void being_on_top(t_stack **p, int index, char stk)
+void	being_on_top(t_stack **p, int index, char stk)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	tmp = find_stk(*p, index);
 	if (tmp->index > (stksize(*p) - 1) / 2)
@@ -104,7 +104,7 @@ void being_on_top(t_stack **p, int index, char stk)
 		}
 		while ((*p)->nbr != tmp->nbr)
 			print_operations(rrb(p));
-		return;
+		return ;
 	}
 	if (stk == 'a')
 	{

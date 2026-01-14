@@ -6,19 +6,18 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 21:29:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/13 23:22:19 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 12:15:36 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <string.h>
 
-void reset_all_costs(t_stack **p)
+void	reset_all_costs(t_stack **p)
 {
-	t_stack *current;
+	t_stack	*current;
 
 	current = *p;
-	while (current) 
+	while (current)
 	{
 		current->cheapest = 0;
 		current->push_cost = 0;
@@ -27,37 +26,40 @@ void reset_all_costs(t_stack **p)
 		current->a_push_cost = 0;
 		current->b_push_cost = 0;
 		current->operator_both = 0;
-		current = current->next;	
+		current = current->next;
 	}
 }
 
-void assemble_costs(t_stack **a)
+void	assemble_costs(t_stack **a)
 {
-	t_stack *current;
+	t_stack	*current;
 
 	current = *a;
-	while (current) 
+	while (current)
 	{
-		if ((current->above_median && current->target_node->above_median && current->a_push_cost && current->b_push_cost) || 
-			(!current->above_median && !current->target_node->above_median && current->a_push_cost && current->b_push_cost))
+		if ((current->above_median && current->target_node->above_median
+				&& current->a_push_cost && current->b_push_cost)
+			|| (!current->above_median && !current->target_node->above_median
+				&& current->a_push_cost && current->b_push_cost))
 		{
 			while (current->a_push_cost && current->b_push_cost)
 			{
-				current->operator_both +=1;
+				current->operator_both += 1;
 				current->a_push_cost -= 1;
-				current->b_push_cost -= 1;		
-			}	
+				current->b_push_cost -= 1;
+			}
 		}
-		current->push_cost = current->operator_both + current->a_push_cost + current->b_push_cost;
+		current->push_cost = current->operator_both + current->a_push_cost
+			+ current->b_push_cost;
 		current = current->next;
 	}
 }
 
 void	get_all_costs(t_stack **a, t_stack **b)
 {
-	int b_bigger_nb;
-	int b_smallest_nb;
-	
+	int	b_bigger_nb;
+	int	b_smallest_nb;
+
 	b_bigger_nb = find_bigger_nb(*b);
 	b_smallest_nb = find_smallest_nb(*b);
 	reset_all_costs(a);
@@ -69,10 +71,10 @@ void	get_all_costs(t_stack **a, t_stack **b)
 
 void	choose_cheapest(t_stack **a, t_stack **b)
 {
-	int					total;
-	int					total_tmp;
-	int 	index_cheapest;
-	t_stack				*t;
+	int		total;
+	int		total_tmp;
+	int		index_cheapest;
+	t_stack	*t;
 
 	t = *a;
 	total = 2147483646;

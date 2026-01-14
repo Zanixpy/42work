@@ -6,13 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:07:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/12 11:21:13 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 11:34:25 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	find_stk_pos(t_stack *p, int nb)
+int	find_index(t_stack *p, int nb)
 {
 	if (!p)
 		return (-1);
@@ -39,5 +39,3 @@ t_stack	*find_stk(t_stack *p, int index)
 	}
 	return (p);
 }
-
-

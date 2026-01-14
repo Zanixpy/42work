@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 15:05:32 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/08 15:28:35 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 15:29:00 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,26 @@ static int	check_duplicates(int argc, char **argv)
 	return (0);
 }
 
+static int check_if_sorted(int argc, char **argv)
+{
+	int i;
+	int nb;
+	int nb2;
+
+	i = 1;
+	nb = 0;
+	nb2 = 0;
+	while (i < argc - 1)
+	{
+		nb = ft_atoi(argv[i]);
+		nb2 = ft_atoi(argv[i + 1]);
+		if (nb > nb2)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_args(int argc, char **argv)
 {
 	if (check_args_int(argc, argv))
@@ -78,5 +98,7 @@ int	check_args(int argc, char **argv)
 		return (3);
 	if (check_duplicates(argc, argv))
 		return (4);
+	if (check_if_sorted(argc, argv))
+		return (6);
 	return (0);
 }

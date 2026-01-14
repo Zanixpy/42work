@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 18:06:05 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/13 22:54:18 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 11:32:57 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 void	get_a_costs(t_stack **a)
 {
-	t_stack *current;
-    int size;
+	t_stack	*current;
+	int		size;
 
-    current = *a;
+	current = *a;
 	size = stksize(*a);
-    while (current) 
-    {
-        if (current->index > (size - 1) / 2)
-        {
-            current->above_median = 1;
-            current->a_push_cost = size - current->index;
-        }
-        else 
-        {
-            current->above_median = 0;
-            current->a_push_cost = current->index;
-        }
-        current = current->next;
-    }
+	while (current)
+	{
+		if (current->index > (size - 1) / 2)
+		{
+			current->above_median = 1;
+			current->a_push_cost = size - current->index;
+		}
+		else
+		{
+			current->above_median = 0;
+			current->a_push_cost = current->index;
+		}
+		current = current->next;
+	}
 }

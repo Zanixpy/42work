@@ -6,12 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 22:09:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/13 18:09:38 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 12:16:04 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <string.h>
 
 void	stkadd_front(t_stack **stk, t_stack *new)
 {
@@ -78,16 +77,16 @@ t_stack	*stklast(t_stack *stk)
 	return (NULL);
 }
 
-void rearrange_index(t_stack **p)
+void	rearrange_index(t_stack **p)
 {
-	t_stack *tmp;
-	int index;
+	t_stack	*tmp;
+	int		index;
 
 	if (!p || !(*p))
-		return;
+		return ;
 	tmp = *p;
 	index = 0;
-	while (tmp) 
+	while (tmp)
 	{
 		tmp->index = index;
 		tmp = tmp->next;

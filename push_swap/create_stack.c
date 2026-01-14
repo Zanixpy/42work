@@ -6,12 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:07:27 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/10 14:15:43 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 12:15:33 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <string.h>
 
 t_stack	*stknew(int nb)
 {
@@ -53,25 +52,21 @@ t_stack	*init_a_stack_args(int argc, char **argv)
 	t_stack	*tmp;
 	int		i;
 	int		nb;
-	int 	index;
 
 	i = 2;
-	index = 0;
 	nb = ft_atoi(argv[1]);
 	p = stknew(nb);
 	if (!p)
 		return (NULL);
-	p->index = index; 
 	while (i < argc)
 	{
-		index++;
 		nb = ft_atoi(argv[i]);
 		tmp = stknew(nb);
 		if (!tmp)
 			return (stkclear(&p), NULL);
-		tmp->index = index;
 		stkadd_back(&p, tmp);
 		i++;
 	}
+	rearrange_index(&p);
 	return (p);
 }

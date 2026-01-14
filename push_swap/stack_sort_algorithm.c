@@ -6,13 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 18:01:56 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/13 23:13:07 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 15:27:47 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
-#include <stdlib.h>
 
 void	sort_three_algorithm(t_stack **a)
 {
@@ -43,23 +41,23 @@ void	sort_three_algorithm(t_stack **a)
 
 void	execute_being_on_top(t_stack **a, t_stack **b)
 {
-	t_stack *current_a;
-	
+	t_stack	*current_a;
+
 	current_a = *a;
-	while (current_a) 
+	while (current_a)
 	{
 		if (current_a->cheapest)
-			break;
+			break ;
 		current_a = current_a->next;
 	}
-	if (!current_a || !current_a->target_node)
-		return;	
-	if (current_a->operator_both && current_a->above_median && current_a->target_node->above_median)
+	if (current_a->operator_both && current_a->above_median
+		&& current_a->target_node->above_median)
 	{
 		while (current_a->operator_both > 0 && current_a->operator_both--)
 			print_operations(rrr(a, b));
 	}
-	else if (current_a->operator_both && !current_a->above_median && !current_a->target_node->above_median)
+	else if (current_a->operator_both && !current_a->above_median
+		&& !current_a->target_node->above_median)
 	{
 		while (current_a->operator_both > 0 && current_a->operator_both--)
 			print_operations(rr(a, b));
@@ -72,16 +70,17 @@ void	execute_being_on_top(t_stack **a, t_stack **b)
 
 void	sorting_rest(t_stack **a, t_stack **b)
 {
-	int	size;
-	t_stack *target;
+	int		size;
+	int		smallest;
+	t_stack	*target;
 
-	while (stksize(*b)) 
+	while (stksize(*b))
 	{
 		size = stksize(*a);
 		if ((*b)->nbr > find_bigger_nb(*a))
-			target = find_stk(*a, find_stk_pos(*a, find_smallest_nb(*a)));
+			target = find_stk(*a, find_index(*a, find_smallest_nb(*a)));
 		else
-		 	target = find_stk(*a, find_stk_pos(*a, find_closest_bigger_nb(*a, (*b)->nbr)));
+			target = find_stk(*a, find_index(*a, find_cb_nb(*a, (*b)->nbr)));
 		if (target)
 		{
 			if (target->index > (size - 1) / 2)
@@ -92,11 +91,14 @@ void	sorting_rest(t_stack **a, t_stack **b)
 		}
 		print_operations(pa(a, b));
 	}
+	smallest = find_smallest_nb(*a);
+	while ((*a)->nbr != smallest)
+		print_operations(rra(a));
 }
 
 void	sort_algorithm(t_stack **a, t_stack **b)
 {
-	int b_bigger_nb;
+	int	b_bigger_nb;
 
 	if (stksize(*a) == 4)
 		print_operations(pb(a, b));
@@ -113,6 +115,6 @@ void	sort_algorithm(t_stack **a, t_stack **b)
 	}
 	sort_three_algorithm(a);
 	b_bigger_nb = find_bigger_nb(*b);
-	being_on_top(b, find_stk_pos(*b, b_bigger_nb), 'b');
+	being_on_top(b, find_index(*b, b_bigger_nb), 'b');
 	sorting_rest(a, b);
 }

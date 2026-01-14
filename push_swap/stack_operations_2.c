@@ -6,12 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 17:02:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/12 11:19:32 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 12:17:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <string.h>
 
 int	ra(t_stack **a)
 {
@@ -44,6 +43,7 @@ int	rb(t_stack **b)
 	rearrange_index(b);
 	return (7);
 }
+
 int	rra(t_stack **a)
 {
 	t_stack	*current;

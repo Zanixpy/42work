@@ -6,11 +6,10 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 19:53:03 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/13 23:29:42 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/14 15:29:38 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
 
 static int	error(int code)
@@ -55,14 +54,7 @@ int	print_operations(int code)
 		ft_printf("rrr\n");
 	return (code);
 }
-void	print_stack(t_stack *p)
-{
-	while (p)
-	{
-		ft_printf("p[%d] : %d\n", p->index, p->nbr);
-		p = p->next;
-	}
-}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
@@ -73,19 +65,21 @@ int	main(int argc, char **argv)
 	if (argc == 2 || argc == 1)
 		return (error(1));
 	carg = check_args(argc, argv);
-	if (carg)
+	if (carg == 6)
+		return (0);
+	else if (carg)
 		return (error(carg));
 	b = NULL;
 	a = init_a_stack_args(argc, argv);
 	if (!a)
 		return (5);
 	stk_size = stksize(a);
-	if (stk_size <= 3)
+	if (stk_size == 2)
+		print_operations(sa(&a));
+	else if (stk_size == 3)
 		sort_three_algorithm(&a);
 	else
 		sort_algorithm(&a, &b);
-	ft_printf("a :\n");
-	print_stack(a);
 	stkclear(&a);
 	return (0);
 }
