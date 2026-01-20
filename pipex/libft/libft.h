@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 11:53:36 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/15 15:09:35 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/19 14:35:11 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdarg.h>
 # include <errno.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10

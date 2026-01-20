@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/15 15:24:09 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/19 14:14:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,14 @@ void print_errors(int code)
 }
 
 
-
 int main(int argc, char *argv[], char *envp[])
 {
     int carg;
     
     if (argc != 5)
-        return (1);
+        return (print_errors(1), EXIT_FAILURE);
     carg = check_args(argv, envp);
-    int i = 0;
-    while (envp[i])
-    {
-        if (ft_strnstr(envp[i], "PATH", 4))
-            printf("%s\n", envp[i]);
-        i++;
-    }
-    return 0;
+    
+
+    return (EXIT_SUCCESS);
 }
