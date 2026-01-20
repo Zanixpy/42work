@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/19 14:14:40 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/20 18:08:20 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int main(int argc, char *argv[], char *envp[])
     if (argc != 5)
         return (print_errors(1), EXIT_FAILURE);
     carg = check_args(argv, envp);
+    if (carg)
+        return (print_errors(carg), EXIT_FAILURE);
     
-
     return (EXIT_SUCCESS);
 }

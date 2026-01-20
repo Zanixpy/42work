@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:22:14 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/19 16:16:22 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/20 18:05:22 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,15 @@ int checking_file(char *filename, char *filename2)
     return (close(fd), close(fd2), EXIT_SUCCESS);
 }
 
-int child_first_cmd_check(char *argv[], char *envp[])
-{
-    int status;
-    pid_t pid;
-
-    pid = fork();
-    if (pid == -1)
-        return (EXIT_FAILURE);
-    else if (pid == 0)
-    {
-        
-    }
-    else if (pid > 0)
-        waitpid(pid, &status, 0);
-
-
-    
-}
-
-int child_second_cmd_check(char *argv[], char *envp[])
-{
-    int status;
-    pid_t pid;
-
-    pid = fork();
-      if (pid == -1)
-        return (EXIT_FAILURE);
-    else if (pid == 0)
-        child_cmds_check();
-    else if (pid > 0)    
-}
-
-
-
 int checking_cmds(char *argv[], char *envp[])
 {
-        
-    return (0);
+    int result_cmd;
+    int result_cmd2;
+    
+    result_cmd = 0;
+    result_cmd2 = 0;
+
+    return (result_cmd + result_cmd2);       
 }
 
 int check_args(char *argv[], char *envp[])
