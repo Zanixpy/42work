@@ -12,29 +12,9 @@
 # include "../libft/libft.h"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main(int argc, char *argv[], char *envp[])
 {
-    int words_count;
-
-    words_count = count_words(argv[1]);
-    if (words_count == 1)
-        cmd_one_without_flags(argv, envp);
-    else if(words_count > 1)
-        cmd_one_with_flags(argv, envp);
+    execve(args[0], args, env_args);
+    printf("error\n");
     return (0);
 }

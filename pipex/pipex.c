@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/20 18:08:20 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/21 11:20:58 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void print_errors(int code)
 {
     write(2, "Error\n", 7);
     if (code == 1)
-        write(2, "More or less than 4 arguments", 29);
+        write(2, "More or less than 4 arguments\n", 30);
     else if (code == 2)
         perror("Open");
     else if (code == 3)
@@ -32,7 +32,6 @@ int main(int argc, char *argv[], char *envp[])
         return (print_errors(1), EXIT_FAILURE);
     carg = check_args(argv, envp);
     if (carg)
-        return (print_errors(carg), EXIT_FAILURE);
-    
+        return (print_errors(carg), EXIT_FAILURE); 
     return (EXIT_SUCCESS);
 }

@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/21 11:12:19 by omawele          ###   ########.fr       */
+/*   Created: 2026/01/21 11:03:38 by omawele           #+#    #+#             */
+/*   Updated: 2026/01/21 11:03:58 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include "libft/libft.h"
+void free_tab(char ***tab)
+{
+    int i;
 
-// Checkings arguments
-
-int check_args(char *argv[], char *envp[]);
-int	cmd_one_with_flags(char *argv[], char *envp[]);
-int	cmd_one_without_flags(char *argv[], char *envp[]);
-char *create_cmd(char *s);
-int	execve_cmd(char *cmd, char *argv[], char *envp[]);
-
-// Functs utils
-
-int count_words(char *s);
-void free_tab(char ***tab);
-
-
-
-#endif
+    i = 0;
+    while ((*tab)[i])
+    {
+        free((*tab)[i]);
+        i++;
+    }
+    free((*tab));
+}

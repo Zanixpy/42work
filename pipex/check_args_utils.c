@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 17:54:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/20 17:57:35 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/21 11:43:48 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,45 +34,59 @@ int count_words(char *s)
     return (count);
 }
 
-void free_tab(char ***tab)
+int	execve_cmd(char *cmd, char *argv[], char *envp[])
 {
-    int i;
+	pid_t	pid;
+	int		status;
 
-    i = 0;
-    while ((*tab)[i])
-    {
-        free((*tab)[i]);
-        i++;
-    }
-    free((*tab));
+	pid = fork();
+    status = 0;
+	if (pid == -1)
+		return (EXIT_FAILURE);
+	else if (pid == 0)
+	{
+		if (execve(cmd, argv, envp) == -1)
+			status = EXIT_FAILURE;
+		exit(status);
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
+	}
+	return (EXIT_SUCCESS);
 }
 
-char *create_bin_cmd(char *cmd)
+char *create_cmd(char *s)
 {
-    char *bin;
+	char *tmp;
+	char *final;
 
-    bin = ft_strjoin("/bin/", cmd);
-    if (!bin)
-        return (NULL);
-    return (bin);
+	tmp = ft_strtrim(s, " ");
+	if (!tmp)
+		return (NULL);
+	final = ft_strjoin("/bin/", tmp);
+	if (!final)
+		return (free(tmp), NULL);
+	return (free(tmp), final);
 }
 
-char *create_usr_bin_cmd(char *cmd)
-{
-    char *usr_bin;
 
-    usr_bin = ft_strjoin("/usr/bin/", cmd);
-    if (!usr_bin)
-        return (NULL);
-    return (usr_bin);
-}
 
-char **arrange_cmd(char *cmd)
+char **create_env(char *cmd, char *flags)
 {
     char **tab;
+    char **tmp;
+    int cw;
 
-    tab = ft_split(cmd, ' ');
-    if (!tab)
-        return (NULL);
-    return (tab);
+    cw = count_words(flags);
+    if (cw > 1)
+        tmp = ft_split(flags, ' ');
+    
+    
+    
 }
