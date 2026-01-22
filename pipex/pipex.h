@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/21 11:12:19 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/22 11:55:41 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define PIPEX_H
 
 # include "libft/libft.h"
+# define EXIT_FAIL_ARGS 2
+# define EXIT_FAIL_OPEN 3
+# define EXIT_FAIL_CMD 4
+# define EXIT_FAIL_PERM 5
 
 // Checkings arguments
 
