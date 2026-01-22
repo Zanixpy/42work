@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/22 11:55:41 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/22 16:33:16 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,18 @@
 # define EXIT_FAIL_CMD 4
 # define EXIT_FAIL_PERM 5
 
-// Checkings arguments
+// Arguments Validation 
 
-int check_args(char *argv[], char *envp[]);
-int	cmd_one_with_flags(char *argv[], char *envp[]);
-int	cmd_one_without_flags(char *argv[], char *envp[]);
+int args_validation(char *argv[]);
+
+// Files utils
+
+int open_fd(char *filename, int mode);
+void close_fds(int fd1, int fd2);
+int *create_fds(char *filename1, char *filename2, int mode1, int mode2);
+
+// Cmds utils
+
 char *create_cmd(char *s);
 int	execve_cmd(char *cmd, char *argv[], char *envp[]);
 

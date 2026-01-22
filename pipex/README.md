@@ -64,13 +64,10 @@ Function check_first_file :
 Function check_second_file :
 - char *filename2 : represent the name of the second file
 
-Function check_first_cmd :
+Function check_cmds :
 - char *cmdname1 : represent the name of the 1st shell command
-- char **envp
+- char *cmdname2 : represent the name of the 1st shell command
 
-Function check_second_cmd :
-- char *cmdname2 : represent the name of the 2nd shell command
-- char **envp
 
 Locals variable :
 - int fd1 : represent the file descriptor of the first file
@@ -111,7 +108,7 @@ IF FD2 == -1 :
     RETURN EXIT_FAIL_OPEN
 RETURN EXIT_SUCCESS
 
-Function check_first_cmd && check_second_cmd :
+Function check_cmds:
 clean_cmd
 IF execute_cmd :
     RETURN EXIT_FAIL_CMD

@@ -11,10 +11,11 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
-
 int main(int argc, char *argv[], char *envp[])
 {
-    execve(args[0], args, env_args);
-    printf("error\n");
+    if (access(argv[1], F_OK) == -1)
+        printf("Don't exist\n");
+    else 
+        printf("Exist\n");
     return (0);
 }
