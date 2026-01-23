@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/22 16:33:16 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/23 15:57:02 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,23 @@
 # define PIPEX_H
 
 # include "libft/libft.h"
-# define EXIT_FAIL_ARGS 2
-# define EXIT_FAIL_OPEN 3
-# define EXIT_FAIL_CMD 4
-# define EXIT_FAIL_PERM 5
+# define EXIT_FAIL_ARGS 00200
+# define EXIT_FAIL_OPEN 00300
+# define EXIT_FAIL_CMD 00400
+# define EXIT_FAIL_PERM 00500
+# define EXIT_FAIL_PIPE 00600
+# define EXIT_FAIL_FORK 00700
+
+
+// Main function
+
+int pipex(char **argv, char **envp);
+
+// Pipex utils
+
+char **create_tab_with_flags(char *cmd, char **flags, char *filename, int size_flags);
+char **create_env_with_flags(char *cmd, char *original_cmd, char *filename1);
+char **create_env_without_flags(char *cmd, char *filename1);
 
 // Arguments Validation 
 
@@ -27,7 +40,7 @@ int args_validation(char *argv[]);
 
 int open_fd(char *filename, int mode);
 void close_fds(int fd1, int fd2);
-int *create_fds(char *filename1, char *filename2, int mode1, int mode2);
+int *create_fds(void);
 
 // Cmds utils
 

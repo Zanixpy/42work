@@ -6,38 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:02:22 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/22 17:00:57 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/23 15:07:10 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	execve_cmd(char *cmd, char *argv[], char *envp[])
-{
-	pid_t	pid;
-	int		status;
 
-	pid = fork();
-    status = 0;
-	if (pid == -1)
-		return (EXIT_FAILURE);
-	else if (pid == 0)
-	{
-		if (execve(cmd, argv, envp) == -1)
-			status = EXIT_FAILURE;
-		exit(status);
-	}
-	else if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-		{
-			if (WEXITSTATUS(status) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
-		}
-	}
-	return (EXIT_SUCCESS);
-}
 
 char *separate_cmd_flags(char *s)
 {
@@ -76,8 +51,6 @@ char *create_cmd(char *s)
 		return (free(tmp), NULL);
 	return (free(tmp), final);
 }
-
-
 
 // char **create_env(char *cmd, char *flags)
 // {

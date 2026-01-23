@@ -25,7 +25,7 @@ Input :
 Output :
 - Type : [void]
 - Description : the function returns nothing but only change the content of the second file by the content of the first file transformed by both commands-line
-- Errors code : EXIT_FAILURE, EXIT_FAIL_OPEN, EXIT_FAIL_CMD, EXIT_FAIL_ARGS, EXIT_FAIL_PERM
+- Errors code : EXIT_FAILURE, EXIT_FAIL_OPEN, EXIT_FAIL_CMD, EXIT_FAIL_ARGS, EXIT_FAIL_PERM, EXIT_FAIL_FORK, EXIT_FAIL_PIPE
 ```
 
 ## Break down into sub-problems
@@ -35,17 +35,14 @@ Main issue : Doing the pipe concept
 │   ├── args_validation
 │       ├── check_first_file 
 |       ├── check_second_file
-|       ├── check_first_cmd
-|           ├── clean_cmd
-|           ├── execute_cmd
-│       └── check_second_cmd
+│       └── check_cmds
 ├── Sub-problem 2 : Storing in pipe file the result of 1st shell cmd
 │   ├── change_stdin
 │   ├── putback_stdin 
 │   └── execute_first_cmd 
 ├── Sub-problem 3 : Storing in pipe file the result of 2nd shell cmd
-│   ├── change_stdin
-│   ├── putback_stdin
+│   ├── change_stdout
+│   ├── putback_stdout
 │   └── execute_second_cmd 
 ├── Sub-problem 4 : Writing the content of pipe file in 2nd file
 │   ├── write_in_file
@@ -67,6 +64,12 @@ Function check_second_file :
 Function check_cmds :
 - char *cmdname1 : represent the name of the 1st shell command
 - char *cmdname2 : represent the name of the 1st shell command
+
+Function execute_first_cmd :
+- char *cmd
+- char **argv
+- char **envp
+- int **fds
 
 
 Locals variable :
