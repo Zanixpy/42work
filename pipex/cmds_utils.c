@@ -6,11 +6,14 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:02:22 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/26 14:05:40 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/26 16:49:50 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "pipex.h"
+#include <cstdlib>
+#include <string.h>
 
 char *separate_cmd_flags(char *s)
 {
@@ -102,12 +105,15 @@ char **create_env_with_flags(char *cmd, char *original_cmd, char *filename1)
 char **create_env_without_flags(char *cmd, char *filename1)
 {
     char **tab;
-    char *tmp;
 
     tab = ft_calloc(3, sizeof(char *));
     if (!tab)
         return (NULL);
-    tab[0] = cmd;
-    tab[1] = filename1;
+    tab[0] = ft_strdup(cmd);
+	if (!(tab[0]))
+		return (free(tab), NULL);
+    tab[1] = ft_strdup(filename1);
+	if (!(tab[1]))
+		return (free(tab[0]), free(tab), NULL);
     return (tab);
 }

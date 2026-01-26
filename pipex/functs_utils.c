@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:05:57 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/23 15:46:39 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/26 16:59:07 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,16 @@ char **create_tab_with_flags(char *cmd, char **flags, char *filename, int size_f
     if (!tab)
         return (NULL);
     i = 0;
-    // tab[0] = ft_calloc(ft_strlen(cmd), sizeof(char));
-    tab[0] = cmd;
+    tab[0] = ft_strdup(cmd);
     if (!(tab[0]))
         return (free(tab), NULL);
     while (i++ < size_flags) 
     {
-        // tab[i] = ft_calloc(ft_strlen(flags[i]), sizeof(char));
-        tab[i] = flags[i];
+        tab[i] = ft_strdup(flags[i]);
         if (!(tab[i]))
             return (free_tab(&tab), NULL);
     }
-    // tab[size - 1] = ft_calloc(ft_strlen(filename), sizeof(char));
-    tab[size - 1] = filename;
+    tab[size - 1] = ft_strdup(filename);
     if (!(tab[size - 1]))
         return (free_tab(&tab), NULL);
     return (tab);
