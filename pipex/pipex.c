@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/23 14:45:28 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/26 14:16:09 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int print_errors(int code)
     return (code);
 }
 
-int pipex(char **argv, char **envp)
+int pipex(char **argv, char **envp, int buffer_fd)
 {
     int *fds;
     int fd1;
-    int fd2;    
-    int id;
+    int fd2;
+    int buffer_result;    
 
     fds = create_fds();
     if (!fds)
@@ -48,14 +48,16 @@ int pipex(char **argv, char **envp)
     fd2 = open_fd(argv[4], O_WRONLY);
     if (fd1 == EXIT_FAIL_OPEN || fd2 == EXIT_FAIL_OPEN)
         return (close_fds(fd1, fd2), free(fds), EXIT_FAIL_OPEN);
-    id = fork();
-    if (id == -1)
-        return (close_fds(fd1, fd2), free(fds), EXIT_FAIL_FORK);
-    else if (id == 0)
-    {
-        
-    }
-    else
+    if (execute_first_cmd(fds, argv, envp) == EXIT_FAILURE)
+        return (close_fds(fd1, fd2), free(fds), EXIT_FAILURE);
+    buffer_result = buffer_pipe(fds, buffer_fd);
+    if (buffer_result)
+        return (close_fds(fd1, fd2), free(fds), EXIT_FAILURE);
+    if (execute_second_cmd(fds, argv, envp) == EXIT_FAILURE)
+        return (close_fds(fd1, fd2), free(fds), EXIT_FAILURE);
+    buffer_result = buffer_pipe(fds, buffer_fd);
+    if (buffer_result)
+        return (close_fds(fd1, fd2), free(fds), EXIT_FAILURE);
     return (close_fds(fd1, fd2), free(fds), EXIT_SUCCESS);
 }
 
@@ -63,13 +65,17 @@ int main(int argc, char **argv, char **envp)
 {
     int carg;
     int result;
+    int buffer_file;
     
     if (argc != 5)
         return (print_errors(EXIT_FAIL_ARGS));
     carg = args_validation(argv);
     if (carg)
         return (print_errors(carg));
-    result = pipex(argv, envp);
+    buffer_file = create_buffer_file();
+    if (buffer_file == EXIT_FAILURE)
+        return (print_errors(buffer_file));
+    result = pipex(argv, envp, buffer_file);
     if (result)
         return (print_errors(result)); 
     return (EXIT_SUCCESS);

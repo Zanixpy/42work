@@ -6,13 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:02:22 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/23 15:07:10 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/26 14:05:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-
 
 char *separate_cmd_flags(char *s)
 {
@@ -52,13 +50,64 @@ char *create_cmd(char *s)
 	return (free(tmp), final);
 }
 
-// char **create_env(char *cmd, char *flags)
-// {
-//     char **tab;
-//     char **tmp;
-//     int cw;
+int	execve_cmd(char *cmd, char *argv[], char *envp[])
+{
+	pid_t	pid;
+	int		status;
 
-//     cw = count_words(flags);
-//     if (cw > 1)
-//         tmp = ft_split(flags, ' ');   
-// }
+	pid = fork();
+    status = 0;
+	if (pid == -1)
+		return (EXIT_FAILURE);
+	else if (pid == 0)
+	{
+		if (execve(cmd, argv, envp) == -1)
+			status = EXIT_FAILURE;
+		exit(status);
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
+	}
+	return (EXIT_SUCCESS);
+}
+
+char **create_env_with_flags(char *cmd, char *original_cmd, char *filename1)
+{
+    char **tab;
+    char **tab_tmp;
+    char *tmp;
+    int size_flags;
+
+    tmp = ft_strtrim(original_cmd, " ");
+    if (!tmp)
+        return (NULL);
+    tab_tmp = ft_split(tmp, ' ');
+    if (!tab_tmp)
+        return (free(tmp), NULL);
+    size_flags = 0;
+    while (tab_tmp[size_flags]) 
+        size_flags++;
+    tab = create_tab_with_flags(cmd, tab_tmp, filename1, size_flags - 1);
+    if (!tab)
+        return (free(tmp), free_tab(&tab_tmp), NULL);
+    return (free(tmp), free_tab(&tab_tmp), tab);   
+}
+
+char **create_env_without_flags(char *cmd, char *filename1)
+{
+    char **tab;
+    char *tmp;
+
+    tab = ft_calloc(3, sizeof(char *));
+    if (!tab)
+        return (NULL);
+    tab[0] = cmd;
+    tab[1] = filename1;
+    return (tab);
+}

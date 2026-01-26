@@ -111,11 +111,6 @@ IF FD2 == -1 :
     RETURN EXIT_FAIL_OPEN
 RETURN EXIT_SUCCESS
 
-Function check_cmds:
-clean_cmd
-IF execute_cmd :
-    RETURN EXIT_FAIL_CMD
-RETURN EXIT_SUCCESS
 
 
 

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/23 15:57:02 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/26 14:06:37 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,22 @@
 
 // Main function
 
-int pipex(char **argv, char **envp);
+int pipex(char **argv, char **envp, int buffer_fd);
 
 // Pipex utils
 
 char **create_tab_with_flags(char *cmd, char **flags, char *filename, int size_flags);
 char **create_env_with_flags(char *cmd, char *original_cmd, char *filename1);
 char **create_env_without_flags(char *cmd, char *filename1);
+int execute_first_cmd(int *fds, char **argv, char **envp);
+int execute_second_cmd(int *fds, char **argv, char **envp);
+
+// Buffer file utils
+
+int create_buffer_file(void);
+int write_on_buffer(int wr_fd, int rd_fd);
+int delete_file(int fd);
+int	buffer_pipe(int *fds, int buffer_fd);
 
 // Arguments Validation 
 
