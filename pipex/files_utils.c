@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 17:54:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/23 11:42:21 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/27 17:12:32 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int open_fd(char *filename, int mode)
 
 void close_fds(int fd1, int fd2)
 {
-	if (fd1 > 2)
+	if (fd1 > -1)
 		close(fd1);
-	if (fd2 > 2)
+	if (fd2 > -1)
 		close (fd2);
 }
 

@@ -6,13 +6,12 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:02:22 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/26 16:49:50 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/27 12:26:12 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "pipex.h"
-#include <cstdlib>
 #include <string.h>
 
 char *separate_cmd_flags(char *s)

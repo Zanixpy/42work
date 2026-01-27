@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/26 14:06:37 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/27 17:44:42 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char **create_tab_with_flags(char *cmd, char **flags, char *filename, int size_f
 char **create_env_with_flags(char *cmd, char *original_cmd, char *filename1);
 char **create_env_without_flags(char *cmd, char *filename1);
 int execute_first_cmd(int *fds, char **argv, char **envp);
-int execute_second_cmd(int *fds, char **argv, char **envp);
+int execute_second_cmd(int fd2, char **argv, char **envp);
 
 // Buffer file utils
 
@@ -60,7 +60,8 @@ int	execve_cmd(char *cmd, char *argv[], char *envp[]);
 
 int count_words(char *s);
 void free_tab(char ***tab);
-
+void free_tab_index(char ***tab, int x);
+void print_file(int fd);
 
 
 #endif

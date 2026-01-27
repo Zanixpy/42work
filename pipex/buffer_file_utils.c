@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 13:23:10 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/26 14:01:51 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/27 17:48:01 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int create_buffer_file(void)
 {
-    int buffer_file;
+    int buffer_fd;
 
-    buffer_file = open("buffer_file.txt", O_CREAT, 700 | 010 | 001);
-    if (buffer_file == -1)
+    buffer_fd = open("buffer_file.txt", O_WRONLY | O_CREAT, 700 | 010 | 001);
+    if (buffer_fd == -1)
         return (EXIT_FAILURE);
-    return (buffer_file);
+    return (buffer_fd);
 }
 
 int write_on_buffer(int wr_fd, int rd_fd)
@@ -70,6 +70,7 @@ int	buffer_pipe(int *fds, int buffer_fd)
 	}
 	else if (pid > 0)
 	{
+        close_fds(fds[0], fds[1]);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
 				return (EXIT_FAILURE);

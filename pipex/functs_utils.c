@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:05:57 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/26 16:59:07 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/27 16:43:47 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,11 @@ char **create_tab_with_flags(char *cmd, char **flags, char *filename, int size_f
     {
         tab[i] = ft_strdup(flags[i]);
         if (!(tab[i]))
-            return (free_tab(&tab), NULL);
+            return (free_tab_index(&tab, i), NULL);
     }
-    tab[size - 1] = ft_strdup(filename);
-    if (!(tab[size - 1]))
-        return (free_tab(&tab), NULL);
+    tab[size - 2] = ft_strdup(filename);
+    if (!(tab[size - 2]))
+        return (free_tab_index(&tab, size - 2), NULL);
     return (tab);
 }
 
-// char **malloc_tab()
