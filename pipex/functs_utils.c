@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:05:57 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/27 16:43:47 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/28 21:37:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int count_words(char *s)
     return (count);
 }
 
-char **create_tab_with_flags(char *cmd, char **flags, char *filename, int size_flags)
+char **create_tab_with_flags(char *cmd, char **flags, int size_flags)
 {
     char **tab;
     int  size;
     int i;
 
-    size = size_flags + 3;
+    size = size_flags + 2;
     tab = ft_calloc(size, sizeof(char *));
     if (!tab)
         return (NULL);
@@ -57,9 +57,28 @@ char **create_tab_with_flags(char *cmd, char **flags, char *filename, int size_f
         if (!(tab[i]))
             return (free_tab_index(&tab, i), NULL);
     }
-    tab[size - 2] = ft_strdup(filename);
-    if (!(tab[size - 2]))
-        return (free_tab_index(&tab, size - 2), NULL);
     return (tab);
 }
 
+void print_tab(char **env)
+{
+    int n;
+
+    n = 0;
+    while (env[n]) 
+    {
+        ft_printf("%s\n", env[n]);
+        n++;
+    }
+}
+
+void print_file(int fd)
+{
+    char *s;
+
+    while ((s = get_next_line(fd))) 
+    {
+        ft_printf("%s");
+        free(s);
+    }
+}

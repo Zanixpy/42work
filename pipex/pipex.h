@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/27 17:44:42 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/28 21:38:28 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,19 @@
 # define EXIT_FAIL_PERM 00500
 # define EXIT_FAIL_PIPE 00600
 # define EXIT_FAIL_FORK 00700
+# define EXIT_CHILD 8
+
 
 
 // Main function
 
-int pipex(char **argv, char **envp, int buffer_fd);
+int pipex(char **argv, char **envp, int buffer_fd, pid_t *pid);
 
 // Pipex utils
 
-char **create_tab_with_flags(char *cmd, char **flags, char *filename, int size_flags);
-char **create_env_with_flags(char *cmd, char *original_cmd, char *filename1);
-char **create_env_without_flags(char *cmd, char *filename1);
-int execute_first_cmd(int *fds, char **argv, char **envp);
+char **create_env_with_flags(char *cmd, char *original_cmd);
+char **create_env_without_flags(char *cmd);
+int execute_first_cmd(int fd, char **argv, char **envp);
 int execute_second_cmd(int fd2, char **argv, char **envp);
 
 // Buffer file utils
@@ -39,7 +40,7 @@ int execute_second_cmd(int fd2, char **argv, char **envp);
 int create_buffer_file(void);
 int write_on_buffer(int wr_fd, int rd_fd);
 int delete_file(int fd);
-int	buffer_pipe(int *fds, int buffer_fd);
+int	buffer_pipe(int *fds, int buffer_fd, pid_t *pid);
 
 // Arguments Validation 
 
@@ -61,7 +62,9 @@ int	execve_cmd(char *cmd, char *argv[], char *envp[]);
 int count_words(char *s);
 void free_tab(char ***tab);
 void free_tab_index(char ***tab, int x);
+void print_tab(char **env);
 void print_file(int fd);
+char **create_tab_with_flags(char *cmd, char **flags, int size_flags);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 13:23:10 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/27 17:48:01 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/28 16:44:36 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,15 @@ int delete_file(int fd)
     return (EXIT_SUCCESS);
 }
 
-int	buffer_pipe(int *fds, int buffer_fd)
+int	buffer_pipe(int *fds, int buffer_fd, pid_t *pid)
 {
-	pid_t	pid;
 	int		status;
 
-	pid = fork();
+	*pid = fork();
     status = 0;
-	if (pid == -1)
+	if (*pid == -1)
 		return (EXIT_FAIL_FORK);
-	else if (pid == 0)
+	else if (*pid == 0)
 	{
         close(fds[1]);
         if(write_on_buffer(buffer_fd, fds[0]))
@@ -68,10 +67,10 @@ int	buffer_pipe(int *fds, int buffer_fd)
         }
         close(fds[0]);
 	}
-	else if (pid > 0)
+	else if (*pid > 0)
 	{
         close_fds(fds[0], fds[1]);
-		waitpid(pid, &status, 0);
+		waitpid(*pid, &status, 0);
 		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 	}

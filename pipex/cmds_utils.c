@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:02:22 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/27 12:26:12 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/28 21:39:11 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	execve_cmd(char *cmd, char *argv[], char *envp[])
 	return (EXIT_SUCCESS);
 }
 
-char **create_env_with_flags(char *cmd, char *original_cmd, char *filename1)
+char **create_env_with_flags(char *cmd, char *original_cmd)
 {
     char **tab;
     char **tab_tmp;
@@ -95,24 +95,21 @@ char **create_env_with_flags(char *cmd, char *original_cmd, char *filename1)
     size_flags = 0;
     while (tab_tmp[size_flags]) 
         size_flags++;
-    tab = create_tab_with_flags(cmd, tab_tmp, filename1, size_flags - 1);
+    tab = create_tab_with_flags(cmd, tab_tmp, size_flags - 1);
     if (!tab)
         return (free(tmp), free_tab(&tab_tmp), NULL);
     return (free(tmp), free_tab(&tab_tmp), tab);   
 }
 
-char **create_env_without_flags(char *cmd, char *filename1)
+char **create_env_without_flags(char *cmd)
 {
     char **tab;
 
-    tab = ft_calloc(3, sizeof(char *));
+    tab = ft_calloc(2, sizeof(char *));
     if (!tab)
         return (NULL);
     tab[0] = ft_strdup(cmd);
 	if (!(tab[0]))
 		return (free(tab), NULL);
-    tab[1] = ft_strdup(filename1);
-	if (!(tab[1]))
-		return (free(tab[0]), free(tab), NULL);
     return (tab);
 }
