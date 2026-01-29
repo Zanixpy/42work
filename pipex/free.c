@@ -12,22 +12,22 @@
 
 #include "pipex.h"
 
-void free_tab(char ***tab)
+void	free_tab(char ***tab)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while ((*tab)[i])
-    {
-        free((*tab)[i]);
-        i++;
-    }
-    free((*tab));
+	i = 0;
+	while ((*tab)[i])
+	{
+		free((*tab)[i]);
+		i++;
+	}
+	free((*tab));
 }
 
-void free_tab_index(char ***tab, int x)
+void	free_tab_index(char ***tab, int x)
 {
-    while (--x)
-        free((*tab)[x]);
-    free((*tab));
+	while (--x)
+		free((*tab)[x]);
+	free((*tab));
 }

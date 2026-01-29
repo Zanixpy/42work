@@ -6,18 +6,16 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:02:22 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/28 21:39:11 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/29 14:26:15 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "pipex.h"
-#include <string.h>
 
-char *separate_cmd_flags(char *s)
+char	*separate_cmd_flags(char *s)
 {
-	char **tmp;
-	char *final;
+	char	**tmp;
+	char	*final;
 
 	tmp = ft_split(s, ' ');
 	if (!tmp)
@@ -28,24 +26,24 @@ char *separate_cmd_flags(char *s)
 	return (free_tab(&tmp), final);
 }
 
-char *create_cmd(char *s)
+char	*create_cmd(char *s)
 {
-	char *tmp;
-    char *tmp2;
-	char *final;
+	char	*tmp;
+	char	*tmp2;
+	char	*final;
 
-    tmp2 = NULL;
+	tmp2 = NULL;
 	tmp = ft_strtrim(s, " ");
 	if (!tmp)
 		return (NULL);
-    if (count_words(tmp) > 1)
-    {
-        tmp2 = separate_cmd_flags(tmp);
-        free(tmp);
-        if (!tmp2)
-            return (NULL);
-        tmp = tmp2;
-    }
+	if (count_words(tmp) > 1)
+	{
+		tmp2 = separate_cmd_flags(tmp);
+		free(tmp);
+		if (!tmp2)
+			return (NULL);
+		tmp = tmp2;
+	}
 	final = ft_strjoin("/bin/", tmp);
 	if (!final)
 		return (free(tmp), NULL);
@@ -58,7 +56,7 @@ int	execve_cmd(char *cmd, char *argv[], char *envp[])
 	int		status;
 
 	pid = fork();
-    status = 0;
+	status = 0;
 	if (pid == -1)
 		return (EXIT_FAILURE);
 	else if (pid == 0)
@@ -79,37 +77,37 @@ int	execve_cmd(char *cmd, char *argv[], char *envp[])
 	return (EXIT_SUCCESS);
 }
 
-char **create_env_with_flags(char *cmd, char *original_cmd)
+char	**create_env_with_flags(char *cmd, char *original_cmd)
 {
-    char **tab;
-    char **tab_tmp;
-    char *tmp;
-    int size_flags;
+	char	**tab;
+	char	**tab_tmp;
+	char	*tmp;
+	int		size_flags;
 
-    tmp = ft_strtrim(original_cmd, " ");
-    if (!tmp)
-        return (NULL);
-    tab_tmp = ft_split(tmp, ' ');
-    if (!tab_tmp)
-        return (free(tmp), NULL);
-    size_flags = 0;
-    while (tab_tmp[size_flags]) 
-        size_flags++;
-    tab = create_tab_with_flags(cmd, tab_tmp, size_flags - 1);
-    if (!tab)
-        return (free(tmp), free_tab(&tab_tmp), NULL);
-    return (free(tmp), free_tab(&tab_tmp), tab);   
+	tmp = ft_strtrim(original_cmd, " ");
+	if (!tmp)
+		return (NULL);
+	tab_tmp = ft_split(tmp, ' ');
+	if (!tab_tmp)
+		return (free(tmp), NULL);
+	size_flags = 0;
+	while (tab_tmp[size_flags])
+		size_flags++;
+	tab = create_tab_with_flags(cmd, tab_tmp, size_flags - 1);
+	if (!tab)
+		return (free(tmp), free_tab(&tab_tmp), NULL);
+	return (free(tmp), free_tab(&tab_tmp), tab);
 }
 
-char **create_env_without_flags(char *cmd)
+char	**create_env_without_flags(char *cmd)
 {
-    char **tab;
+	char	**tab;
 
-    tab = ft_calloc(2, sizeof(char *));
-    if (!tab)
-        return (NULL);
-    tab[0] = ft_strdup(cmd);
+	tab = ft_calloc(2, sizeof(char *));
+	if (!tab)
+		return (NULL);
+	tab[0] = ft_strdup(cmd);
 	if (!(tab[0]))
 		return (free(tab), NULL);
-    return (tab);
+	return (tab);
 }
