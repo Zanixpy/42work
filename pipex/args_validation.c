@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:22:14 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/22 16:44:04 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/29 15:16:16 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_second_file(char *filename2)
 {
 	int	fd2;
 
-	fd2 = open(filename2, O_WRONLY);
+	fd2 = open(filename2, O_WRONLY | O_TRUNC);
 	if (fd2 > 2)
 	{
 		if (access(filename2, W_OK) == -1)
