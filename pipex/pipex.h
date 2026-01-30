@@ -48,9 +48,9 @@ void	restore_stdin_out(int save_std_fd, int fd);
 
 char	*create_cmd(char *cmd, char **env);
 int		execve_cmd(char *cmd, char *argv[], char *envp[]);
-char *get_path(char **env);
-char *search_path(char **path, char *cmd);
-char *find_path(char *cmd, char **env);
+char	*get_path(char **env);
+char	*search_path(char **path, char *cmd);
+char	*find_path(char *cmd, char **env);
 
 // Functs utils
 
