@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/29 14:25:29 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/30 13:08:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 		return (print_errors(EXIT_FAIL_ARGS));
-	carg = args_validation(argv);
+	carg = args_validation(argv, envp);
 	if (carg)
 		return (print_errors(carg));
 	result = pipex(argv, envp);

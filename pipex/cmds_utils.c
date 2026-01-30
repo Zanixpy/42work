@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:02:22 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/29 14:26:15 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/30 13:06:25 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ char	*separate_cmd_flags(char *s)
 	return (free_tab(&tmp), final);
 }
 
-char	*create_cmd(char *s)
+char	*create_cmd(char *cmd, char **env)
 {
 	char	*tmp;
 	char	*tmp2;
 	char	*final;
 
 	tmp2 = NULL;
-	tmp = ft_strtrim(s, " ");
+	tmp = ft_strtrim(cmd, " ");
 	if (!tmp)
 		return (NULL);
 	if (count_words(tmp) > 1)
@@ -44,7 +44,7 @@ char	*create_cmd(char *s)
 			return (NULL);
 		tmp = tmp2;
 	}
-	final = ft_strjoin("/bin/", tmp);
+	final = find_path(tmp, env);
 	if (!final)
 		return (free(tmp), NULL);
 	return (free(tmp), final);

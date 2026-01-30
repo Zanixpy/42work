@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/29 14:38:10 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/30 13:07:26 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		execute_second_cmd(int *fds, int fd2, char **argv, char **envp);
 
 // Arguments Validation
 
-int		args_validation(char *argv[]);
+int		args_validation(char **argv, char **env);
 
 // Files utils
 
@@ -46,8 +46,11 @@ void	restore_stdin_out(int save_std_fd, int fd);
 
 // Cmds utils
 
-char	*create_cmd(char *s);
+char	*create_cmd(char *cmd, char **env);
 int		execve_cmd(char *cmd, char *argv[], char *envp[]);
+char *get_path(char **env);
+char *search_path(char **path, char *cmd);
+char *find_path(char *cmd, char **env);
 
 // Functs utils
 

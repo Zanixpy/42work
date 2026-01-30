@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:22:14 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/29 15:16:16 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/30 13:07:58 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,21 @@ int	check_second_file(char *filename2)
 	return (close(fd2), EXIT_SUCCESS);
 }
 
-int	check_cmds(char *cmdname1, char *cmdname2)
+int	check_cmds(char *cmdname1, char *cmdname2, char **env)
 {
 	char	*cmd1;
 	char	*cmd2;
 
-	cmd1 = create_cmd(cmdname1);
+	cmd1 = create_cmd(cmdname1, env);
 	if (!cmd1)
-		return (EXIT_FAILURE);
-	cmd2 = create_cmd(cmdname2);
+		return (EXIT_FAIL_OPEN);
+	cmd2 = create_cmd(cmdname2, env);
 	if (!cmd2)
-		return (free(cmd1), EXIT_FAILURE);
-	if (access(cmd1, F_OK) == -1 || access(cmd2, F_OK) == -1)
-		return (free(cmd1), free(cmd2), EXIT_FAIL_CMD);
+		return (free(cmd1), EXIT_FAIL_OPEN);
 	return (free(cmd1), free(cmd2), EXIT_SUCCESS);
 }
 
-int	args_validation(char *argv[])
+int	args_validation(char **argv, char **env)
 {
 	int	result;
 
@@ -71,7 +69,7 @@ int	args_validation(char *argv[])
 		return (EXIT_FAIL_OPEN);
 	else if (result == EXIT_FAIL_PERM)
 		return (EXIT_FAIL_PERM);
-	if (check_cmds(argv[2], argv[3]))
+	if (check_cmds(argv[2], argv[3], env))
 		return (EXIT_FAIL_CMD);
 	return (EXIT_SUCCESS);
 }

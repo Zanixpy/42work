@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:47:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/29 14:25:37 by omawele          ###   ########.fr       */
+/*   Updated: 2026/01/30 13:08:42 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	execute_first_cmd(int *fds, int fd1, char **argv, char **envp)
 	int		save_stdin;
 	int		save_stdout;
 
-	cmd = create_cmd(argv[2]);
+	cmd = create_cmd(argv[2], envp);
 	if (!cmd)
 		return (EXIT_FAILURE);
 	if (count_words(argv[2]) > 1)
@@ -48,7 +48,7 @@ int	execute_second_cmd(int *fds, int fd2, char **argv, char **envp)
 	int		save_stdin;
 	int		save_stdout;
 
-	cmd = create_cmd(argv[3]);
+	cmd = create_cmd(argv[3], envp);
 	if (!cmd)
 		return (EXIT_FAILURE);
 	if (count_words(argv[3]) > 1)

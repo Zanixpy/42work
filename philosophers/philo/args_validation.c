@@ -1,25 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   args_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 15:29:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/29 19:55:48 by omawele          ###   ########.fr       */
+/*   Created: 2026/01/29 19:56:02 by omawele           #+#    #+#             */
+/*   Updated: 2026/01/29 19:56:25 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-int main(int argc, char **argv)
-{
-    int carg;
-
-    if (argc != 6)
-        return (EXIT_FAIL_ARGS);
-    
-    
-    return (EXIT_SUCCESS);
-}
