@@ -4,7 +4,17 @@
 
 ### Understanding the issue
 
-**Understanding** : 
+**Understanding** : First of all we have N philosophers on a table with N forks. At the right and left of each philosopher there is a fork. The goal is to provide each philo from the death by eating. However there are no enough forks for everyone so if one takes two forks, both aside must wait to use forks. There are requirements like time_to_die, time_to_eat, time_to_sleep
+
+N : The number of philosophers and forks.
+
+time_to_die : The time for a philosopher to eat before dying.
+
+time_to_eat : The time that eating takes.
+
+time_to_sleep : the time that sleeping takes.
+
+
 ## Identify bordeline cases :
 
 
@@ -12,40 +22,53 @@
 ## Identify input/output :
 ```
 Input : 
-- Type :
-- Description : 
-- Validation : 
+- Type : [unsigned int * 4]
+- Description : Check above
+- Validation : It must be positive integers
 
 Output :
-- Type : 
-- Description : 
-- Errors code :
+- Type : void
+- Description : None
+- Errors code : EXIT_FAIL_ARGS
 ```
 
 ## Break down into sub-problems
 ```
 Main issue : Multi threading
 ├── Sub-problem 1 : Verifying the arguements
-│   ├── args_validation
-│       ├──  
-|       ├── 
-│       └── 
-├── Sub-problem 2 : 
+│       └── args_validation
+├── Sub-problem 2 : Initialize philosophers, forks and times (sleep, die, eat) 
 │   ├── 
 │   ├──  
 │   └──  
-├── Sub-problem 3 : 
+├── Sub-problem 3 : Create threads for each philosophers
 │   ├── 
 │   ├── 
 │   └──  
-├── Sub-problem 4 : 
+├── Sub-problem 4 : Start the battle
 │   ├── 
 └── END   
 ```
 
 ## Define the Data Structures 
 ```
+typedef struct s_philosophers
+{
+    unsigned int index;
+    unsigned int tto_eat;
+    unsigned int tto_die;
+    unsigned int tto_sleep;
+    int left_fork;
+    int right_fork;
+    struct s_philosophers prev;
+    struct s_philosophers next;
+} t_philo;
 
+typedef struct s_fork
+{
+    unsigned int index;
+    pthread_mutex_t locker;
+} t_fork;
 
 ```
 

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:32:01 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/29 21:12:25 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/02 20:41:09 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@
 
 // Code errors
 
-# define EXIT_FAIL_ARGS 00100
+# define EXIT_FAIL_ARGS 2
 
 
 
 // Sys time structure
 
-struct timeval {
-    time_t      tv_sec;     /* seconds */
-    suseconds_t tv_usec;    /* microseconds */
-};
 
-struct timezone {
-    int tz_minuteswest;     /* minutes west of Greenwich */
-    int tz_dsttime;         /* type of DST correction */
-};
 
-// other
+
+// Arguments validation
+
+int args_validation(int argc, char **argv);
+
+// Functs utils
+
+unsigned long ft_strlen(const char *s);
+int	strcmp_int_limit(char *s);
 
 #endif

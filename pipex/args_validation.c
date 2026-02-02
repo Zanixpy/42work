@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:22:14 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/30 13:07:58 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/02 18:42:09 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int	check_cmds(char *cmdname1, char *cmdname2, char **env)
 
 	cmd1 = create_cmd(cmdname1, env);
 	if (!cmd1)
-		return (EXIT_FAIL_OPEN);
+		return (EXIT_FAIL_CMD);
 	cmd2 = create_cmd(cmdname2, env);
 	if (!cmd2)
-		return (free(cmd1), EXIT_FAIL_OPEN);
+		return (free(cmd1), EXIT_FAIL_CMD2);
 	return (free(cmd1), free(cmd2), EXIT_SUCCESS);
 }
 
@@ -69,7 +69,10 @@ int	args_validation(char **argv, char **env)
 		return (EXIT_FAIL_OPEN);
 	else if (result == EXIT_FAIL_PERM)
 		return (EXIT_FAIL_PERM);
-	if (check_cmds(argv[2], argv[3], env))
+	result = check_cmds(argv[2], argv[3], env);
+	if (result == EXIT_FAIL_CMD)
 		return (EXIT_FAIL_CMD);
+	else if (result == EXIT_FAIL_CMD2)
+		return (EXIT_FAIL_CMD2);
 	return (EXIT_SUCCESS);
 }

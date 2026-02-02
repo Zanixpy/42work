@@ -6,13 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/30 13:08:18 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/02 18:47:52 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	print_errors(int code)
+void	print_errors(int code)
 {
 	if (code == EXIT_FAILURE)
 		ft_putstr_fd("error: fault occured somewhere\n", 2);
@@ -20,7 +20,7 @@ int	print_errors(int code)
 		ft_putstr_fd("args: more or less than 4\n", 2);
 	else if (code == EXIT_FAIL_OPEN)
 		ft_putstr_fd("open: couldn't open the file\n", 2);
-	else if (code == EXIT_FAIL_CMD)
+	else if (code == EXIT_FAIL_CMD || code == EXIT_FAIL_CMD2)
 		ft_putstr_fd("command: not found\n", 2);
 	else if (code == EXIT_FAIL_PERM)
 		ft_putstr_fd("file: permission denied for writing or reading\n", 2);
@@ -28,7 +28,6 @@ int	print_errors(int code)
 		ft_putstr_fd("fork: an error occured\n", 2);
 	else if (code == EXIT_FAIL_PIPE)
 		ft_putstr_fd("pipe: an error occured\n", 2);
-	return (code);
 }
 
 int	pipex(char **argv, char **envp)
@@ -64,12 +63,12 @@ int	main(int argc, char **argv, char **envp)
 	int	result;
 
 	if (argc != 5)
-		return (print_errors(EXIT_FAIL_ARGS));
+		return (print_errors(EXIT_FAIL_ARGS), EXIT_FAIL_ARGS);
 	carg = args_validation(argv, envp);
-	if (carg)
-		return (print_errors(carg));
+	if (carg == EXIT_FAIL_CMD2)
+		return (print_errors(carg), EXIT_FAIL_CMD2);
+	else if (carg)
+		return (print_errors(carg), EXIT_SUCCESS);
 	result = pipex(argv, envp);
-	if (result)
-		return (print_errors(result));
-	return (EXIT_SUCCESS);
+	return (print_errors(result), EXIT_SUCCESS);
 }

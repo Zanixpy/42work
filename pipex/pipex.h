@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/30 13:07:26 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/02 18:37:32 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define EXIT_FAIL_PERM 00500
 # define EXIT_FAIL_PIPE 00600
 # define EXIT_FAIL_FORK 00700
+# define EXIT_FAIL_CMD2 127
 
 // Main function
 
