@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:22:14 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/02 18:42:09 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/03 16:12:55 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ int	check_second_file(char *filename2)
 	int	fd2;
 
 	fd2 = open(filename2, O_WRONLY | O_TRUNC);
+	if (access(filename2, W_OK) == -1)
+		return (close(fd2), EXIT_FAIL_PERM2);
 	if (fd2 > 2)
-	{
-		if (access(filename2, W_OK) == -1)
-			return (close(fd2), EXIT_FAIL_PERM);
 		return (close(fd2), EXIT_SUCCESS);
-	}
 	fd2 = open(filename2, O_CREAT, 00200);
 	if (fd2 == -1)
 		return (EXIT_FAIL_OPEN);
@@ -65,10 +63,10 @@ int	args_validation(char **argv, char **env)
 	else if (result == EXIT_FAIL_PERM)
 		return (EXIT_FAIL_PERM);
 	result = check_second_file(argv[4]);
-	if (result == EXIT_FAIL_OPEN)
+	if (result == EXIT_FAIL_PERM2)
+		return (EXIT_FAIL_PERM2);
+	else if (result == EXIT_FAIL_OPEN)
 		return (EXIT_FAIL_OPEN);
-	else if (result == EXIT_FAIL_PERM)
-		return (EXIT_FAIL_PERM);
 	result = check_cmds(argv[2], argv[3], env);
 	if (result == EXIT_FAIL_CMD)
 		return (EXIT_FAIL_CMD);

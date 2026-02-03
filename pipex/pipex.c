@@ -6,28 +6,36 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/02 18:47:52 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/03 16:02:16 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	print_errors(int code)
+void	print_errors(int code, char *error_name)
 {
+	if (!error_name)
+		return ;
+	if (code == EXIT_FAIL_PERM2 || code == EXIT_FAIL_CMD2)
+	{
+		ft_putstr_fd(error_name, 2);
+		if (code == EXIT_FAIL_PERM2)
+			ft_putstr_fd(": permission denied\n", 2);
+		else
+			ft_putstr_fd(": command: not found\n", 2);
+		return ;
+	}
+	ft_putstr_fd(error_name, 1);
 	if (code == EXIT_FAILURE)
-		ft_putstr_fd("error: fault occured somewhere\n", 2);
+		ft_putstr_fd(": fault occured somewhere\n", 1);
 	else if (code == EXIT_FAIL_ARGS)
-		ft_putstr_fd("args: more or less than 4\n", 2);
+		ft_putstr_fd(": more or less than 4\n", 1);
 	else if (code == EXIT_FAIL_OPEN)
-		ft_putstr_fd("open: couldn't open the file\n", 2);
-	else if (code == EXIT_FAIL_CMD || code == EXIT_FAIL_CMD2)
-		ft_putstr_fd("command: not found\n", 2);
+		ft_putstr_fd(": couldn't open the file\n", 1);
+	else if (code == EXIT_FAIL_CMD)
+		ft_putstr_fd(": command: not found\n", 1);
 	else if (code == EXIT_FAIL_PERM)
-		ft_putstr_fd("file: permission denied for writing or reading\n", 2);
-	else if (code == EXIT_FAIL_FORK)
-		ft_putstr_fd("fork: an error occured\n", 2);
-	else if (code == EXIT_FAIL_PIPE)
-		ft_putstr_fd("pipe: an error occured\n", 2);
+		ft_putstr_fd(": permission denied\n", 1);
 }
 
 int	pipex(char **argv, char **envp)
@@ -63,12 +71,18 @@ int	main(int argc, char **argv, char **envp)
 	int	result;
 
 	if (argc != 5)
-		return (print_errors(EXIT_FAIL_ARGS), EXIT_FAIL_ARGS);
+		return (print_errors(EXIT_FAIL_ARGS, "args"), EXIT_SUCCESS);
 	carg = args_validation(argv, envp);
-	if (carg == EXIT_FAIL_CMD2)
-		return (print_errors(carg), EXIT_FAIL_CMD2);
+	if (carg == EXIT_FAIL_PERM2)
+		return (print_errors(carg, argv[4]), EXIT_FAIL_PERM2);
+	else if (carg == EXIT_FAIL_CMD2)
+		return (print_errors(carg, argv[3]), EXIT_FAIL_CMD2);
+	else if (carg == EXIT_FAIL_PERM)
+		return (print_errors(carg, argv[1]), EXIT_SUCCESS);
+	else if (carg == EXIT_FAIL_CMD)
+		return (print_errors(carg, argv[2]), EXIT_SUCCESS);
 	else if (carg)
-		return (print_errors(carg), EXIT_SUCCESS);
+		return (print_errors(carg, "error"), EXIT_SUCCESS);
 	result = pipex(argv, envp);
-	return (print_errors(result), EXIT_SUCCESS);
+	return (print_errors(result, NULL), EXIT_SUCCESS);
 }
