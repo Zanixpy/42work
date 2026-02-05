@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:29:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/02 20:43:24 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/03 16:32:54 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int main(int argc, char **argv)
 
     if (argc != 5)
         return (print_errors(EXIT_FAIL_ARGS));
+    carg = args_validation(argc, argv);
+    if (carg)
+        return (print_errors(carg), EXIT_FAILURE);
     
     
     return (EXIT_SUCCESS);
