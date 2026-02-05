@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/04 13:08:11 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/05 12:44:07 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 
 # include "libft/libft.h"
 # define EXIT_FAIL_ARGS 00200
-# define EXIT_FAIL_OPEN 00300
-# define EXIT_FAIL_CMD 00400
-# define EXIT_FAIL_PERM 00500
-# define EXIT_FAIL_PERM2 1
-# define EXIT_FAIL_PIPE 00600
+# define EXIT_FAIL_DUP 00300
+# define EXIT_FAIL_FIRST_FILE 00400
+# define EXIT_FAIL_SEC_FILE 00500
+# define EXIT_FAIL_EXECVE 00600
 # define EXIT_FAIL_FORK 00700
-# define EXIT_FAIL_CMD2 127
+# define EXIT_FAIL_PIPE 127
 
 // Main function
 
@@ -38,6 +37,8 @@ int launch_second_child(int *fds, char **argv, char **envp);
 // Arguments Validation
 
 int	args_validation(int argc, char **argv, char **env);
+int	check_first_file(char *filename1);
+int	check_second_file(char *filename2);
 
 // Files utils
 
