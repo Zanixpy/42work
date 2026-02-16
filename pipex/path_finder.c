@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 12:28:16 by omawele           #+#    #+#             */
-/*   Updated: 2026/01/30 13:17:39 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/16 01:35:20 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 char	*find_path(char *cmd, char **env)
 {
 	char	**tab;
-	char	*bin;
-	char	*usr_bin;
 	char	*path;
 	char	*final;
 
@@ -26,18 +24,8 @@ char	*find_path(char *cmd, char **env)
 	tab = ft_split(path, ':');
 	if (!tab)
 		return (free(path), NULL);
-	bin = ft_strjoin("/bin/", cmd);
-	if (!bin)
-		return (free(path), free_tab(&tab), NULL);
-	usr_bin = ft_strjoin("/usr/bin/", cmd);
-	if (!usr_bin)
-		return (free(path), free_tab(&tab), free(bin), NULL);
-	if (access(bin, F_OK) == 0)
-		return (free(path), free_tab(&tab), free(usr_bin), bin);
-	else if (access(usr_bin, F_OK) == 0)
-		return (free(path), free_tab(&tab), free(bin), usr_bin);
 	final = search_path(tab, cmd);
-	return (free(path), free_tab(&tab), free(bin), free(usr_bin), final);
+	return (free(path), free_tab(&tab), final);
 }
 
 char	*get_path(char **env)
@@ -71,12 +59,17 @@ char	*search_path(char **path, char *cmd)
 {
 	int		i;
 	char	*final;
+	char	*tmp;
 
 	i = 0;
 	final = NULL;
 	while (path[i])
 	{
-		final = ft_strjoin(path[i], cmd);
+		tmp = ft_strjoin(path[i], "/");
+		if (!tmp)
+			return (NULL);
+		final = ft_strjoin(tmp, cmd);
+		free(tmp);
 		if (!final)
 			return (NULL);
 		if (access(final, F_OK) == 0)

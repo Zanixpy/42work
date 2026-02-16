@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_validation.c                                  :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:22:14 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/05 12:46:13 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/16 01:36:47 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 int	check_first_file(char *filename1)
 {
-	if (access(filename1, R_OK) == -1)
-		return (EXIT_FAIL_FIRST_FILE);
+	if (access(filename1, F_OK) == -1 || access(filename1, R_OK) == -1)
+	{
+		perror(filename1);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -23,16 +26,21 @@ int	check_second_file(char *filename2)
 {
 	int	fd2;
 
-	fd2 = open(filename2, O_WRONLY | O_TRUNC);
-	if (fd2 > 2)
+	fd2 = open(filename2, O_CREAT | O_WRONLY | O_TRUNC, 00644);
+	if (fd2 == -1)
 	{
-		if (access(filename2, W_OK) == -1 || access(filename2, R_OK) == -1)
-			return (close(fd2), EXIT_FAIL_SEC_FILE);
-		return (close(fd2), EXIT_SUCCESS);	
+		perror(filename2);
+		return (EXIT_FAILURE);
 	}
-	fd2 = open(filename2, O_CREAT , 00644);
-	if (fd2 != -1)
-		return (close(fd2), EXIT_FAIL_SEC_FILE);
 	return (close(fd2), EXIT_SUCCESS);
 }
 
+int	args_validation(int argc)
+{
+	if (argc != 5)
+	{
+		ft_putstr_fd("format: [file1] [cmd1] [cmd2] [file2]\n", 2);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}

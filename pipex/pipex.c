@@ -6,83 +6,99 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:13:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/03 16:02:16 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/16 01:36:35 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	print_errors(int code, char *error_name)
+void	print_error(char *msg)
 {
-	if (!error_name)
-		return ;
-	if (code == EXIT_FAIL_PERM2 || code == EXIT_FAIL_CMD2)
-	{
-		ft_putstr_fd(error_name, 2);
-		if (code == EXIT_FAIL_PERM2)
-			ft_putstr_fd(": permission denied\n", 2);
-		else
-			ft_putstr_fd(": command: not found\n", 2);
-		return ;
-	}
-	ft_putstr_fd(error_name, 1);
-	if (code == EXIT_FAILURE)
-		ft_putstr_fd(": fault occured somewhere\n", 1);
-	else if (code == EXIT_FAIL_ARGS)
-		ft_putstr_fd(": more or less than 4\n", 1);
-	else if (code == EXIT_FAIL_OPEN)
-		ft_putstr_fd(": couldn't open the file\n", 1);
-	else if (code == EXIT_FAIL_CMD)
-		ft_putstr_fd(": command: not found\n", 1);
-	else if (code == EXIT_FAIL_PERM)
-		ft_putstr_fd(": permission denied\n", 1);
+	perror(msg);
 }
 
-int	pipex(char **argv, char **envp)
+int	execute_first_cmd(int *fds, char **argv, char **envp)
 {
-	int	*fds;
-	int	fd1;
-	int	fd2;
-	int	result_cmd;
-	int	result_cmd2;
+	char	**env;
+	char	*cmd;
+	int		fd;
+	int		ret;
 
-	fds = create_fds();
-	if (!fds)
-		return (EXIT_FAILURE);
-	if (pipe(fds) == -1)
-		return (free(fds), EXIT_FAIL_PIPE);
-	fd1 = open_fd(argv[1], O_RDONLY);
-	fd2 = open_fd(argv[4], O_WRONLY | O_TRUNC);
-	if (fd1 == EXIT_FAIL_OPEN || fd2 == EXIT_FAIL_OPEN)
-		return (close_fds(fd1, fd2), free(fds), EXIT_FAIL_OPEN);
-	result_cmd = execute_first_cmd(fds, fd1, argv, envp);
-	if (result_cmd)
-		return (close(fd1), close(fd2), free(fds), result_cmd);
-	close(fd1);
-	result_cmd2 = execute_second_cmd(fds, fd2, argv, envp);
-	if (result_cmd2)
-		return (close(fd2), free(fds), result_cmd2);
-	return (close(fd2), free(fds), EXIT_SUCCESS);
+	if (check_first_file(argv[1]))
+		exit(EXIT_FAILURE);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		(print_error(argv[1]), exit(EXIT_FAILURE));
+	if (change_stdin_out(fd, fds[1]))
+		(print_error("dup"), exit(EXIT_FAILURE));
+	close(fds[0]);
+	cmd = create_cmd(argv[2], envp);
+	if (!cmd)
+		(print_error(argv[2]), exit(EXIT_FAIL_CMD2));
+	env = create_env(cmd, argv[2]);
+	if (!env)
+		(free(cmd), exit(EXIT_FAIL_CMD2));
+	ret = execve(cmd, env, envp);
+	free(cmd);
+	free_tab(&env);
+	if (ret != 0)
+		(print_error(argv[2]), exit(EXIT_FAIL_CMD2));
+	exit(EXIT_SUCCESS);
+}
+
+int	execute_second_cmd(int *fds, char **argv, char **envp)
+{
+	char	**env;
+	char	*cmd;
+	int		fd;
+	int		ret;
+
+	if (check_second_file(argv[4]))
+		exit(EXIT_FAILURE);
+	fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+		(print_error(argv[4]), exit(EXIT_FAILURE));
+	if (change_stdin_out(fds[0], fd))
+		(print_error("dup"), exit(EXIT_FAILURE));
+	close(fds[1]);
+	cmd = create_cmd(argv[3], envp);
+	if (!cmd)
+		(print_error(argv[3]), exit(EXIT_FAIL_CMD2));
+	env = create_env(cmd, argv[3]);
+	if (!env)
+		(free(cmd), exit(EXIT_FAIL_CMD2));
+	ret = execve(cmd, env, envp);
+	free(cmd);
+	free_tab(&env);
+	if (ret != 0)
+		(print_error(argv[3]), exit(EXIT_FAIL_CMD2));
+	exit(EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	int	carg;
-	int	result;
+	pid_t	pid1;
+	pid_t	pid2;
+	int		status;
+	int		fds[2];
 
-	if (argc != 5)
-		return (print_errors(EXIT_FAIL_ARGS, "args"), EXIT_SUCCESS);
-	carg = args_validation(argv, envp);
-	if (carg == EXIT_FAIL_PERM2)
-		return (print_errors(carg, argv[4]), EXIT_FAIL_PERM2);
-	else if (carg == EXIT_FAIL_CMD2)
-		return (print_errors(carg, argv[3]), EXIT_FAIL_CMD2);
-	else if (carg == EXIT_FAIL_PERM)
-		return (print_errors(carg, argv[1]), EXIT_SUCCESS);
-	else if (carg == EXIT_FAIL_CMD)
-		return (print_errors(carg, argv[2]), EXIT_SUCCESS);
-	else if (carg)
-		return (print_errors(carg, "error"), EXIT_SUCCESS);
-	result = pipex(argv, envp);
-	return (print_errors(result, NULL), EXIT_SUCCESS);
+	if (args_validation(argc) || pipe(fds) == -1)
+		return (EXIT_FAILURE);
+	pid1 = fork();
+	if (pid1 == -1)
+		return (EXIT_FAILURE);
+	if (pid1 == 0)
+		exit(execute_first_cmd(fds, argv, envp));
+	close(fds[1]);
+	waitpid(pid1, &status, 0);
+	pid2 = fork();
+	if (pid2 == -1)
+		return (close(fds[0]), EXIT_FAILURE);
+	if (pid2 == 0)
+		exit(execute_second_cmd(fds, argv, envp));
+	close(fds[0]);
+	waitpid(pid2, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (EXIT_SUCCESS);
 }
