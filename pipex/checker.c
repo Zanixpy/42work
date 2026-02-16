@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:22:14 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/16 01:36:47 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/16 16:40:54 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	check_second_file(char *filename2)
 		perror(filename2);
 		return (EXIT_FAILURE);
 	}
-	return (close(fd2), EXIT_SUCCESS);
+	close(fd2);
+	return (EXIT_SUCCESS);
 }
 
 int	args_validation(int argc)

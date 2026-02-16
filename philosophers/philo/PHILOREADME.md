@@ -36,7 +36,7 @@ Output :
 ```
 Main issue : Multi threading
 ├── Sub-problem 1 : Verifying the arguements
-│       └── args_validation
+│       └── args_checker
 ├── Sub-problem 2 : Initialize philosophers, forks and times (sleep, die, eat) 
 │   ├── 
 │   ├──  
@@ -54,12 +54,12 @@ Main issue : Multi threading
 ```
 typedef struct s_philosophers
 {
+    pthread_t tid;
     unsigned int index;
     unsigned int tto_eat;
     unsigned int tto_die;
     unsigned int tto_sleep;
-    int left_fork;
-    int right_fork;
+    t_fork forks;
     struct s_philosophers prev;
     struct s_philosophers next;
 } t_philo;
@@ -92,9 +92,9 @@ typedef struct s_fork
 - memset : The memset() function fills the first n bytes of the memory area pointed to by s with the constant byte c.
 - usleep : The  usleep() function suspends execution of the calling thread for (at least) usec microseconds.
 - gettimeofday : can get the time of a timezone.
-- pthread_create :
-- pthread_detach 
-- pthread_join
+- pthread_create : create a thread and give it a task
+- pthread_detach : detach a thread from the calling thread
+- pthread_join : allows one thread to wait for the termination of another thread
 - pthread_mutex_init
 - pthread_mutex_destroy
 - pthread_mutex_lock

@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = philo.c args_validation.c args_validation_utils.c
+SRCS = main.c checker.c functs.c
 OBJS = $(SRCS:.c=.o)
 NAME = philo
 

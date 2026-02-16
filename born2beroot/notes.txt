@@ -1,2 +1,0 @@
-VM : Une vm c'est un logiciel qui simules un systeme d'exploitation ou plutot ca simule un ordi dans un ordi,
-Debian

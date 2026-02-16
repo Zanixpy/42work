@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:29:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/03 16:32:54 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/16 21:08:49 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-int	print_errors(int code)
-{
-	if (code == EXIT_FAILURE)
-		write(2, "error: fault occured somewhere\n", 32);
-	else if (code == EXIT_FAIL_ARGS)
-		write(2,"args: more or less than 4\n", 27);
-    return (code);
-}
-
-
 int main(int argc, char **argv)
 {
-    int carg;
-
-    if (argc != 5)
-        return (print_errors(EXIT_FAIL_ARGS));
-    carg = args_validation(argc, argv);
-    if (carg)
-        return (print_errors(carg), EXIT_FAILURE);
+    t_args args;
+    
+    if (args_checker(argc, argv))
+        return (EXIT_FAILURE);
+    convert_args_in_int(&args, argv);
+    
+        
     
     
     return (EXIT_SUCCESS);

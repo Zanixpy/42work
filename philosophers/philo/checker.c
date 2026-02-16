@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_validation.c                                  :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:56:02 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/02 20:40:30 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/16 18:37:47 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,18 @@ static int	check_args_int(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-static int	check_int_limit(int argc, char **argv)
-{
-	int	i;
-	int	j;
 
-	i = 1;
-	while (i < argc)
+int args_checker(int argc, char **argv)
+{
+	if (argc != 5)
 	{
-		j = 1;
-		if (argv[i][0] == '-')
-			j = 0;
-		if (strcmp_int_limit(argv[i]))
-			return (EXIT_FAILURE);
-		i++;
+		ft_putstr_fd("format: [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep]\n", 2);
+		return (EXIT_FAILURE);
 	}
-	return (EXIT_SUCCESS);
-}
-
-int args_validation(int argc, char **argv)
-{
     if (check_args_int(argc, argv))
+	{
+		ft_putstr_fd("args: all values must be positive integer\n", 2);
         return (EXIT_FAILURE);
-    if (check_int_limit(argc, argv))
-        return (EXIT_FAILURE);
+	}
     return (EXIT_SUCCESS); 
 }
