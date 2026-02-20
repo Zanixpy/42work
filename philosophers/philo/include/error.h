@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 15:29:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/16 21:08:49 by omawele          ###   ########.fr       */
+/*   Created: 2026/02/20 12:48:42 by omawele           #+#    #+#             */
+/*   Updated: 2026/02/20 15:26:45 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-int main(int argc, char **argv)
-{
-    t_args args;
-    
-    if (args_checker(argc, argv))
-        return (EXIT_FAILURE);
-    convert_args_in_int(&args, argv);
-    
-        
-    
-    
-    return (EXIT_SUCCESS);
-}
+# include "utils.h"
+# define ERRARGS 2
+# define ERRINIT 3
+
+
+
+/*
+* @brief Display and return error if arguments are wrong
+* @param code Typifies the type of error, if it's the number of args or args itself
+*/
+int error_args(int code);
+
+/*
+* @brief Display and return error if the initialization step failed
+*/
+int error_init();
+
+
+#endif

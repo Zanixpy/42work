@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functs.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 18:30:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/16 20:08:47 by omawele          ###   ########.fr       */
+/*   Created: 2026/02/19 21:10:55 by omawele           #+#    #+#             */
+/*   Updated: 2026/02/20 12:43:27 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+
+#include "../../include/utils.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -44,4 +45,3 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
-

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:56:02 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/16 18:37:47 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/20 17:12:33 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../../include/parsing.h"
+
 
 static int	check_args_int(int argc, char **argv)
 {
@@ -24,26 +25,19 @@ static int	check_args_int(int argc, char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (EXIT_FAILURE);
+				return (FALSE);
 			j++;
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (TRUE);
 }
 
-
-int args_checker(int argc, char **argv)
+int validator(int argc, char **argv)
 {
 	if (argc != 5)
-	{
-		ft_putstr_fd("format: [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep]\n", 2);
-		return (EXIT_FAILURE);
-	}
+		return (error_args(1));
     if (check_args_int(argc, argv))
-	{
-		ft_putstr_fd("args: all values must be positive integer\n", 2);
-        return (EXIT_FAILURE);
-	}
-    return (EXIT_SUCCESS); 
+        return (error_args(0));
+    return (TRUE); 
 }
