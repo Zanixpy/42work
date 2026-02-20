@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:48:06 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/20 15:26:33 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/20 21:27:06 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int error_args(int code)
     return (ERRARGS);
 }
 
-int error_init()
+int error_init(int code)
 {
-    ft_putstr_fd("malloc: error occured in the initialization step\n", 2);
+    if (code)
+        ft_putstr_fd("malloc: error occured in the forks initialization\n", 2);
+    else
+        ft_putstr_fd("malloc: error occured in the philos initialization\n", 2);     
     return (ERRINIT);
 }

@@ -29,14 +29,14 @@ Input :
 Output :
 - Type : void
 - Description : None
-- Errors code : EXIT_FAIL_ARGS
+- Errors code : ERRARGS, ERRINIT 
 ```
 
 ## Break down into sub-problems
 ```
 Main issue : Multi threading
 ├── Sub-problem 1 : Verifying the arguements
-│       └── args_checker
+│       └── 
 ├── Sub-problem 2 : Initialize philosophers, forks and times (sleep, die, eat) 
 │   ├── 
 │   ├──  
@@ -52,23 +52,30 @@ Main issue : Multi threading
 
 ## Define the Data Structures 
 ```
-typedef struct s_philosophers
-{
-    pthread_t tid;
-    unsigned int index;
-    unsigned int tto_eat;
-    unsigned int tto_die;
-    unsigned int tto_sleep;
-    t_fork forks;
-    struct s_philosophers prev;
-    struct s_philosophers next;
-} t_philo;
-
 typedef struct s_fork
 {
     unsigned int index;
     pthread_mutex_t locker;
 } t_fork;
+
+typedef struct s_philosophers
+{
+    pthread_t tid;
+    int index;
+    int tto_eat;
+    int tto_die;
+    int tto_sleep;
+    t_fork left_fork;
+    t_fork right_fork;
+} t_philo;
+
+typedef struct s_args
+{
+    int nb_philos_forks;
+    int tto_eat;
+    int tto_die;
+    int tto_sleep;
+} t_args;
 
 ```
 
