@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:32:01 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/20 21:52:11 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/21 22:20:41 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include "utils.h"
 # include "error.h"
 # include "free.h"
+# include "exec.h"
 
 void unit_test(t_philo *philos, t_fork *forks, t_args *args);
 

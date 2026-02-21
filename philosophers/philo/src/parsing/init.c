@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 20:49:59 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/20 22:11:03 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/21 21:35:39 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_fork *init_forks(int nb_forks)
 t_philo *init_philosophers(t_args *args, t_fork *forks)
 {
     t_philo *philos;
-    int i;
+    unsigned int i;
     
     philos = malloc(args->nb_philos_forks * sizeof(t_philo));
     if (!philos)

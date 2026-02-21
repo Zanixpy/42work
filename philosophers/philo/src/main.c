@@ -6,11 +6,33 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:29:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/20 21:59:15 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/21 22:20:53 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int create_threads(t_philo *philos, int size)
+{
+    int i;
+
+    i = 0;
+    while (i < size) 
+    {
+        if (pthread_create(&philos[i].tid, NULL, &routine_philosopher, (void *)&philos[i]) != 0)
+            return (FALSE);
+        i++;
+    }
+    i = 0;
+    while (i < size) 
+    {
+        if (pthread_join(philos[i].tid, NULL) != 0)
+            return (FALSE);
+        i++;
+    }
+    return (TRUE); 
+}
+
 
 int main(int argc, char **argv)
 {
@@ -28,7 +50,8 @@ int main(int argc, char **argv)
     philos = init_philosophers(&args, forks);
     if (!philos)
         return (cleanup_forks(forks), error_init(0));
-    unit_test(philos, forks, &args);
-    cleanup_all(forks, philos);
-    return (EXIT_SUCCESS);
+    if (create_threads(philos, args.nb_philos_forks))
+        return (cleanup_all(forks, philos), ERRTHREAD);
+    // unit_test(philos, forks, &args);
+    return (cleanup_all(forks, philos), EXIT_SUCCESS);
 }

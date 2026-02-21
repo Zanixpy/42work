@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 12:48:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/21 17:28:29 by omawele          ###   ########.fr       */
+/*   Created: 2026/02/21 22:09:38 by omawele           #+#    #+#             */
+/*   Updated: 2026/02/21 22:13:59 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef EXEC_H
+# define EXEC_H
 
 # include "utils.h"
-# define ERRARGS 2
-# define ERRINIT 3
-# define ERRTHREAD 4
 
-/*
-* @brief Display and return error if arguments are wrong
-* @param code Typifies the type of error, if it's the number of args or args itself
-*/
-int error_args(int code);
 
-/*
-* @brief Display and return error if the initialization step failed
-* @param code Typifies the type of error
-*/
-int error_init(int code);
 
+void print_philosopher_state(unsigned int index, int mode);
+void *routine_philosopher(void *args);
 
 #endif
