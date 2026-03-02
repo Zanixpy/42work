@@ -6,38 +6,52 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:09:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/21 22:44:23 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/22 18:07:27 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+#include <stdio.h>
 
-void print_philosopher_state(unsigned int index, int mode)
+void print_philosopher_state(t_philo *philo, int mode)
 {
-    struct timeval current_time;
+    long current_time;
+    long final_time;
     
-    if (gettimeofday(&current_time, NULL) == -1)
+    current_time = get_time_in_milliseconds();
+    if (current_time == -1)
         return ;
+    final_time = current_time - philo->context.init_time;
     if (mode == 1)
-        printf("%ld %d has taken a fork\n", current_time.tv_sec, index);
+        printf("%lu %d has taken a fork\n", final_time, philo->index);
     else if (mode == 2)
-        printf("%ld %d is eating\n", current_time.tv_sec, index);
+        printf("%lu %d is eating\n", final_time, philo->index);
     else if (mode == 3)
-        printf("%ld %d is sleeping\n", current_time.tv_sec, index);
+        printf("%lu %d is sleeping\n", final_time, philo->index);
     else if (mode == 4)
-        printf("%ld %d is thinking\n", current_time.tv_sec, index);
+        printf("%lu %d is thinking\n", final_time, philo->index);
     else if (mode == 5)
-        printf("%ld %d died\n", current_time.tv_sec, index);   
+        printf("%lu %d died\n", final_time, philo->index);   
 }
 
-void eating_step(t_philo *philos)
+int eating_step(t_philo *philos)
 {
     if (pthread_mutex_lock(&philos->right_fork.locker) != 0)
-        return;
-    
-    
-    
-    
+        return (FALSE);
+    print_philosopher_state(philos, 1);
+    if (pthread_mutex_lock(&philos->left_fork.locker) != 0)
+        return (FALSE);
+    print_philosopher_state(philos, 1);
+    print_philosopher_state(philos, 2);
+    usleep(philos->tto_eat);
+    if (pthread_mutex_unlock(&philos->right_fork.locker) != 0)
+        return (FALSE);
+    if (pthread_mutex_unlock(&philos->left_fork.locker) != 0)
+        return (FALSE);
+    print_philosopher_state(philos, 3);
+    usleep(philos->tto_sleep);
+    philos->tto_die = philos->context.tto_die;
+    return (TRUE); 
 }
 
 
@@ -47,10 +61,15 @@ void *routine_philosopher(void *args)
 
     philos = (t_philo *)args;
 
-    while (1) 
+    while (philos->tto_die) 
     {
-         
+        if (eating_step(philos))
+            break;
+        philos->tto_die--;
     }
-    usleep(1000000);
+    if (philos->tto_die > 0)
+        printf("%d tried to take a fork or smth\n", philos->index); 
+    else
+        print_philosopher_state(philos, 5);  
     return (args);
 }

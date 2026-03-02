@@ -7,7 +7,8 @@ SRCS =	src/main.c \
 		src/free/free.c \
 		src/parsing/init.c \
 		src/parsing/validator.c \
-		src/utils/utils.c
+		src/utils/utils.c \
+		src/exec/routine.c
 
 OBJS = $(SRCS:.c=.o)
 

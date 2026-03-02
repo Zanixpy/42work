@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:35:07 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/21 22:39:42 by omawele          ###   ########.fr       */
+/*   Updated: 2026/02/22 17:57:58 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_args
     unsigned int tto_eat;
     unsigned int tto_die;
     unsigned int tto_sleep;
+    long init_time;
 } t_args;
 
 /*
@@ -62,5 +63,6 @@ typedef struct s_philosophers
 
 void	ft_putstr_fd(char *s, int fd);
 int	ft_atoi(const char *str);
+long get_time_in_milliseconds(void);
 
 #endif
