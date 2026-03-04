@@ -6,11 +6,39 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 20:49:59 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/04 11:12:54 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/04 17:12:32 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
+#include <string.h>
+
+static void set_neighbors_philosphers(t_philo *philos, int size)
+{
+    int i;
+
+    i = 0;
+    if (size == 2)
+    {
+        philos[i].prev = NULL;
+        philos[i].next = &philos[i + 1];
+        philos[i + 1].prev = &philos[i];
+        philos[i + 1].next = NULL;
+        return;
+    }
+    while (i < size) 
+    {
+        if (i == 0)
+            philos[i].prev = &philos[size - 1];
+        else if (i == size - 1)
+            philos[i].next = &philos[0];
+        if (i != 0)
+            philos[i].prev = &philos[i - 1];
+        if (i != size - 1)
+            philos[i].next = &philos[i + 1];
+        i++;
+    }    
+}
 
 static t_fork *init_forks(int nb_forks)
 {
@@ -54,32 +82,18 @@ static t_philo *init_philosophers(t_args *args, t_fork *forks)
         philos[i].left_fork = forks[i];
         i++;
     }
+    set_neighbors_philosphers(philos, args->nb_philos_forks);
     return (philos);
 }
 
-static t_waiter *init_waiter(t_philo *philos, t_args *args)
-{
-    t_waiter *waiter;
-
-    waiter = malloc(1 * sizeof(t_waiter));
-    if (!waiter)
-        return (NULL);
-    waiter->philos = philos;
-    waiter->context = *args;
-    return (waiter); 
-}
-
-int init_all(t_philo **philos, t_fork **forks, t_waiter **waiter, t_args *args)
+int init_all(t_philo **philos, t_fork **forks, t_args *args)
 {
     *forks = init_forks(args->nb_philos_forks);
     if (!(*forks))
         return (error_init(1));
     *philos = init_philosophers(args, *forks);
     if (!(*philos))
-        return (cleanup_forks(*forks, args->nb_philos_forks), error_init(2));
-    *waiter = init_waiter(*philos, args);
-    if (!(*waiter))
-        return (cleanup_all(*forks, *philos, *waiter, args->nb_philos_forks), error_init(3));
+        return (cleanup_forks(*forks, args->nb_philos_forks), error_init(0));
     return (TRUE);
 }
 

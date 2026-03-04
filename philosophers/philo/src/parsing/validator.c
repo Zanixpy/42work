@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:56:02 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/03 09:53:26 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/04 17:10:30 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	check_args_int(int argc, char **argv)
 	return (TRUE);
 }
 
-int validator(t_args *args, int argc, char **argv, long time_start)
+int validator(t_args *args, int argc, char **argv)
 {
 	if (argc != 5)
 		return (error_args(1));
@@ -45,6 +45,5 @@ int validator(t_args *args, int argc, char **argv, long time_start)
     args->tto_die = ft_atoi(argv[2]);
     args->tto_eat = ft_atoi(argv[3]);
     args->tto_sleep = ft_atoi(argv[4]);
-	args->init_time = time_start;
     return (TRUE); 
 }

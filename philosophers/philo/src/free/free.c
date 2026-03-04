@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:12:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/04 09:57:36 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/04 16:09:03 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,8 @@ void cleanup_forks(t_fork *forks, int size)
     free(forks);
 }
 
-void cleanup_waiter(t_waiter *waiter)
-{
-    if (waiter)
-        free(waiter);
-}
-
-void cleanup_all(t_fork *forks, t_philo *philos, t_waiter *waiter, int size)
+void cleanup_all(t_fork *forks, t_philo *philos, int size)
 {
     cleanup_philosophers(philos);
     cleanup_forks(forks, size);
-    cleanup_waiter(waiter);
 }
