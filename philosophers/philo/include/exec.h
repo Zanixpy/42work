@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:09:38 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/22 18:00:38 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/03 15:25:57 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXEC_H
 
 # include "utils.h"
+# include "error.h"
 
 
 

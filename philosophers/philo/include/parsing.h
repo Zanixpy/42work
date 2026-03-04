@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 20:51:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/20 21:53:52 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/04 10:31:03 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 # include "error.h"
 # include "free.h"
 
-int validator(t_args *args, int argc, char **argv);
-t_fork *init_forks(int nb_forks);
-t_philo *init_philosophers(t_args *args, t_fork *forks);
+int validator(t_args *args, int argc, char **argv, long time_start);
+int init_all(t_philo **philos, t_fork **forks, t_waiter **waiter, t_args *args);
 
 
 

@@ -6,30 +6,29 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:29:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/22 18:15:25 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/04 11:22:15 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int create_threads(t_philo *philos, int size)
+int create_threads(t_waiter *waiter)
 {
     int i;
-    long time;
+    int size;
 
     i = 0;
-    time = get_time_in_milliseconds();
+    size = waiter->context.nb_philos_forks;
     while (i < size) 
     {
-        philos[i].context.init_time = time;
-        if (pthread_create(&philos[i].tid, NULL, &routine_philosopher, (void *)&philos[i]) != 0)
+        if (pthread_create(&waiter->philos[i].tid, NULL, &routine_philosopher, (void *)waiter) != 0)
             return (FALSE);
         i++;
     }
     i = 0;
     while (i < size) 
     {
-        if (pthread_join(philos[i].tid, NULL) != 0)
+        if (pthread_join(waiter->philos[i].tid, NULL) != 0)
             return (FALSE);
         i++;
     }
@@ -42,19 +41,21 @@ int main(int argc, char **argv)
     t_args args;
     t_fork *forks;
     t_philo *philos;
-   
-    if (validator(&args, argc, argv))
+    t_waiter *waiter;
+    long time_start;
+
+    time_start = get_time_in_milliseconds();
+    if (validator(&args, argc, argv, time_start))
         return (ERRARGS);
     if (args.nb_philos_forks == 0 || args.nb_philos_forks == 1)
         return (EXIT_SUCCESS);
-    forks = init_forks(args.nb_philos_forks);
-    if (!forks)
-        return (error_init(1));
-    philos = init_philosophers(&args, forks);
-    if (!philos)
-        return (cleanup_forks(forks), error_init(0));
-    if (create_threads(philos, args.nb_philos_forks))
-        return (cleanup_all(forks, philos), ERRTHREAD);
-    // unit_test(philos, forks, &args);
-    return (cleanup_all(forks, philos), EXIT_SUCCESS);
+    forks = NULL;
+    philos = NULL;
+    waiter = NULL;
+    if (init_all(&philos, &forks, &waiter, &args))
+        return (ERRINIT);
+    if (create_threads(waiter))
+        return (cleanup_all(forks, philos, waiter, args.nb_philos_forks), ERRTHREAD);
+    // unit_test(philos, forks, waiter, &args);
+    return (cleanup_all(forks, philos, waiter,args.nb_philos_forks), EXIT_SUCCESS);
 }

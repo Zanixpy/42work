@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:48:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/21 17:28:29 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/03 15:25:10 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ERRARGS 2
 # define ERRINIT 3
 # define ERRTHREAD 4
+# define ERRLOCK 5
 
 /*
 * @brief Display and return error if arguments are wrong

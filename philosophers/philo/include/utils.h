@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:35:07 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/22 17:57:58 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/04 11:11:50 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 
 # define TRUE 0
 # define FALSE 1
@@ -50,13 +51,21 @@ typedef struct s_philosophers
 {
     pthread_t tid;
     unsigned int index;
-    unsigned int tto_eat;
-    unsigned int tto_die;
-    unsigned int tto_sleep;
+    int left_fork_taken;
+    int right_fork_taken;
+    int is_thinking;
+    int is_eating;
+    long last_meal_time;
     t_fork left_fork;
     t_fork right_fork;
-    t_args context;
 } t_philo;
+
+typedef struct s_waiter
+{
+    pthread_t tid;
+    struct s_philosophers *philos;
+    t_args context;
+} t_waiter;
 
 
 
