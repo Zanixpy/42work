@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 20:51:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/05 12:49:06 by omawele          ###   ########.fr       */
+/*   Created: 2025/11/06 13:38:48 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:21:59 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "libft.h"
 
-
-# include "utils.h"
-# include "error.h"
-# include "free.h"
-
-int validator(t_args *args, int argc, char **argv, long time_start);
-int init_all(t_philo **philos, t_fork **forks, t_args *args);
-
-
-
-
-#endif
+int	ft_isascii(int c)
+{
+	if (c == 0)
+		return (-1);
+	if (c >= 0 && c <= 127)
+		return (c);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:56:02 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/04 17:10:30 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/05 12:51:45 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,28 @@ static int	check_args_int(int argc, char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (FALSE);
+				return (1);
 			j++;
 		}
 		i++;
 	}
-	return (TRUE);
+	return (0);
 }
 
-int validator(t_args *args, int argc, char **argv)
-{
+int validator(t_args *args, int argc, char **argv, long time_start)
+{	
 	if (argc != 5)
-		return (error_args(1));
+		return (error_args(1), 1);
     if (check_args_int(argc, argv))
 	{
-        return (error_args(0));		
+        return (error_args(0), 1);		
 	}
 	args->nb_philos_forks = ft_atoi(argv[1]);
     args->tto_die = ft_atoi(argv[2]);
     args->tto_eat = ft_atoi(argv[3]);
     args->tto_sleep = ft_atoi(argv[4]);
-    return (TRUE); 
+    args->time_start = time_start;
+	if (args->nb_philos_forks == 0 || args->nb_philos_forks == 1)
+		return (1);
+    return (0); 
 }

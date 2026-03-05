@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 16:21:49 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/04 17:09:54 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/05 12:59:56 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,13 @@ void unit_test_philos(t_philo *philos, int size)
     while (n < size) 
     {
         printf("index : %d\n", philos[n].index);
-        printf("left_fork_taken : %d\n", philos[n].left_fork_taken);
-        printf("right_fork_taken : %d\n", philos[n].right_fork_taken);
-        printf("is_thinking : %d\n", philos[n].is_thinking);
-        printf("is_eating : %d\n", philos[n].is_eating);
-        printf("last_meal_time : %ld\n", philos[n].last_meal_time);
-        if (philos[n].prev)
-            printf("index prev : %d\n", philos[n].prev->index);
-        if (philos[n].next)
-            printf("index next : %d\n", philos[n].next->index);        
+        printf("last_meal_time : %ld\n", philos[n].last_meal_time);       
         printf("left_fork index : %d\n", philos[n].left_fork.index);
         printf("right_fork index : %d\n", philos[n].right_fork.index);
+        printf("tto_eat : %d\n", philos[n].args.tto_eat);
+        printf("tto_die : %d\n", philos[n].args.tto_die);
+        printf("tto_sleep : %d\n", philos[n].args.tto_sleep);
+        printf("time_start : %ld\n", philos[n].args.time_start);
         printf("\n");
         n++;
     }
@@ -58,6 +54,8 @@ void unit_test_args(t_args *args)
     printf("tto_eat : %d\n", args->tto_eat);
     printf("tto_die : %d\n", args->tto_die);
     printf("tto_sleep : %d\n", args->tto_sleep);
+    printf("time_start : %ld\n", args->time_start);
+
     printf("========================\n");
 }
 

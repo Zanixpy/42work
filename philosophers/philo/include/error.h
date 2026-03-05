@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:48:42 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/03 15:25:10 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/05 12:23:05 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
 # define ERRLOCK 5
 
 /*
-* @brief Display and return error if arguments are wrong
+* @brief Display error if arguments are wrong
 * @param code Typifies the type of error, if it's the number of args or args itself
 */
-int error_args(int code);
+void error_args(int code);
 
 /*
-* @brief Display and return error if the initialization step failed
+* @brief Display error if the initialization step failed
 * @param code Typifies the type of error
 */
-int error_init(int code);
+void error_init(int code);
 
 
 #endif

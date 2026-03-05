@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:10:55 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/22 17:17:47 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/05 11:34:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ long get_time_in_milliseconds(void)
 
 	if (gettimeofday(&tv,NULL) == -1)
 		return (-1);
-    return ((( long)tv.tv_sec)*1000)+(tv.tv_usec/1000);
+    return (((long)tv.tv_sec)*1000)+(tv.tv_usec/1000);
 }

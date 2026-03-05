@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 20:51:48 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/05 12:49:06 by omawele          ###   ########.fr       */
+/*   Created: 2025/11/06 13:42:54 by omawele           #+#    #+#             */
+/*   Updated: 2025/11/07 15:28:45 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "libft.h"
 
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*p;
 
-# include "utils.h"
-# include "error.h"
-# include "free.h"
-
-int validator(t_args *args, int argc, char **argv, long time_start);
-int init_all(t_philo **philos, t_fork **forks, t_args *args);
-
-
-
-
-#endif
+	p = *lst;
+	if (p == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	while (p != NULL)
+	{
+		if (p->next == NULL)
+		{
+			p->next = new;
+			return ;
+		}
+		p = p->next;
+	}
+}

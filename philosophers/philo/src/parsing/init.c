@@ -6,39 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 20:49:59 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/04 17:12:32 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/05 12:58:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
-#include <string.h>
-
-static void set_neighbors_philosphers(t_philo *philos, int size)
-{
-    int i;
-
-    i = 0;
-    if (size == 2)
-    {
-        philos[i].prev = NULL;
-        philos[i].next = &philos[i + 1];
-        philos[i + 1].prev = &philos[i];
-        philos[i + 1].next = NULL;
-        return;
-    }
-    while (i < size) 
-    {
-        if (i == 0)
-            philos[i].prev = &philos[size - 1];
-        else if (i == size - 1)
-            philos[i].next = &philos[0];
-        if (i != 0)
-            philos[i].prev = &philos[i - 1];
-        if (i != size - 1)
-            philos[i].next = &philos[i + 1];
-        i++;
-    }    
-}
 
 static t_fork *init_forks(int nb_forks)
 {
@@ -52,7 +24,11 @@ static t_fork *init_forks(int nb_forks)
     while (i < nb_forks)
     {
         forks[i].index = i;
-        pthread_mutex_init(&forks[i].locker, NULL);
+        if (pthread_mutex_init(&forks[i].locker, NULL) != 0)
+        {
+            free(forks);
+            return (NULL);
+        }
         i++;
     }
     return (forks);
@@ -70,11 +46,8 @@ static t_philo *init_philosophers(t_args *args, t_fork *forks)
     while (i < args->nb_philos_forks)
     {
         philos[i].index = i;
-        philos[i].left_fork_taken = 0;
-        philos[i].right_fork_taken = 0;
-        philos[i].is_thinking = 0;
-        philos[i].is_eating = 0;
         philos[i].last_meal_time = 0;
+        philos[i].args = *args;
         if (i != 0)
             philos[i].right_fork = forks[i - 1];
         else if (i == 0)
@@ -82,7 +55,6 @@ static t_philo *init_philosophers(t_args *args, t_fork *forks)
         philos[i].left_fork = forks[i];
         i++;
     }
-    set_neighbors_philosphers(philos, args->nb_philos_forks);
     return (philos);
 }
 
@@ -90,11 +62,11 @@ int init_all(t_philo **philos, t_fork **forks, t_args *args)
 {
     *forks = init_forks(args->nb_philos_forks);
     if (!(*forks))
-        return (error_init(1));
+        return (error_init(2), 1);
     *philos = init_philosophers(args, *forks);
     if (!(*philos))
-        return (cleanup_forks(*forks, args->nb_philos_forks), error_init(0));
-    return (TRUE);
+        return (cleanup_forks(*forks, args->nb_philos_forks), error_init(3), 1);
+    return (0);
 }
 
 
