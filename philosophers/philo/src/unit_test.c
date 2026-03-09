@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 16:21:49 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/05 12:59:56 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/09 11:15:52 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void unit_test_philos(t_philo *philos, int size)
     while (n < size) 
     {
         printf("index : %d\n", philos[n].index);
-        printf("last_meal_time : %ld\n", philos[n].last_meal_time);       
-        printf("left_fork index : %d\n", philos[n].left_fork.index);
+        printf("last_meal_time : %ld\n", philos[n].last_meal_time);    
+        // printf("left_fork index : %d\n", philos[n].left_fork.index);
         printf("right_fork index : %d\n", philos[n].right_fork.index);
         printf("tto_eat : %d\n", philos[n].args.tto_eat);
         printf("tto_die : %d\n", philos[n].args.tto_die);
         printf("tto_sleep : %d\n", philos[n].args.tto_sleep);
-        printf("time_start : %ld\n", philos[n].args.time_start);
+        printf("time_start : %ld\n", philos[n].start_time);
         printf("\n");
         n++;
     }
@@ -54,8 +54,6 @@ void unit_test_args(t_args *args)
     printf("tto_eat : %d\n", args->tto_eat);
     printf("tto_die : %d\n", args->tto_die);
     printf("tto_sleep : %d\n", args->tto_sleep);
-    printf("time_start : %ld\n", args->time_start);
-
     printf("========================\n");
 }
 

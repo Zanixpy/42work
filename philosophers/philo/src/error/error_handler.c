@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:48:06 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/05 12:47:10 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/09 15:07:39 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,7 @@ void error_init(int code)
         ft_putstr_fd("malloc: error occured in the forks initialization\n", 2);
     else if (code == 2)
         ft_putstr_fd("malloc: error occured in the philos initialization\n", 2);
+    else if (code == 3)
+        ft_putstr_fd("malloc: error occured in the monitor initialization\n", 2);
+
 }
