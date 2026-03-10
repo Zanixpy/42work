@@ -70,3 +70,13 @@ void take_second_fork(t_philo *philo)
 	else
 		pthread_mutex_lock(&philo->left_fork.locker);
 }
+
+int	should_stop(t_philo *philo)
+{
+	int	stop;
+
+	pthread_mutex_lock(philo->stop_mutex);
+	stop = philo->stop;
+	pthread_mutex_unlock(philo->stop_mutex);
+	return (stop);
+}
