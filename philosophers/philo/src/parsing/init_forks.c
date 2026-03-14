@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine_utils.c                                    :+:      :+:    :+:   */
+/*   init_forks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/11 12:35:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/14 17:46:23 by omawele          ###   ########.fr       */
+/*   Created: 2026/03/14 18:40:31 by omawele           #+#    #+#             */
+/*   Updated: 2026/03/14 18:48:47 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "../../include/parsing.h"
 
-void	unlock_forks(t_philo *philo)
+t_fork	*init_forks(int nb_forks)
 {
-	pthread_mutex_unlock(&philo->right_fork.locker);
-	pthread_mutex_unlock(&philo->left_fork.locker);
+	t_fork	*forks;
+	int		i;
+
+	forks = malloc(nb_forks * sizeof(t_fork));
+	if (!forks)
+		return (NULL);
+	i = 0;
+	while (i < nb_forks)
+	{
+		forks[i].index = i;
+		if (pthread_mutex_init(&forks[i].locker, NULL) != 0)
+			return (free_forks(forks, i), NULL);
+		i++;
+	}
+	return (forks);
 }

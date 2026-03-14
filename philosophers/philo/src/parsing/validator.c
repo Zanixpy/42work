@@ -6,12 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:56:02 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/09 11:05:21 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/14 18:19:37 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
-
 
 static int	check_args_int(int argc, char **argv)
 {
@@ -33,19 +32,19 @@ static int	check_args_int(int argc, char **argv)
 	return (0);
 }
 
-int validator(t_args *args, int argc, char **argv)
-{	
+int	validator(t_args *args, int argc, char **argv)
+{
 	if (argc != 5)
 		return (error_args(1), 1);
-    if (check_args_int(argc, argv))
+	if (check_args_int(argc, argv))
 	{
-        return (error_args(0), 1);		
+		return (error_args(0), 1);
 	}
-	args->nb_philos_forks = ft_atoi(argv[1]);
-    args->tto_die = ft_atoi(argv[2]);
-    args->tto_eat = ft_atoi(argv[3]);
-    args->tto_sleep = ft_atoi(argv[4]);
-	if (args->nb_philos_forks == 0)
+	args->size_phi = ft_atoi(argv[1]);
+	args->tto_die = ft_atoi(argv[2]);
+	args->tto_eat = ft_atoi(argv[3]);
+	args->tto_sleep = ft_atoi(argv[4]);
+	if (args->size_phi == 0)
 		return (1);
-    return (0); 
+	return (0);
 }

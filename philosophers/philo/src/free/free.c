@@ -6,13 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:12:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/10 17:45:43 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/14 18:19:02 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/free.h"
 
-void cleanup_philosophers(t_philo *philos, int size)
+void free_philos(t_philo *philos, int size)
 {
     int i;
 
@@ -27,7 +27,7 @@ void cleanup_philosophers(t_philo *philos, int size)
     free(philos);
 }
 
-void cleanup_forks(t_fork *forks, int size)
+void free_forks(t_fork *forks, int size)
 {
     int i;
 
@@ -42,23 +42,23 @@ void cleanup_forks(t_fork *forks, int size)
     free(forks);
 }
 
-void cleanup_monitor(t_monitor *monitor)
+void free_monitor(t_monitor *monitor)
 {
     if (monitor)
         free(monitor);
 }
 
-void cleanup_mutex(pthread_mutex_t **mutex)
+void free_mutex(pthread_mutex_t **mutex)
 {
     pthread_mutex_destroy(*mutex);
     free(*mutex);
 }
 
-void cleanup_all(t_fork *forks, t_philo *philos, t_monitor *monitor, int size)
+void clean(t_fork *forks, t_philo *philos, t_monitor *monitor, int size)
 {
-    cleanup_mutex(&monitor->print_mutex);
-    cleanup_mutex(&monitor->stop_mutex);
-    cleanup_philosophers(philos, size);
-    cleanup_forks(forks, size);
-    cleanup_monitor(monitor);
+    free_mutex(&monitor->print_mutex);
+    free_mutex(&monitor->stop_mutex);
+    free_philos(philos, size);
+    free_forks(forks, size);
+    free_monitor(monitor);
 }

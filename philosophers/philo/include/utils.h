@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:35:07 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/10 16:43:19 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/14 17:51:48 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_fork
 */
 typedef struct s_args
 {
-    unsigned int nb_philos_forks;
+    unsigned int size_phi;
     unsigned int tto_eat;
     unsigned int tto_die;
     unsigned int tto_sleep;
