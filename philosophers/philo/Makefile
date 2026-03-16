@@ -6,11 +6,12 @@ SRCS =	src/main.c \
 		src/error/error_handler.c \
 		src/free/free.c \
 		src/parsing/init.c \
-		src/parsing/validator.c \
+		src/parsing/parsing.c \
 		src/utils/utils.c \
 		src/exec/routine.c \
-		src/exec/routine_one_philosopher.c \
-		src/exec/monitor.c
+		src/exec/actions.c \
+		src/exec/monitor.c \
+		src/exec/routine_utils.c 
 
 OBJS = $(SRCS:.c=.o)
 

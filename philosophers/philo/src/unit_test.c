@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 16:21:49 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/14 18:18:27 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/16 16:41:39 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void unit_test_forks(t_fork *forks, int size)
 void unit_test_args(t_args *args)
 {
     printf("====== ARGS TEST ======\n");
-    printf("nb_philos_forks : %d\n", args->size_phi);
+    printf("nb_philos_forks : %d\n", args->size);
     printf("tto_eat : %d\n", args->tto_eat);
     printf("tto_die : %d\n", args->tto_die);
     printf("tto_sleep : %d\n", args->tto_sleep);
@@ -60,6 +60,6 @@ void unit_test_args(t_args *args)
 void unit_test(t_philo *philos, t_fork *forks, t_args *args)
 {
     unit_test_args(args);
-    unit_test_philos(philos, args->size_phi);
-    unit_test_forks(forks, args->size_phi);
+    unit_test_philos(philos, args->size);
+    unit_test_forks(forks, args->size);
 }

@@ -6,12 +6,11 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:25:18 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/14 18:19:50 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/16 16:22:49 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
-#include <string.h>
 
 void	*routine_monitor(void *args)
 {
@@ -20,7 +19,7 @@ void	*routine_monitor(void *args)
 	int			size;
 
 	monitor = (t_monitor *)args;
-	size = monitor->args.size_phi;
+	size = monitor->args.size;
 	while (1)
 	{
 		i = 0;
@@ -66,7 +65,7 @@ void	end_simulation(t_monitor *monitor)
 	int	size;
 	int	i;
 
-	size = monitor->args.size_phi;
+	size = monitor->args.size;
 	i = 0;
 	pthread_mutex_lock(monitor->stop_mutex);
 	while (i < size)
@@ -76,3 +75,6 @@ void	end_simulation(t_monitor *monitor)
 	}
 	pthread_mutex_unlock(monitor->stop_mutex);
 }
+
+
+

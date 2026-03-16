@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:35:07 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/14 17:51:48 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/16 16:39:55 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_fork
 */
 typedef struct s_args
 {
-    unsigned int size_phi;
+    unsigned int size;
     unsigned int tto_eat;
     unsigned int tto_die;
     unsigned int tto_sleep;
@@ -75,8 +75,7 @@ typedef struct s_monitor
 void	ft_putstr_fd(char *s, int fd);
 int	ft_atoi(const char *str);
 long get_time_in_milliseconds(void);
-void take_first_fork(t_philo *philo);
-void take_second_fork(t_philo *philo);
-int	should_stop(t_philo *philo);
+
+
 
 #endif
