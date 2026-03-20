@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:32:01 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/09 15:18:45 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/17 19:08:00 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@
 void unit_test(t_philo *philos, t_fork *forks, t_args *args);
 
 int create_threads(t_philo **philos, t_monitor **monitor, int size);
-int create_thread_one_philosopher(t_philo **philos, t_monitor **monitor);
+int	create_thread_one_philosopher(t_philo **philos);
 
 #endif

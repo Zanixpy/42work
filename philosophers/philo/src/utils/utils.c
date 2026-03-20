@@ -6,10 +6,9 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:10:55 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/16 16:17:15 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/18 16:53:09 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/utils.h"
 
@@ -22,7 +21,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-int	ft_atoi(const char *str)
+int ft_atoi(const char *str)
 {
 	int	result;
 	int	sign;
@@ -46,12 +45,25 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
+size_t ft_strlen(char *s)
+{
+	int count;
+
+	count = 0;
+	if (!s)
+		return (count);
+	while (s[count]) 
+	{
+		count++;
+	}
+	return (count);
+}
+
 long get_time_in_milliseconds(void)
 {
 	struct timeval tv;
 
-	if (gettimeofday(&tv,NULL) == -1)
-		return (-1);
-    return (((long)tv.tv_sec)*1000)+(tv.tv_usec/1000);
+	gettimeofday(&tv, NULL);
+    return ((((long)tv.tv_sec) * 1000) + (tv.tv_usec/1000));
 }
 

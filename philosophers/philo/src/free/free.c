@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:12:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/14 18:19:02 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/17 20:23:51 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void free_philos(t_philo *philos, int size)
     while (i < size) 
     {
         pthread_mutex_destroy(&philos[i].lock_last_meal);
+        pthread_mutex_destroy(&philos[i].lock_eat_count);
         i++;    
     }
     free(philos);
@@ -56,8 +57,9 @@ void free_mutex(pthread_mutex_t **mutex)
 
 void clean(t_fork *forks, t_philo *philos, t_monitor *monitor, int size)
 {
-    free_mutex(&monitor->print_mutex);
-    free_mutex(&monitor->stop_mutex);
+    free_mutex(&philos->print_mutex);
+    free_mutex(&philos->stop_mutex);
+    free_mutex(&philos->forks_mutex);
     free_philos(philos, size);
     free_forks(forks, size);
     free_monitor(monitor);

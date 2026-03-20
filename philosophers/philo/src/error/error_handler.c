@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:48:06 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/14 17:49:03 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/17 15:13:14 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	error_args(int code)
 		ft_putstr_fd("format: [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep]\n",
 			2);
 	else
-		ft_putstr_fd("args: all values must be positive integer\n", 2);
+		ft_putstr_fd("args: all values must be int positive integer\n", 2);
 }
 
 int	error_init(int code)

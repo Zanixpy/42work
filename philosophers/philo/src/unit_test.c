@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 16:21:49 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/16 16:41:39 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/17 12:11:11 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void unit_test_philos(t_philo *philos, int size)
     {
         printf("index : %d\n", philos[n].index);
         printf("last_meal_time : %ld\n", philos[n].last_meal_time);    
-        // printf("left_fork index : %d\n", philos[n].left_fork.index);
-        printf("right_fork index : %d\n", philos[n].right_fork.index);
+        printf("left_fork index : %d\n", philos[n].left_fork->index);
+        printf("right_fork index : %d\n", philos[n].right_fork->index);
         printf("tto_eat : %d\n", philos[n].args.tto_eat);
         printf("tto_die : %d\n", philos[n].args.tto_die);
         printf("tto_sleep : %d\n", philos[n].args.tto_sleep);
