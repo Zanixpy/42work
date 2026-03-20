@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:25:18 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/20 11:44:22 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/20 12:37:31 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	*routine_monitor(void *args)
 			}		
 			i++;
 		}
-		usleep(1000);
-	}
+		usleep(50);
+}
 	return ((void *)0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:09:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/20 11:32:33 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/20 12:47:00 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ void	*routine_philosophers(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	if (philo->index % 2 == 1)
-		precise_sleep(philo, philo->args.tto_eat);
+	if (philo->index % 2 == 0)
+		usleep(100);
+	if (philo->args.size % 2 != 0)
+	{
+		if (philo->index == philo->args.size)
+			precise_sleep(philo, philo->args.tto_eat);
+	}
 	while (1)
 	{
 		if (should_stop(philo))
@@ -29,6 +34,7 @@ void	*routine_philosophers(void *args)
 	}
 	return ((void *)0);
 }
+
 void	*routine_philosopher(void *args)
 {
 	t_philo	*philo;

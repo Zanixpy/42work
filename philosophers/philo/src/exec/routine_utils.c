@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 12:35:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/20 11:31:23 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/20 12:30:10 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	precise_sleep(t_philo *philo, long duration_ms)
 		now = get_time_in_milliseconds();
 		if (now == -1 || now - start >= duration_ms)
 			break ;
-		usleep(200);
+		usleep(10);
 	}
 }
 
@@ -56,7 +56,6 @@ int	take_forks(t_philo *philo)
 			return (0);
 		}
 		pthread_mutex_unlock(philo->forks_mutex);
-		usleep(200);
 	}
 	return (1);
 }

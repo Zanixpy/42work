@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:35:07 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/18 15:33:10 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/20 12:49:42 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 typedef struct s_fork
 {
 	unsigned int	index;
-	int				in_use;
 	pthread_mutex_t	locker;
 } t_fork;
 
