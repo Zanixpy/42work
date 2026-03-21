@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:29:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/18 16:52:54 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/20 15:18:53 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int	create_thread_one_philosopher(t_philo **philos)
 
 int	main(int argc, char **argv)
 {
-	t_args		args;
 	t_fork		*forks;
 	t_philo		*philos;
 	t_monitor	*monitor;
+	t_data	data;
 
-	if (validator(&args, argc, argv))
+	if (validator(&data, argc, argv))
 		return (ERRARGS);
 	forks = NULL;
 	philos = NULL;

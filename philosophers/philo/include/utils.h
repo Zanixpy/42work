@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:35:07 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/20 12:49:42 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/20 15:02:42 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,29 @@
 */
 typedef struct s_fork
 {
-	unsigned int	index;
 	pthread_mutex_t	locker;
 } t_fork;
 
 /*
 * @brief Structure to contain the arguments of main
 */
-typedef struct s_args
+typedef struct s_data
 {
     unsigned int size;
     unsigned int tto_eat;
     unsigned int tto_die;
     unsigned int tto_sleep;
     unsigned int eat_count;
-} t_args;
+	long			start_time;
+} t_data;
+
+typedef struct s_mutex
+{
+	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*stop_mutex;
+	pthread_mutex_t	*lock_last_meal;
+	pthread_mutex_t	*lock_eat_count;
+} t_mutex;
 
 /*
 * @brief Structure to create philosophers
@@ -50,29 +58,20 @@ typedef struct s_philosophers
 	pthread_t		tid;
 	unsigned int	index;
 	long			last_meal_time;
-	long			start_time;
 	unsigned int	eat_count;
 	int				stop;
-	t_args			args;
+	t_data			data;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
-	pthread_mutex_t	*print_mutex;
-	pthread_mutex_t	*stop_mutex;
-	pthread_mutex_t	*forks_mutex;
-	pthread_mutex_t	lock_last_meal;
-	pthread_mutex_t	lock_eat_count;
+	t_mutex 		mutexes;
 } t_philo;
 
 typedef struct s_monitor
 {
     pthread_t tid;
-    long start_time;
     t_philo *philos;
-    t_args args;
-    pthread_mutex_t *lock_last_meal;
-    pthread_mutex_t *stop_mutex;
-    pthread_mutex_t *print_mutex;
-    pthread_mutex_t *lock_eat_count;
+    t_data 	data;
+	t_mutex mutexes;
 } t_monitor;
 
 

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 15:54:51 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/18 16:51:11 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/20 15:34:31 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check_args_int(int argc, char **argv)
 	return (0);
 }
 
-int	validator(t_args *args, int argc, char **argv)
+int	validator(t_data *data, int argc, char **argv)
 {
     struct timeval tv;
 	
@@ -65,17 +65,18 @@ int	validator(t_args *args, int argc, char **argv)
 	{
 		return (error_args(0), 1);
 	}
-	args->size = ft_atoi(argv[1]);
-	args->tto_die = ft_atoi(argv[2]);
-	args->tto_eat = ft_atoi(argv[3]);
-	args->tto_sleep = ft_atoi(argv[4]);
+	data->size = ft_atoi(argv[1]);
+	data->tto_die = ft_atoi(argv[2]);
+	data->tto_eat = ft_atoi(argv[3]);
+	data->tto_sleep = ft_atoi(argv[4]);
+	data->start_time = 0;
     if (argc == 6)
-        args->eat_count = ft_atoi(argv[5]);
+        data->eat_count = ft_atoi(argv[5]);
     else 
     {
-        args->eat_count = 0;    
+        data->eat_count = 0;    
     }
-	if (args->size <= 0)
+	if (data->size == 0)
 		return (1);
 	return (0);
 }
@@ -92,38 +93,4 @@ static pthread_mutex_t	*create_mutex(void)
 	return (mutex);
 }
 
-int	init_all(t_philo **philos, t_fork **forks, t_monitor **monitor,
-	t_args *args)
-{
-	pthread_mutex_t	*print_mutex;
-	pthread_mutex_t	*stop_mutex;
-	pthread_mutex_t	*forks_mutex;
 
-	*forks = init_forks(args->size);
-	if (!(*forks))
-		return (error_init(1));
-	print_mutex = create_mutex();
-	if (!print_mutex)
-		return (free_forks(*forks, args->size), error_init(2));
-	stop_mutex = create_mutex();
-	if (!stop_mutex)
-		return (free_mutex(&print_mutex), free_forks(*forks, args->size),
-			error_init(2));
-	forks_mutex = create_mutex();
-	if (!forks_mutex)
-		return (free_mutex(&print_mutex), free_mutex(&stop_mutex),
-			free_forks(*forks, args->size), error_init(2));
-	*philos = init_philosophers(args, *forks, &print_mutex, &stop_mutex,
-			&forks_mutex);
-	if (!(*philos))
-		return (free_mutex(&print_mutex), free_mutex(&stop_mutex),
-			free_mutex(&forks_mutex), free_forks(*forks, args->size),
-			error_init(2));
-	if ((*philos)->args.size == 1)
-		return (0);
-	*monitor = init_monitor(philos, args, &print_mutex, &stop_mutex);
-	if (!(*monitor))
-		return (clean(*forks, *philos, *monitor, args->size),
-			error_init(3));
-	return (0);
-}
