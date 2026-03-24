@@ -30,5 +30,5 @@ int	error_init(int code)
 	else if (code == 3)
 		ft_putstr_fd("malloc: error occured in the monitor initialization\n",
 			2);
-    return (1);
+	return (1);
 }

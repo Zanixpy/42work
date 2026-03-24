@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 15:54:51 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/20 15:34:31 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/21 18:44:31 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	strcmp_int_limit(char *s)
 	char	*int_max;
 	int		size;
 
-    int_max = "2147483647";
+	int_max = "2147483647";
 	size = ft_strlen(s);
 	if (size <= 9)
 		return (0);
@@ -46,8 +46,8 @@ static int	check_args_int(int argc, char **argv)
 				return (1);
 			j++;
 		}
-        if (strcmp_int_limit(argv[i]))
-            return (1);
+		if (strcmp_int_limit(argv[i]))
+			return (1);
 		i++;
 	}
 	return (0);
@@ -55,9 +55,9 @@ static int	check_args_int(int argc, char **argv)
 
 int	validator(t_data *data, int argc, char **argv)
 {
-    struct timeval tv;
-	
-    if (gettimeofday(&tv, NULL) == -1)
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) == -1)
 		return (1);
 	if (argc != 5 && argc != 6)
 		return (error_args(1), 1);
@@ -70,12 +70,12 @@ int	validator(t_data *data, int argc, char **argv)
 	data->tto_eat = ft_atoi(argv[3]);
 	data->tto_sleep = ft_atoi(argv[4]);
 	data->start_time = 0;
-    if (argc == 6)
-        data->eat_count = ft_atoi(argv[5]);
-    else 
-    {
-        data->eat_count = 0;    
-    }
+	if (argc == 6)
+		data->eat_count = ft_atoi(argv[5]);
+	else
+	{
+		data->eat_count = 0;
+	}
 	if (data->size == 0)
 		return (1);
 	return (0);
@@ -93,4 +93,30 @@ static pthread_mutex_t	*create_mutex(void)
 	return (mutex);
 }
 
+int	init_all(t_philo **philos, t_fork **forks, t_monitor **monitor,
+		t_data *data)
+{
+	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*stop_mutex;
 
+	print_mutex = create_mutex();
+	if (!print_mutex)
+		return (error_init(2));
+	stop_mutex = create_mutex();
+	if (!stop_mutex)
+		return (free_mutex(&print_mutex), error_init(2));
+	*forks = init_forks(data->size);
+	if (!(*forks))
+		return (free_mutex(&print_mutex), free_mutex(&stop_mutex),
+			error_init(1));
+	*philos = init_philosophers(data, *forks, &print_mutex, &stop_mutex);
+	if (!(*philos))
+		return (free_mutex(&print_mutex), free_mutex(&stop_mutex),
+			free_forks(*forks, data->size), error_init(2));
+	if ((*philos)->data.size == 1)
+		return (0);
+	*monitor = init_monitor(philos, data, &print_mutex, &stop_mutex);
+	if (!(*monitor))
+		return (clean(*forks, *philos, *monitor, data->size), error_init(3));
+	return (0);
+}

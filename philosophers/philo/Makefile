@@ -5,13 +5,16 @@ SRCS =	src/main.c \
 		src/unit_test.c \
 		src/error/error_handler.c \
 		src/free/free.c \
-		src/parsing/init.c \
 		src/parsing/parsing.c \
 		src/utils/utils.c \
 		src/exec/routine.c \
 		src/exec/actions.c \
 		src/exec/monitor.c \
-		src/exec/routine_utils.c 
+		src/exec/routine_utils.c \
+		src/parsing/init/init_forks.c \
+		src/parsing/init/init_monitor.c \
+		src/parsing/init/init_philosophers.c 
+
 
 OBJS = $(SRCS:.c=.o)
 

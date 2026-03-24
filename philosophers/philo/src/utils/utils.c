@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:10:55 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/18 16:53:09 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/23 23:53:27 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-int ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int	result;
 	int	sign;
@@ -45,25 +45,24 @@ int ft_atoi(const char *str)
 	return (result * sign);
 }
 
-size_t ft_strlen(char *s)
+size_t	ft_strlen(char *s)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (!s)
 		return (count);
-	while (s[count]) 
+	while (s[count])
 	{
 		count++;
 	}
 	return (count);
 }
 
-long get_time_in_milliseconds(void)
+size_t	get_time_ms(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-    return ((((long)tv.tv_sec) * 1000) + (tv.tv_usec/1000));
+	return (((tv.tv_sec) * 1000) + (tv.tv_usec / 1000));
 }
-

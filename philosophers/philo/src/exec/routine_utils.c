@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 12:35:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/20 12:30:10 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/24 00:33:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,68 +17,63 @@ void	precise_sleep(t_philo *philo, long duration_ms)
 	long	start;
 	long	now;
 
-	start = get_time_in_milliseconds();
-	if (start == -1)
-		return ;
+	start = get_time_ms();
 	while (!should_stop(philo))
 	{
-		now = get_time_in_milliseconds();
-		if (now == -1 || now - start >= duration_ms)
+		now = get_time_ms();
+		if (now - start >= duration_ms)
 			break ;
-		usleep(10);
+		usleep(5);
 	}
 }
 
 int	take_forks(t_philo *philo)
 {
-	long	current_time;
-
-	while (!should_stop(philo))
-	{
-		pthread_mutex_lock(philo->forks_mutex);
-		if (!philo->left_fork->in_use && !philo->right_fork->in_use)
-		{
-			philo->left_fork->in_use = 1;
-			philo->right_fork->in_use = 1;
-			pthread_mutex_unlock(philo->forks_mutex);
-			if (should_stop(philo))
-				return (release_forks(philo), 1);
-			current_time = get_time_in_milliseconds() - philo->start_time;
-			pthread_mutex_lock(philo->print_mutex);
-			printf("%ld %d has taken a fork\n", current_time, philo->index);
-			pthread_mutex_unlock(philo->print_mutex);
-			if (should_stop(philo))
-				return (release_forks(philo), 1);
-			current_time = get_time_in_milliseconds() - philo->start_time;
-			pthread_mutex_lock(philo->print_mutex);
-			printf("%ld %d has taken a fork\n", current_time, philo->index);
-			pthread_mutex_unlock(philo->print_mutex);
-			return (0);
-		}
-		pthread_mutex_unlock(philo->forks_mutex);
-	}
-	return (1);
+	if (should_stop(philo))
+		return (1);
+	if (philo->index % 2 == 0)
+		pthread_mutex_lock(&philo->right_fork->locker);
+	else
+		pthread_mutex_lock(&philo->left_fork->locker);
+	if (should_stop(philo))
+		return (release_one_fork(philo), 1);
+	pthread_mutex_lock(philo->mutexes.print_mutex);
+	printf("%ld %d has taken a fork\n", get_time_ms() - philo->data.start_time,
+		philo->index);
+	pthread_mutex_unlock(philo->mutexes.print_mutex);
+	if (philo->index % 2 == 0)
+		pthread_mutex_lock(&philo->left_fork->locker);
+	else
+		pthread_mutex_lock(&philo->right_fork->locker);
+	if (should_stop(philo))
+		return (release_forks(philo), 1);
+	pthread_mutex_lock(philo->mutexes.print_mutex);
+	printf("%ld %d has taken a fork\n", get_time_ms() - philo->data.start_time,
+		philo->index);
+	pthread_mutex_unlock(philo->mutexes.print_mutex);
+	return (0);
 }
 
 int	should_stop(t_philo *philo)
 {
 	int	stop;
 
-	pthread_mutex_lock(philo->stop_mutex);
+	pthread_mutex_lock(philo->mutexes.stop_mutex);
 	stop = philo->stop;
-	pthread_mutex_unlock(philo->stop_mutex);
+	pthread_mutex_unlock(philo->mutexes.stop_mutex);
 	return (stop);
 }
 
-void release_forks(t_philo *philo)
+void	release_forks(t_philo *philo)
 {
-	pthread_mutex_lock(philo->forks_mutex);
-	philo->right_fork->in_use = 0;
-	philo->left_fork->in_use = 0;
-	pthread_mutex_unlock(philo->forks_mutex);
+	pthread_mutex_unlock(&philo->right_fork->locker);
+	pthread_mutex_unlock(&philo->left_fork->locker);
 }
 
-void release_one_fork(t_philo *philo)
+void	release_one_fork(t_philo *philo)
 {
-	release_forks(philo);
+	if (philo->index % 2 == 0)
+		pthread_mutex_unlock(&philo->right_fork->locker);
+	else
+		pthread_mutex_unlock(&philo->left_fork->locker);
 }
