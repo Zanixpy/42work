@@ -2,8 +2,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS =  src/main.c \
-		src/parsing/parsing.c \
-		src/utils/utils.c
+		src/parser/lexer.c \
+		src/free/free.c
 
 LIBFT_DIR = external/libft
 LIBFT = $(LIBFT_DIR)/libft.a

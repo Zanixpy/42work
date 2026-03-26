@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omawele <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:44:44 by omawele           #+#    #+#             */
-/*   Updated: 2025/11/11 12:42:01 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/24 20:24:35 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *node)
 {
 	t_list	*p;
 
 	p = *lst;
 	if (p == NULL)
 	{
-		*lst = new;
+		*lst = node;
 		return ;
 	}
-	*lst = new;
-	new->next = p;
+	*lst = node;
+	node->next = p;
 }

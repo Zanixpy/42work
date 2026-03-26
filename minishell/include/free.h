@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 02:55:24 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/27 00:49:57 by omawele          ###   ########.fr       */
+/*   Created: 2026/03/26 15:21:53 by omawele           #+#    #+#             */
+/*   Updated: 2026/03/26 15:23:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef FREE_H
+# define FREE_H
 
-#include "utils.h"
+# include "utils.h"
 
-
-int check_prompt(char *prompt);
+void	free_char_tab(char ***tab, int n);
 
 #endif

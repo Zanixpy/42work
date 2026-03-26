@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 23:10:11 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/27 23:19:20 by omawele          ###   ########.fr       */
+/*   Created: 2026/02/23 02:55:24 by omawele           #+#    #+#             */
+/*   Updated: 2026/03/26 15:25:35 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/utils.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-int is_space_tabs_null(char *s)
-{
-    if (!s)
-        return (TRUE);
-    while (*s) 
-    {
-        if (*s != ' ' || *s != '\t')
-            return (FALSE);
-        s++;
-    }
-    return (TRUE);
-}
+#include "utils.h"
+#include "free.h"
 
+char **lexer(char *prompt);
+
+#endif

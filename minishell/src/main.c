@@ -6,12 +6,13 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 03:06:56 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/27 23:10:59 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/26 15:28:21 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../include/minishell.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -33,17 +34,24 @@ char *get_prompt_line(void)
     return (prompt_line);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
     t_cmd *cmd;
-    char *prompt;
-
-    prompt = readline(cw);
-    while (prompt) 
+    // char *prompt;
+    // char *cw;
+    char **tokens;
+ 
+    (void)cmd;
+    (void)argc;
+    // cw = get_prompt_line();
+    // prompt = readline(cw);
+    tokens = lexer(argv[1]);
+    int i = 0;
+    while (tokens[i]) 
     {
-        if (!check_prompt(prompt))
-        free(prompt);
-        prompt = readline(cw);
-    }  
+        printf("%s\n", tokens[i]);
+        i++;
+    }
+    free_char_tab(&tokens, i - 1);
     return 0;  
 }

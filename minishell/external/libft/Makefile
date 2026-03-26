@@ -28,7 +28,7 @@ bonus: $(BONUS_OBJS)
 	ar -rcs $(NAME) $(BONUS_OBJS) 
 
 %.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -I. -c $< -o $@
+	@$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 	rm -rf $(OBJS) $(BONUS_OBJS)

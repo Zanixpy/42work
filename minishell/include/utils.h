@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 02:55:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/27 01:19:45 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/26 00:58:24 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@
 
 # define TRUE 0
 # define FALSE 1
+
+#define GREAT '>'
+#define GREATGREAT ">>"
+#define LESS '<'
+#define LESSLESS "<<"
+#define PIPE '|'
+#define NEWLINE '\n'
+#define DOLLAR '$'
+#define SPACE ' '
+#define QUOTE 39
+#define DQUOTE '"'
+
 
 typedef struct s_cmd
 {

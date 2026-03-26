@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 03:06:38 by omawele           #+#    #+#             */
-/*   Updated: 2026/02/27 23:16:30 by omawele          ###   ########.fr       */
+/*   Created: 2026/03/26 15:21:03 by omawele           #+#    #+#             */
+/*   Updated: 2026/03/26 15:23:29 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/parsing.h"
+#include "../../include/free.h"
 
-int check_prompt(char *prompt)
+void	free_char_tab(char ***tab, int n)
 {
-    if (is_space_tabs_null(prompt))
-        return (1);
-    
-    return 0;
-    
+	while (n >= 0)
+	{
+		free((*tab)[n]);
+		n--;
+	}
+	free(*tab);
 }
