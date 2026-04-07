@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 20:22:15 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/26 15:26:06 by omawele          ###   ########.fr       */
+/*   Updated: 2026/03/30 16:14:59 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int tokenization(char ***tokens, char *prompt, size_t nb_words)
         if (prompt[j] != SPACE)
         {
             if (malloc_token(tokens, prompt, &i, &j))
-                return (free_char_tab(tokens, i - 1), 1); 
+                return (free_char_tab_n(tokens, i - 1), 1); 
         }
         else
             j++;
@@ -83,7 +83,7 @@ int tokenization(char ***tokens, char *prompt, size_t nb_words)
 }
 
 
-char **lexer(char *prompt)
+char **tokenizer(char *prompt)
 {
     char **tokens;
     size_t  nb_words;

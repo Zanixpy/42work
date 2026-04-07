@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:25:18 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/24 00:34:49 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/06 22:35:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,20 @@ void	*routine_monitor(void *args)
 	t_monitor	*monitor;
 	int			i;
 	int			size;
-	int			has_eaten_count;
 
 	monitor = (t_monitor *)args;
 	size = monitor->data.size;
-	has_eaten_count = monitor->data.eat_count;
 	while (1)
 	{
-		i = 0;
-		while (i < size)
+		i = -1;
+		while (++i < size)
 		{
-			if (dead(monitor, i) == 2)
+			if (dead(monitor, i))
 				return ((void *)0);
-			if (has_eaten_count)
-			{
-				if (check_eat_times(monitor))
-					return ((void *)0);
-			}
-			i++;
+			if (check_eat_times(monitor, monitor->data.eat_count))
+				return ((void *)0);
 		}
-		usleep(10);
+		usleep(5);
 	}
 	return ((void *)0);
 }
@@ -49,7 +43,7 @@ int	dead(t_monitor *monitor, int index)
 	pthread_mutex_lock(monitor->lock_last_meal);
 	absolute_now = get_time_ms();
 	if (absolute_now
-		- monitor->philos[index].last_meal_time > monitor->data.tto_die)
+		- monitor->philos[index].last_meal_time >= monitor->data.tto_die)
 	{
 		pthread_mutex_unlock(monitor->lock_last_meal);
 		end_simulation(monitor);
@@ -57,18 +51,20 @@ int	dead(t_monitor *monitor, int index)
 		printf("%ld %d died\n", absolute_now - monitor->data.start_time,
 			monitor->philos[index].index);
 		pthread_mutex_unlock(monitor->mutexes.print_mutex);
-		return (2);
+		return (1);
 	}
 	else
 		pthread_mutex_unlock(monitor->lock_last_meal);
 	return (0);
 }
 
-int	check_eat_times(t_monitor *monitor)
+int	check_eat_times(t_monitor *monitor, int has_eatean_count)
 {
 	unsigned int	i;
 	unsigned int	full_count;
 
+	if (!has_eatean_count)
+		return (0);
 	i = 0;
 	full_count = 0;
 	while (i < monitor->data.size)

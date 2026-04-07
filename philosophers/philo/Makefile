@@ -2,7 +2,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	src/main.c \
-		src/unit_test.c \
 		src/error/error_handler.c \
 		src/free/free.c \
 		src/parsing/parsing.c \

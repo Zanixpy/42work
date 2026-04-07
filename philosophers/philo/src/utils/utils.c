@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:10:55 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/23 23:53:27 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/04 23:40:56 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,3 +66,4 @@ size_t	get_time_ms(void)
 	gettimeofday(&tv, NULL);
 	return (((tv.tv_sec) * 1000) + (tv.tv_usec / 1000));
 }
+
