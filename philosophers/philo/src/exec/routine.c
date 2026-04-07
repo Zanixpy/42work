@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:09:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/06 22:08:30 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/07 17:45:54 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,24 @@
 void	*routine_philosophers(void *args)
 {
 	t_philo	*philo;
+	int 	run;
 
 	philo = (t_philo *)args;
-	if (philo->index % 2 == 0)
-		precise_sleep(philo, 50);
-	else if (philo->data.size % 2 != 0 && philo->index == philo->data.size)
-			precise_sleep(philo, 100);
-	while (1)
+	run = 0;
+	// if (philo->index % 2 != 0)
+	// 	precise_sleep(philo->data.start_time, 50);
+	while (!run)
 	{
-		if (should_stop(philo))
-			break;
+		take_forks(philo);
 		eat(philo);
 		psleep(philo);
 		think(philo);
+		pthread_mutex_lock(philo->stop_mutex);
+		if (*philo->stop)
+			run = 1;
+		pthread_mutex_unlock(philo->stop_mutex);
 	}
+	
 	return ((void *)0);
 }
 
@@ -38,15 +42,13 @@ void	*routine_philosopher(void *args)
 
 	philo = (t_philo *)args;
 	pthread_mutex_lock(&philo->left_fork->locker);
-	pthread_mutex_lock(philo->mutexes.print_mutex);
-	printf("%ld %d has taken a fork\n", get_time_ms() - philo->data.start_time,
-		philo->index);
-	pthread_mutex_unlock(philo->mutexes.print_mutex);
+	pthread_mutex_lock(philo->print_mutex);
+	printf("%ld %d has taken a fork\n", get_time_ms(philo->data.start_time), philo->index);
+	pthread_mutex_unlock(philo->print_mutex);
 	pthread_mutex_unlock(&philo->left_fork->locker);
-	precise_sleep(philo, philo->data.tto_die);
-	pthread_mutex_lock(philo->mutexes.print_mutex);
-	printf("%ld %d died\n", get_time_ms() - philo->data.start_time,
-		philo->index);
-	pthread_mutex_unlock(philo->mutexes.print_mutex);
+	precise_sleep(philo->data.start_time, philo->data.tto_die);
+	pthread_mutex_lock(philo->print_mutex);
+	printf("%ld %d died\n", get_time_ms(philo->data.start_time), philo->index);
+	pthread_mutex_unlock(philo->print_mutex);
 	return ((void *)0);
 }

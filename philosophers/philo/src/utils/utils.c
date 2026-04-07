@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:10:55 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/04 23:40:56 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/07 15:00:51 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,18 @@ size_t	ft_strlen(char *s)
 	return (count);
 }
 
-size_t	get_time_ms(void)
+size_t get_time(void)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return (((tv.tv_sec) * 1000) + (tv.tv_usec / 1000));
 }
+
+size_t	get_time_ms(size_t start_time)
+{
+	return (get_time() - start_time);
+}
+
+
 

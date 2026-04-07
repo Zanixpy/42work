@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:12:50 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/06 22:10:20 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/07 16:52:20 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,44 @@
 
 void	psleep(t_philo *philo)
 {
-	if (should_stop(philo))
-		return ;
-	pthread_mutex_lock(philo->mutexes.print_mutex);
-	printf("%ld %d is sleeping\n", get_time_ms() - philo->data.start_time,
-		philo->index);
-	pthread_mutex_unlock(philo->mutexes.print_mutex);
-	precise_sleep(philo, philo->data.tto_sleep);
+	print_state(philo, philo->index, "is sleeping");
+	precise_sleep(philo->data.start_time, philo->data.tto_sleep);
 }
 
 void	eat(t_philo *philo)
 {
-	if (take_forks(philo))
-		return ;
-	pthread_mutex_lock(philo->mutexes.print_mutex);
-	pthread_mutex_lock(&philo->mutexes.lock_last_meal);
-	philo->last_meal_time = get_time_ms();
-	pthread_mutex_unlock(&philo->mutexes.lock_last_meal);
-	printf("%ld %d is eating\n", get_time_ms() - philo->data.start_time,
-		philo->index);
-	pthread_mutex_unlock(philo->mutexes.print_mutex);
-	precise_sleep(philo, philo->data.tto_eat);
-	pthread_mutex_unlock(&philo->right_fork->locker);
-	pthread_mutex_unlock(&philo->left_fork->locker);
-	pthread_mutex_lock(&philo->mutexes.lock_eat_count);
-	philo->eat_count += 1;
-	pthread_mutex_unlock(&philo->mutexes.lock_eat_count);
+	print_state(philo, philo->index, "is eating");
+	pthread_mutex_lock(&philo->lock_last_meal);
+	philo->last_meal_time = get_time();
+	pthread_mutex_unlock(&philo->lock_last_meal);
+	precise_sleep(philo->data.start_time, philo->data.tto_eat);
+	release_forks(philo);
+	pthread_mutex_lock(&philo->lock_eat_count);
+	if (philo->data.eat_count)
+		philo->eat_count += 1;
+	pthread_mutex_unlock(&philo->lock_eat_count);
 }
 
 void	think(t_philo *philo)
 {
-	if (should_stop(philo))
-		return ;
-	pthread_mutex_lock(philo->mutexes.print_mutex);
-	printf("%ld %d is thinking\n", get_time_ms() - philo->data.start_time,
-		philo->index);
-	pthread_mutex_unlock(philo->mutexes.print_mutex);
+	print_state(philo, philo->index, "is thinking");
+}
+
+void	take_forks(t_philo *philo)
+{
+	if (philo->index % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->left_fork->locker);
+		print_state(philo, philo->index, "has taken a fork");
+		pthread_mutex_lock(&philo->right_fork->locker);
+		print_state(philo, philo->index, "has taken a fork");
+
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->right_fork->locker);
+		print_state(philo, philo->index, "has taken a fork");
+		pthread_mutex_lock(&philo->left_fork->locker);
+		print_state(philo, philo->index, "has taken a fork");
+	}
 }

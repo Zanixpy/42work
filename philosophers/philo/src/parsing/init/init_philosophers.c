@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 15:16:55 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/22 21:58:48 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/07 17:46:03 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static void	set_forks(t_philo *philo, t_fork *forks)
 
 static int	set_personnal_mutexes(t_philo *philo)
 {
-	if (pthread_mutex_init(&philo->mutexes.lock_eat_count, NULL) != 0)
+	if (pthread_mutex_init(&philo->lock_eat_count, NULL) != 0)
 		return (1);
-	if (pthread_mutex_init(&philo->mutexes.lock_last_meal, NULL) != 0)
+	if (pthread_mutex_init(&philo->lock_last_meal, NULL) != 0)
 	{
-		pthread_mutex_destroy(&philo->mutexes.lock_eat_count);
+		pthread_mutex_destroy(&philo->lock_eat_count);
 		return (1);
 	}
 	return (0);
@@ -53,9 +53,9 @@ t_philo	*init_philosophers(t_data *data, t_fork *forks,
 	{
 		philo[i].index = i + 1;
 		philo[i].data = *data;
-		philo[i].mutexes.print_mutex = *print_mutex;
-		philo[i].mutexes.stop_mutex = *stop_mutex;
-		philo[i].stop = 0;
+		philo[i].print_mutex = *print_mutex;
+		philo[i].stop_mutex = *stop_mutex;
+		philo[i].stop = data->stop;
 		philo[i].eat_count = 0;
 		set_forks(&philo[i], forks);
 		if (set_personnal_mutexes(&philo[i]))

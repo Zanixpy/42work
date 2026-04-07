@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:29:21 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/03 18:11:30 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/07 16:39:01 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	create_multi_threads(t_philo *philos, t_monitor *monitor, int size)
 	int	i;
 
 	i = 0;
-	monitor->data.start_time = get_time_ms();
+	monitor->data.start_time = get_time();
 	while (i < size)
 	{
 		philos[i].data.start_time = monitor->data.start_time;
@@ -53,7 +53,7 @@ int	create_multi_threads(t_philo *philos, t_monitor *monitor, int size)
 
 int	create_one_thread(t_philo *philos)
 {
-	philos[0].data.start_time = get_time_ms();
+	philos[0].data.start_time = get_time();
 	if (pthread_create(&philos[0].tid, NULL, &routine_philosopher,
 			(void *)&philos[0]) != 0)
 		return (1);

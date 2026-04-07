@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 15:54:51 by omawele           #+#    #+#             */
-/*   Updated: 2026/03/21 18:44:31 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/07 16:30:01 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,27 @@ int	validator(t_data *data, int argc, char **argv)
 	return (0);
 }
 
-static pthread_mutex_t	*create_mutex(void)
+static int	create_mutexes(pthread_mutex_t **print_mutex, pthread_mutex_t	**stop_mutex)
 {
-	pthread_mutex_t	*mutex;
-
-	mutex = malloc(sizeof(pthread_mutex_t));
-	if (!mutex)
-		return (NULL);
-	if (pthread_mutex_init(mutex, NULL) != 0)
-		return (free(mutex), NULL);
-	return (mutex);
+	*print_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!(*print_mutex))
+		return (1);
+	if (pthread_mutex_init(*print_mutex, NULL) != 0)
+		return (free(*print_mutex), 1);
+	*stop_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!(*stop_mutex))
+	{
+		pthread_mutex_destroy(*print_mutex);
+		free(*print_mutex);
+		return (1);		
+	}
+	if (pthread_mutex_init(*stop_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(*print_mutex);
+		free(*print_mutex);
+		return (free(*stop_mutex), 1);	
+	}
+	return (0);
 }
 
 int	init_all(t_philo **philos, t_fork **forks, t_monitor **monitor,
@@ -98,13 +109,15 @@ int	init_all(t_philo **philos, t_fork **forks, t_monitor **monitor,
 {
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*stop_mutex;
+	int  *stop;
 
-	print_mutex = create_mutex();
-	if (!print_mutex)
+	if (create_mutexes(&print_mutex, &stop_mutex))
 		return (error_init(2));
-	stop_mutex = create_mutex();
-	if (!stop_mutex)
-		return (free_mutex(&print_mutex), error_init(2));
+	stop = malloc(sizeof(int));
+	if (!stop)
+		return (free_mutex(&print_mutex), free_mutex(&stop_mutex), error_init(2));
+	*stop = 0;
+	data->stop = stop;
 	*forks = init_forks(data->size);
 	if (!(*forks))
 		return (free_mutex(&print_mutex), free_mutex(&stop_mutex),
@@ -113,7 +126,7 @@ int	init_all(t_philo **philos, t_fork **forks, t_monitor **monitor,
 	if (!(*philos))
 		return (free_mutex(&print_mutex), free_mutex(&stop_mutex),
 			free_forks(*forks, data->size), error_init(2));
-	if ((*philos)->data.size == 1)
+	if (data->size == 1)
 		return (0);
 	*monitor = init_monitor(philos, data, &print_mutex, &stop_mutex);
 	if (!(*monitor))

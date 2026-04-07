@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:25:18 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/06 22:35:18 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/07 16:52:44 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,54 +22,53 @@ void	*routine_monitor(void *args)
 	size = monitor->data.size;
 	while (1)
 	{
-		i = -1;
-		while (++i < size)
+		i = 0;
+		while (i < size)
 		{
-			if (dead(monitor, i))
+			if (is_dead(monitor, i))
 				return ((void *)0);
 			if (check_eat_times(monitor, monitor->data.eat_count))
 				return ((void *)0);
+			i++;			
 		}
 		usleep(5);
 	}
 	return ((void *)0);
 }
 
-int	dead(t_monitor *monitor, int index)
+int	is_dead(t_monitor *monitor, int index)
 {
-	long	absolute_now;
-
-	monitor->lock_last_meal = &monitor->philos[index].mutexes.lock_last_meal;
+	size_t now;
+	
+	monitor->lock_last_meal = &monitor->philos[index].lock_last_meal;
 	pthread_mutex_lock(monitor->lock_last_meal);
-	absolute_now = get_time_ms();
-	if (absolute_now
-		- monitor->philos[index].last_meal_time >= monitor->data.tto_die)
+	now = get_time();
+	if (now - monitor->philos[index].last_meal_time >= monitor->data.tto_die)
 	{
 		pthread_mutex_unlock(monitor->lock_last_meal);
-		end_simulation(monitor);
-		pthread_mutex_lock(monitor->mutexes.print_mutex);
-		printf("%ld %d died\n", absolute_now - monitor->data.start_time,
-			monitor->philos[index].index);
-		pthread_mutex_unlock(monitor->mutexes.print_mutex);
-		return (1);
+		print_death(monitor, monitor->philos[index].index);
+		pthread_mutex_lock(monitor->stop_mutex);
+		*(monitor->stop) = 1;
+		pthread_mutex_unlock(monitor->stop_mutex);
+		return (1);					
 	}
 	else
 		pthread_mutex_unlock(monitor->lock_last_meal);
-	return (0);
+	return (0);					
 }
 
-int	check_eat_times(t_monitor *monitor, int has_eatean_count)
+int	check_eat_times(t_monitor *monitor, int is_count)
 {
 	unsigned int	i;
 	unsigned int	full_count;
 
-	if (!has_eatean_count)
+	if (!is_count)
 		return (0);
 	i = 0;
 	full_count = 0;
 	while (i < monitor->data.size)
 	{
-		monitor->lock_eat_count = &monitor->philos[i].mutexes.lock_eat_count;
+		monitor->lock_eat_count = &monitor->philos[i].lock_eat_count;
 		pthread_mutex_lock(monitor->lock_eat_count);
 		if (monitor->philos[i].eat_count >= monitor->data.eat_count)
 			full_count++;
@@ -78,24 +77,16 @@ int	check_eat_times(t_monitor *monitor, int has_eatean_count)
 	}
 	if (full_count == monitor->data.size)
 	{
-		end_simulation(monitor);
-		return (1);
+		pthread_mutex_lock(monitor->stop_mutex);
+		*(monitor->stop) = 1;
+		pthread_mutex_unlock(monitor->stop_mutex);	
 	}
 	return (0);
 }
 
-void	end_simulation(t_monitor *monitor)
+void print_death(t_monitor *monitor, int index)
 {
-	int	size;
-	int	i;
-
-	size = monitor->data.size;
-	i = 0;
-	pthread_mutex_lock(monitor->mutexes.stop_mutex);
-	while (i < size)
-	{
-		monitor->philos[i].stop = 1;
-		i++;
-	}
-	pthread_mutex_unlock(monitor->mutexes.stop_mutex);
+	pthread_mutex_lock(monitor->print_mutex);
+	printf("%ld %d died\n", get_time_ms(monitor->data.start_time), index);
+	pthread_mutex_unlock(monitor->print_mutex);	
 }
