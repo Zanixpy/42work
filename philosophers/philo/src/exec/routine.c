@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:09:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/13 12:01:58 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/13 15:08:03 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	*routine_philosophers(void *args)
 		take_forks(philo);
 		eat(philo);
 		release_forks(philo);
-		psleep(philo);
+		print_state(philo, philo->index, "is sleeping");
+		precise_sleep(philo, philo->data.tto_sleep);
 		print_state(philo, philo->index, "is thinking");
-		usleep(500);
+		usleep(400);
 	}
 	return ((void *)0);
 }

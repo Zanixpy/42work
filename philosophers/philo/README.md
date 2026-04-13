@@ -10,6 +10,12 @@ When a philosopher has finished eating, they put their forks back on the table a
 
 ## Instructions
 
+To compile the program, do the following command :
+
+```
+make
+```
+
 The program is executed by passing the following arguments:
 
 ```

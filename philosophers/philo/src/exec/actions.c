@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:12:50 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/13 11:55:29 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/13 16:53:23 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ void	psleep(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->lock_eat_count);
+	if (philo->eat_count == philo->data.eat_count)
+	{
+		pthread_mutex_unlock(&philo->lock_eat_count);
+		return;
+	}		
+	pthread_mutex_unlock(&philo->lock_eat_count);
 	print_state(philo, philo->index, "is eating");
 	pthread_mutex_lock(&philo->lock_last_meal);
 	philo->last_meal_time = get_time();
