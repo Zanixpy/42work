@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:35:07 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/10 16:23:17 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/13 12:08:01 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-/*
- * @brief Structure to create forks for philosophers
- */
 typedef struct s_fork
 {
 	pthread_mutex_t	locker;
 }					t_fork;
 
-/*
- * @brief Structure to contain the arguments of main
- */
 typedef struct s_data
 {
 	unsigned int	size;
@@ -42,9 +36,6 @@ typedef struct s_data
 	long			start_time;
 }					t_data;
 
-/*
- * @brief Structure to create philosophers
- */
 typedef struct s_philosophers
 {
 	pthread_t		tid;
@@ -74,11 +65,11 @@ typedef struct s_monitor
 
 void				ft_putstr_fd(char *s, int fd);
 int					ft_atoi(const char *str);
-size_t get_time(void);
-size_t	get_time_ms(size_t start_time);
+size_t				get_time(void);
+size_t				get_time_ms(size_t start_time);
 size_t				ft_strlen(char *s);
 
 int					should_stop(t_philo *philo);
-void	precise_sleep(t_philo *philo, size_t duration_ms);
+void				precise_sleep(t_philo *philo, size_t duration_ms);
 
 #endif

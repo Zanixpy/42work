@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 15:54:51 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/10 13:16:38 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/13 12:02:24 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,11 @@ int	validator(t_data *data, int argc, char **argv)
 	if (argc != 5 && argc != 6)
 		return (error_args(1), 1);
 	if (check_args_int(argc, argv))
-	{
 		return (error_args(0), 1);
-	}
 	data->size = ft_atoi(argv[1]);
 	data->tto_die = ft_atoi(argv[2]);
 	data->tto_eat = ft_atoi(argv[3]);
 	data->tto_sleep = ft_atoi(argv[4]);
-	data->start_time = 0;
 	if (argc == 6)
 		data->eat_count = ft_atoi(argv[5]);
 	else
@@ -81,7 +78,8 @@ int	validator(t_data *data, int argc, char **argv)
 	return (0);
 }
 
-static int	create_mutexes(pthread_mutex_t **print_mutex, pthread_mutex_t	**stop_mutex)
+static int	create_mutexes(pthread_mutex_t **print_mutex,
+		pthread_mutex_t **stop_mutex)
 {
 	*print_mutex = malloc(sizeof(pthread_mutex_t));
 	if (!(*print_mutex))
@@ -93,13 +91,13 @@ static int	create_mutexes(pthread_mutex_t **print_mutex, pthread_mutex_t	**stop_
 	{
 		pthread_mutex_destroy(*print_mutex);
 		free(*print_mutex);
-		return (1);		
+		return (1);
 	}
 	if (pthread_mutex_init(*stop_mutex, NULL) != 0)
 	{
 		pthread_mutex_destroy(*print_mutex);
 		free(*print_mutex);
-		return (free(*stop_mutex), 1);	
+		return (free(*stop_mutex), 1);
 	}
 	return (0);
 }

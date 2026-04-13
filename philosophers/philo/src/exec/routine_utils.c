@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 12:35:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/10 16:35:12 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/13 12:01:55 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	precise_sleep(t_philo *philo, size_t duration_ms)
 	while (1)
 	{
 		if (should_stop(philo))
-			break ;		
+			break ;
 		now = get_time_ms(philo->data.start_time);
 		if (now - start >= duration_ms)
 			break ;
-		usleep(500);
+		usleep(400);
 	}
 }
 
@@ -35,17 +35,17 @@ void	release_forks(t_philo *philo)
 	pthread_mutex_unlock(&philo->right_fork->locker);
 }
 
-int should_stop(t_philo *philo)
+int	should_stop(t_philo *philo)
 {
-	int stop;
+	int	stop;
 
 	pthread_mutex_lock(philo->stop_mutex);
 	stop = philo->stop;
 	pthread_mutex_unlock(philo->stop_mutex);
-	return (stop);	
+	return (stop);
 }
 
-void print_state(t_philo *philo, int index, char *text)
+void	print_state(t_philo *philo, int index, char *text)
 {
 	pthread_mutex_lock(philo->print_mutex);
 	pthread_mutex_lock(philo->stop_mutex);

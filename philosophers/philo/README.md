@@ -1,110 +1,36 @@
-# PHILOSOPHERS (42)
+*This project was created as part of the 42 curriculum by omawele.*
 
-## Workflow
+## Description
 
-### Understanding the issue
+The goal of this project **philosopher** is to learn the basics of **threading a process**. It allows you to learn how to create **threads** and explore the use of **mutexes**.
 
-**Understanding** : First of all we have N philosophers on a table with N forks. At the right and left of each philosopher there is a fork. The goal is to provide each philo from the death by eating. However there are no enough forks for everyone so if one takes two forks, both aside must wait to use forks. There are requirements like time_to_die, time_to_eat, time_to_sleep
+The program simulates one or more philosophers sitting at a round table with a large bowl of spaghetti in the middle. The philosophers take turns eating, thinking, and sleeping. There are as many forks on the table as there are philosophers. To eat, a philosopher must pick up both the fork to their left and the fork to their right. 
 
-N : The number of philosophers and forks.
+When a philosopher has finished eating, they put their forks back on the table and start sleeping. Once awake, they start thinking again. **The main goal of the simulation is to ensure that every philosopher needs to eat and should never starve.**
 
-time_to_die : The time for a philosopher to eat before dying.
+## Instructions
 
-time_to_eat : The time that eating takes.
-
-time_to_sleep : the time that sleeping takes.
-
-
-## Identify bordeline cases :
-
-
-
-## Identify input/output :
-```
-Input : 
-- Type : [unsigned int * 4]
-- Description : Check above
-- Validation : It must be positive integers
-
-Output :
-- Type : void
-- Description : None
-- Errors code : ERRARGS, ERRINIT 
-```
-
-## Break down into sub-problems
-```
-Main issue : Multi threading
-├── Sub-problem 1 : Verifying the arguements
-│       └── 
-├── Sub-problem 2 : Initialize philosophers, forks and times (sleep, die, eat) 
-│   ├── 
-│   ├──  
-│   └──  
-├── Sub-problem 3 : Create threads for each philosophers
-│   ├── 
-│   ├── 
-│   └──  
-├── Sub-problem 4 : Start the battle
-│   ├── 
-└── END   
-```
-
-## Define the Data Structures 
-```
-typedef struct s_fork
-{
-    unsigned int index;
-    pthread_mutex_t locker;
-} t_fork;
-
-typedef struct s_philosophers
-{
-    pthread_t tid;
-    int index;
-    int tto_eat;
-    int tto_die;
-    int tto_sleep;
-    t_fork left_fork;
-    t_fork right_fork;
-} t_philo;
-
-typedef struct s_args
-{
-    int nb_philos_forks;
-    int tto_eat;
-    int tto_die;
-    int tto_sleep;
-} t_args;
+The program is executed by passing the following arguments:
 
 ```
-
-## Design algorithms (pseudo-code)
+./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat] 
 ```
+- number_of_philosophers: The number of philosophers and also the number of forks
+
+- time_to_die: The time in milliseconds if a philosopher has not started eating since the start of their last meal or the simulation, they die.
+
+- time_to_eat: The time in milliseconds it takes for a philosopher to eat. During that time, they will need to hold two forks.
+
+- time_to_sleep: The time in milliseconds a philosopher will spend sleeping.
+
+- number_of_times_each_philosopher_must_eat (optional): If all philosophers have eaten at least this many times, the simulation stops. If not specified, the simulation stops when a philosopher dies.
 
 
+## Resources
 
+- [Threads, Mutexes and Concurrent Programming in C](https://www.codequoi.com/en/threads-mutexes-and-concurrent-programming-in-c/)
+- [Shichao's Notes](https://notes.shichao.io/apue/ch11/)
+- [Geeks for geeks](https://www.geeksforgeeks.org/c/multithreading-in-c/)
+- [Multithreading Using pthreads in C language](https://www.youtube.com/watch?v=qPhP86HIXgg)
 
-
-
-
-```
-
-## External functs.
-
-- malloc : allocating memory on the heap
-- free : free up the memory that was allocated
-- printf : displays a string with variables on terminal
-- write : write on a fd
-- memset : The memset() function fills the first n bytes of the memory area pointed to by s with the constant byte c.
-- usleep : The  usleep() function suspends execution of the calling thread for (at least) usec microseconds.
-- gettimeofday : can get the time of a timezone.
-- pthread_create : create a thread and give it a task
-- pthread_detach : detach a thread from the calling thread
-- pthread_join : allows one thread to wait for the termination of another thread
-- pthread_mutex_init
-- pthread_mutex_destroy
-- pthread_mutex_lock
-- pthread_mutex_unlock
-
-## Check to do
+I used AI to go deeper in the concept of threads and mutex managing.

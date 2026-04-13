@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:12:50 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/10 16:39:09 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/13 11:55:29 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,10 @@ void	eat(t_philo *philo)
 	philo->last_meal_time = get_time();
 	pthread_mutex_unlock(&philo->lock_last_meal);
 	precise_sleep(philo, philo->data.tto_eat);
-	release_forks(philo);
 	pthread_mutex_lock(&philo->lock_eat_count);
 	if (philo->data.eat_count)
 		philo->eat_count += 1;
 	pthread_mutex_unlock(&philo->lock_eat_count);
-}
-
-void	think(t_philo *philo)
-{
-	print_state(philo, philo->index, "is thinking");
-	usleep(500);
 }
 
 void	take_forks(t_philo *philo)
