@@ -6,34 +6,43 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 12:35:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 16:44:43 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 16:35:12 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
 
-void	precise_sleep(size_t start_time, size_t duration_ms)
+void	precise_sleep(t_philo *philo, size_t duration_ms)
 {
+	size_t	start;
+	size_t	now;
+
+	start = get_time_ms(philo->data.start_time);
 	while (1)
 	{
-		if (get_time() - start_time >= duration_ms)
+		if (should_stop(philo))
+			break ;		
+		now = get_time_ms(philo->data.start_time);
+		if (now - start >= duration_ms)
 			break ;
-		usleep(3);
+		usleep(500);
 	}
 }
 
 void	release_forks(t_philo *philo)
 {
-	if (philo->index % 2 == 0)
-	{
-		pthread_mutex_unlock(&philo->left_fork->locker);
-		pthread_mutex_unlock(&philo->right_fork->locker);
-	}
-	else
-	{
-		pthread_mutex_unlock(&philo->right_fork->locker);
-		pthread_mutex_unlock(&philo->left_fork->locker);
-	}
+	pthread_mutex_unlock(&philo->left_fork->locker);
+	pthread_mutex_unlock(&philo->right_fork->locker);
+}
+
+int should_stop(t_philo *philo)
+{
+	int stop;
+
+	pthread_mutex_lock(philo->stop_mutex);
+	stop = philo->stop;
+	pthread_mutex_unlock(philo->stop_mutex);
+	return (stop);	
 }
 
 void print_state(t_philo *philo, int index, char *text)

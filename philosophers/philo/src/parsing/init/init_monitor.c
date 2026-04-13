@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 17:33:22 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 17:46:07 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 13:18:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ t_monitor	*init_monitor(t_philo **philos, t_data *data,
 	monitor->data = *data;
 	monitor->print_mutex = *print_mutex;
 	monitor->stop_mutex = *stop_mutex;
-	monitor->stop = data->stop;
 	return (monitor);
 }

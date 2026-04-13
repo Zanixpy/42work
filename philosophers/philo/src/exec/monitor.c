@@ -6,32 +6,32 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:25:18 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 16:52:44 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 16:22:40 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+#include <stddef.h>
 
 void	*routine_monitor(void *args)
 {
+	int size;
 	t_monitor	*monitor;
-	int			i;
-	int			size;
-
+	
 	monitor = (t_monitor *)args;
 	size = monitor->data.size;
 	while (1)
 	{
-		i = 0;
+		int i = 0;
 		while (i < size)
 		{
 			if (is_dead(monitor, i))
 				return ((void *)0);
-			if (check_eat_times(monitor, monitor->data.eat_count))
-				return ((void *)0);
 			i++;			
 		}
-		usleep(5);
+		if (check_eat_times(monitor, monitor->data.eat_count))
+			return ((void *)0);	
+		usleep(1000); 
 	}
 	return ((void *)0);
 }
@@ -47,14 +47,28 @@ int	is_dead(t_monitor *monitor, int index)
 	{
 		pthread_mutex_unlock(monitor->lock_last_meal);
 		print_death(monitor, monitor->philos[index].index);
-		pthread_mutex_lock(monitor->stop_mutex);
-		*(monitor->stop) = 1;
-		pthread_mutex_unlock(monitor->stop_mutex);
+		end_simulation(monitor);
 		return (1);					
 	}
 	else
 		pthread_mutex_unlock(monitor->lock_last_meal);
 	return (0);					
+}
+
+void end_simulation(t_monitor *monitor)
+{
+	int i;
+	int size;
+
+	i = 0;
+	size = monitor->data.size;
+	pthread_mutex_lock(monitor->stop_mutex);
+	while (i < size) 
+	{
+		monitor->philos[i].stop = 1;
+		i++;
+	}
+	pthread_mutex_unlock(monitor->stop_mutex);
 }
 
 int	check_eat_times(t_monitor *monitor, int is_count)
@@ -77,9 +91,8 @@ int	check_eat_times(t_monitor *monitor, int is_count)
 	}
 	if (full_count == monitor->data.size)
 	{
-		pthread_mutex_lock(monitor->stop_mutex);
-		*(monitor->stop) = 1;
-		pthread_mutex_unlock(monitor->stop_mutex);	
+		end_simulation(monitor);
+		return (1);
 	}
 	return (0);
 }

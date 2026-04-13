@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:12:19 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 16:28:56 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 13:22:32 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	clean(t_fork *forks, t_philo *philos, t_monitor *monitor, int size)
 {
 	free_mutex(&philos->print_mutex);
 	free_mutex(&philos->stop_mutex);
-	free(philos->stop);
 	free_philos(philos, size);
 	free_forks(forks, size);
 	free_monitor(monitor);

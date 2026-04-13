@@ -1,0 +1,11 @@
+.DS_Store
+
+# build artifacts
+*.o
+*.a
+philo
+philo_bonus
+
+# local debug/test outputs
+philosophers/.cursor/
+

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 15:16:55 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 17:46:03 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 13:18:35 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_philo	*init_philosophers(t_data *data, t_fork *forks,
 		philo[i].data = *data;
 		philo[i].print_mutex = *print_mutex;
 		philo[i].stop_mutex = *stop_mutex;
-		philo[i].stop = data->stop;
+		philo[i].stop = 0;
 		philo[i].eat_count = 0;
 		set_forks(&philo[i], forks);
 		if (set_personnal_mutexes(&philo[i]))

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 15:54:51 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 16:30:01 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 13:16:38 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,9 @@ int	init_all(t_philo **philos, t_fork **forks, t_monitor **monitor,
 {
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*stop_mutex;
-	int  *stop;
 
 	if (create_mutexes(&print_mutex, &stop_mutex))
 		return (error_init(2));
-	stop = malloc(sizeof(int));
-	if (!stop)
-		return (free_mutex(&print_mutex), free_mutex(&stop_mutex), error_init(2));
-	*stop = 0;
-	data->stop = stop;
 	*forks = init_forks(data->size);
 	if (!(*forks))
 		return (free_mutex(&print_mutex), free_mutex(&stop_mutex),

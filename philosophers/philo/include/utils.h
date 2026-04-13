@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:35:07 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 17:46:00 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 16:23:17 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_data
 	unsigned int	tto_sleep;
 	unsigned int	eat_count;
 	long			start_time;
-	int				*stop;
 }					t_data;
 
 /*
@@ -52,7 +51,7 @@ typedef struct s_philosophers
 	unsigned int	index;
 	long			last_meal_time;
 	unsigned int	eat_count;
-	int				*stop;
+	int				stop;
 	t_data			data;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
@@ -67,7 +66,6 @@ typedef struct s_monitor
 	pthread_t		tid;
 	t_philo			*philos;
 	t_data			data;
-	int				*stop;
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*stop_mutex;
 	pthread_mutex_t	*lock_last_meal;
@@ -81,6 +79,6 @@ size_t	get_time_ms(size_t start_time);
 size_t				ft_strlen(char *s);
 
 int					should_stop(t_philo *philo);
-void	precise_sleep(size_t start_time, size_t duration_ms);
+void	precise_sleep(t_philo *philo, size_t duration_ms);
 
 #endif

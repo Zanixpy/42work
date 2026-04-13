@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 22:09:17 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 17:45:54 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 16:28:14 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,19 @@
 void	*routine_philosophers(void *args)
 {
 	t_philo	*philo;
-	int 	run;
 
 	philo = (t_philo *)args;
-	run = 0;
-	// if (philo->index % 2 != 0)
-	// 	precise_sleep(philo->data.start_time, 50);
-	while (!run)
+	if (philo->index % 2 == 0)
+		precise_sleep(philo, philo->data.tto_eat / 2);
+	if (philo->index == philo->data.size && philo->data.size % 2 != 0)
+		precise_sleep(philo, philo->data.tto_eat); 
+	while (!should_stop(philo))
 	{
 		take_forks(philo);
 		eat(philo);
 		psleep(philo);
 		think(philo);
-		pthread_mutex_lock(philo->stop_mutex);
-		if (*philo->stop)
-			run = 1;
-		pthread_mutex_unlock(philo->stop_mutex);
-	}
-	
+	}   
 	return ((void *)0);
 }
 
@@ -46,7 +41,7 @@ void	*routine_philosopher(void *args)
 	printf("%ld %d has taken a fork\n", get_time_ms(philo->data.start_time), philo->index);
 	pthread_mutex_unlock(philo->print_mutex);
 	pthread_mutex_unlock(&philo->left_fork->locker);
-	precise_sleep(philo->data.start_time, philo->data.tto_die);
+	precise_sleep(philo, philo->data.tto_die);
 	pthread_mutex_lock(philo->print_mutex);
 	printf("%ld %d died\n", get_time_ms(philo->data.start_time), philo->index);
 	pthread_mutex_unlock(philo->print_mutex);

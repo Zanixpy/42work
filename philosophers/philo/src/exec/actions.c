@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:12:50 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/07 16:52:20 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/10 16:39:09 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	psleep(t_philo *philo)
 {
 	print_state(philo, philo->index, "is sleeping");
-	precise_sleep(philo->data.start_time, philo->data.tto_sleep);
+	precise_sleep(philo, philo->data.tto_sleep);
 }
 
 void	eat(t_philo *philo)
@@ -24,7 +24,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->lock_last_meal);
 	philo->last_meal_time = get_time();
 	pthread_mutex_unlock(&philo->lock_last_meal);
-	precise_sleep(philo->data.start_time, philo->data.tto_eat);
+	precise_sleep(philo, philo->data.tto_eat);
 	release_forks(philo);
 	pthread_mutex_lock(&philo->lock_eat_count);
 	if (philo->data.eat_count)
@@ -35,6 +35,7 @@ void	eat(t_philo *philo)
 void	think(t_philo *philo)
 {
 	print_state(philo, philo->index, "is thinking");
+	usleep(500);
 }
 
 void	take_forks(t_philo *philo)
@@ -45,7 +46,6 @@ void	take_forks(t_philo *philo)
 		print_state(philo, philo->index, "has taken a fork");
 		pthread_mutex_lock(&philo->right_fork->locker);
 		print_state(philo, philo->index, "has taken a fork");
-
 	}
 	else
 	{
