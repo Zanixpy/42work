@@ -10,7 +10,7 @@ When a philosopher has finished eating, they put their forks back on the table a
 
 ## Instructions
 
-To compile the program, do the following command :
+To compile the program, execute the Makefile with the following command:
 
 ```
 make

@@ -6,7 +6,7 @@
 /*   By: omawele <omawele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:25:18 by omawele           #+#    #+#             */
-/*   Updated: 2026/04/13 12:06:00 by omawele          ###   ########.fr       */
+/*   Updated: 2026/04/17 14:20:18 by omawele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,17 @@ int	check_eat_times(t_monitor *monitor, int is_count)
 		monitor->lock_eat_count = &monitor->philos[i].lock_eat_count;
 		pthread_mutex_lock(monitor->lock_eat_count);
 		if (monitor->philos[i].eat_count >= monitor->data.eat_count)
+		{
+			pthread_mutex_lock(monitor->stop_mutex);
+			monitor->philos[i].stop = 1;
+			pthread_mutex_unlock(monitor->stop_mutex);
 			full_count++;
+		}
 		pthread_mutex_unlock(monitor->lock_eat_count);
 		i++;
 	}
 	if (full_count == monitor->data.size)
-	{
-		end_simulation(monitor);
 		return (1);
-	}
 	return (0);
 }
 
